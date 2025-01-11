@@ -1,0 +1,19 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: block;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background-color: aliceblue;
+}
