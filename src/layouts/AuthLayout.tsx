@@ -5,8 +5,8 @@ const AuthLayout: React.FC = () => {
     return (
         <div className={styles.layout}>
             <header>
-                <nav>
-                    <Link to="/login">Login</Link>
+                <nav >
+                    <Link to="/login">Login</Link><br />
                     <Link to="/signup">Signup</Link>
                 </nav>
             </header>

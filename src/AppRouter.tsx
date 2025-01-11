@@ -9,7 +9,7 @@ const JobPage = lazy(() => import("./features/jobs/index"));
 const CompanyPage = lazy(() => import("./features/companies/index"));
 
 const AppRouter = () => {
-  
+
     const authRoutes: RouteObject[] = [
         {
             element: <AuthLayout />,
@@ -40,7 +40,7 @@ const AppRouter = () => {
     ]
 
     const routes = useRoutes(authRoutes);
-    
+
     return routes;
 
 }

@@ -1,10 +1,15 @@
 import { Outlet } from "react-router-dom";
+import SideBar from "./mainLayout/SideBar";
 
 const MainLayout: React.FC = () => {
     return (
         <div>
             <header>
-               <h2>Manpower Management System</h2>
+                <nav>
+                    <menu>
+                        <SideBar />
+                    </menu>
+                </nav>
             </header>
             <main><Outlet /></main>
             <footer>
