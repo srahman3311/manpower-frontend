@@ -1,22 +1,27 @@
 import httpClient from "./httpClient";
-import { UserState } from "../features/users/types/UserState";
-import { User } from "../features/users/types/User";
+import { User as IUser } from "../features/users/types/User";
+import { NewUserInfo, UserState } from "../features/users/types/UserState";
 
-type LoginPayload = Pick<UserState, "email" | "password">
+type Params = Pick<UserState, "searchText" | "skip" | "limit">
 
-interface LoginResponse {
-    token: string
-    user: User
+export const fetchAuthUser = async(): Promise<IUser> => {
+    return httpClient.get("/users/me");
 }
 
-export const login = async(payload: LoginPayload): Promise<LoginResponse> => {
-    return httpClient.post("/login", payload);
+export const fetchUsers = async(params: Params): Promise<{ users: IUser[], total: number }> => {
+    const paramString = `searchText=${params.searchText}&skip=${params.skip}&limit=${params.limit}`;
+    return httpClient.get(`/users?${paramString}`);
 }
 
-export const logout = async(): Promise<void> => {
-    return httpClient.post("/logout")
+export const createUser = async(requestBody: Partial<NewUserInfo>): Promise<IUser> => {
+    return httpClient.post("/users/create", requestBody);
 }
 
-export const getCurrentUser = async(): Promise<LoginResponse["user"]> => {
-    return httpClient.get("/me")
+export const editUser = async(userId: string, requestBody: Partial<NewUserInfo>): Promise<IUser> => {
+    return httpClient.patch(`/users/${userId}/edit`, requestBody);
 }
+
+export const deleteUser = async(userId?: number): Promise<void> => {
+    return httpClient.delete(`/users/${userId}/delete`);
+}
+

@@ -1,0 +1,46 @@
+.label { 
+    display: block;
+    margin-bottom: 5px;
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.label span {
+    color: #FF6363;
+}
+
+.text_input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.text_input input[type] {
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    color: rgba(0, 0, 0, 0.53);
+}
+
+.search_input input[type=text] {
+    width: 350px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    padding: 12px 0px;
+}
+
+.text_input input[type]:focus,
+.search_input input[type=text]:focus {
+    outline: none;
+}
+
+.no_bottom_margin {
+    margin-bottom: 0px;
+}
+
+.error_msg {
+    color: #FF6363;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}

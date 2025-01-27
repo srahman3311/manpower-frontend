@@ -1,0 +1,77 @@
+.company_table {
+    height: 600px;
+    overflow: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.company_table table {
+    background-color: white;
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+
+.header_tr {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 1;
+}
+
+.company_table table th {
+    text-align: left;
+    font-size: 1.1rem;
+    padding: 20px 10px;
+    color: white;
+}
+
+.company_table table td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.113);
+    padding: 40px 10px;
+    font-size: 1.1rem;
+}
+
+.company_table table td:last-child {
+    border-bottom: none;
+}
+
+td.people_placeholder_img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.table_data_navigation {
+    background-color:white;
+    border-radius: 6px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+}
+
+.table_data_navigation_buttons {
+    display: flex;
+    gap: 20px;
+}
+
+
+@media (max-width: 1200px) {
+    .company_table {
+        padding: 20px 0px;
+    }
+    .table_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table_header h2 {
+        margin-bottom: 10px;
+    }
+}
+

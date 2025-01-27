@@ -1,5 +1,3 @@
-
-
 import clsx from "clsx";
 import { IButtonProps } from "../types/Input";
 
@@ -35,20 +33,16 @@ const Button: React.FC<IButtonProps> = ({
         whitespace-nowrap
         my-4
         rounded-[25px]
-        bg-[#57BB45]
+        bg-[#2E5077]
           
     `,
 
                 fullWidth && "w-full",
-
                 secondary &&
                 "bg-slate-300 text-black hover:bg-neutral-400 hover:text-white active:bg-pink-400 active:scale-95",
-                // danger &&
-                // "bg-[rgb(38,37,78)] hover:bg-[rgb(64,63,134)] text-white focus-visible:outline-blue-600  dark:bg-slate-800",
-
                 !secondary &&
                 !danger &&
-                " text-white  hover:bg-[#449436] transition active:bg-green-500 hover:text-white focus-visible:outline-[rgb(89,100,199)]",
+                " text-white  hover:bg-[#2E5077] transition active:bg-green-500 hover:text-white focus-visible:outline-[rgb(89,100,199)]",
 
                 disabled && "opacity-50 bg-red-500 cursor-default"
             )}

@@ -1,0 +1,7 @@
+.validation_error_msg {
+    text-align: center;
+    color: orangered;
+    margin: 15px 0px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}

@@ -1,4 +1,4 @@
-import { Company } from "./Company";
+import { Company as ICompany } from "./Company";
 
 export interface NewCompanyInfo {
     name: string
@@ -11,6 +11,9 @@ export interface CompanyState {
     searchText: string
     skip: number
     limit: number
-    companyList: Company[]
+    companyList: ICompany[]
+    totalCompanyCount: number
     newCompanyInfo: NewCompanyInfo
+    companyInAction: ICompany | null
+    isDeleting: boolean
 }

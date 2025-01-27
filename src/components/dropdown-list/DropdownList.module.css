@@ -1,0 +1,116 @@
+.dropdown_list_container {
+    width: 100%;
+}
+
+.dropdown_list {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFF;
+    border: 1px solid rgba(0, 0, 0, 0.222);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.dropdown_background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.dropdown_label {
+    display: block;
+    margin-bottom: 5px;
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.dropdown_label span {
+    color: #FF6363;
+}
+
+.dropdown_title {
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 1.1rem;
+}
+
+.dropdown_title span {
+    color: black;
+    font-weight: bold;
+}
+
+.dropdown_item_list,
+.multi_select_dropdown_item_list {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #FFFF;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 10px 0px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.dropdown_item_list {
+    width: 100%;
+}
+
+.dropdown_item_list ul,
+.multi_select_dropdown_item_list ul {
+    position: relative;
+    list-style-type: none;
+}
+
+.dropdown_item_list ul li,
+.multi_select_dropdown_item_list ul li {
+    cursor: pointer;
+    padding: 10px;
+    color: rgba(0, 0, 0, 0.53);
+}
+
+.multi_select_dropdown_item_list ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    padding: 7px 10px;
+}
+
+.dropdown_item_list ul li:hover {
+    background-color: #FBFBFB;
+}
+
+.multi_select_dropdown_item_list ul li:hover {
+    background-color: rgba(255, 68, 0, 0.062);
+}
+
+
+.view_dropdown_list {
+    width: 120px;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.category_dropdown_list {
+    width: 100%;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 20px;
+}
+
+.error_msg {
+    font-size: 0.9rem;
+    color: #FF6363;
+    margin-top: 5px;
+}

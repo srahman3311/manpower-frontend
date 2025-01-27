@@ -1,0 +1,161 @@
+.topnav {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.menu_bar_btn {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu_btn_hidden_div {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: #DF7857;
+    opacity: 0;
+}
+
+.menu, .profile_menu {
+    position: absolute;
+    top: 110%;
+    z-index: 3;
+    max-height: 260px;
+    overflow: auto;
+    background-color: #ffff;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 15px;
+}
+
+.menu {
+    left: 0;
+    width: 100%;
+}
+
+.profile_menu {
+    width: 60%;
+    right: 0;
+    z-index: 3;
+}
+
+.profile_menu_urls {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+nav.topnav a {
+    text-decoration: none;
+    padding: 5px;
+    color: white;
+}
+
+.nav_brand a {
+    font-size: 1.5rem;
+}
+
+.profile_shortcut {
+    width: 300px;
+    height: 70px;
+    background-color: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.user_info {
+    display: flex;
+}
+
+.user_image {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.user_image img {
+    width: 50px;
+    height: 50px;
+    vertical-align: bottom;
+    border-radius: 50%;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.info h3 {
+    margin-bottom: 2px;
+}
+
+.info p {
+    opacity: 0.3;
+}
+
+
+.notification_icon_button {
+    display: inline-block;
+    background-color: aliceblue;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    margin-right: 10px;
+}
+
+.notification_icon_button span {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #DF7857;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6rem;
+    font-weight: bold;
+    padding-bottom: 2px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+@media(max-width: 1200px) {
+    .topnav {
+        padding: 0px 10px;
+        margin-bottom: 20px;
+    }
+
+    .user_image img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .info {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+}

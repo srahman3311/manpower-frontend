@@ -10,9 +10,9 @@ export interface UserModel {
     firstName: string
     lastName: string
     email: string
-    phone: string
+    phone: string | null
     password: string
-    role: UserRole,
+    role: UserRole
     imageUrl: string | null
 }
 

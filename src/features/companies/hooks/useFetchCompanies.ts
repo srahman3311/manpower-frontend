@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { CompanyState } from "../types/CompanyState";
 import { fetchCompanies } from "../../../services/companies";
-import { updateState } from "../slices/companyReducer";
+import { fetchCompanyData } from "../slices/companyReducer";
 
 type Params = Pick<CompanyState, "searchText" | "skip" | "limit">
 
@@ -24,16 +24,17 @@ export const useFetchCompanies = (): Return => {
         setLoading(true);
 
         try {
-
-            const companyList = await fetchCompanies(params);
-            dispatch(updateState({
-                name: "companyList",
-                value: companyList
-            }))
+        
+            const { companies, total } = await fetchCompanies(params);
+            console.log(companies)
+        
+            dispatch(fetchCompanyData({
+                companies,
+                totalCompanyCount: total
+            }));
 
         } catch(error: any) {
 
-            console.log(error);
             setErrorMsg(error.response?.data || error.message)
 
         } finally {

@@ -1,17 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CompanyState } from "../types/CompanyState";
+import { Company as ICompany } from "../types/Company";
 
 const initialState: CompanyState = {
     searchText: "",
     skip: 0, 
-    limit: 20,
+    limit: 10,
     companyList: [],
+    totalCompanyCount: 0,
     newCompanyInfo: {
         name: "",
         email: "",
         phone: "",
         address: ""
-    }
+    },
+    companyInAction: null,
+    isDeleting: false
 }
 
 const companiesSlice = createSlice({
@@ -25,6 +29,14 @@ const companiesSlice = createSlice({
                 [name]: value
             }
         },
+        fetchCompanyData: (state, action: PayloadAction<{ companies: ICompany[], totalCompanyCount: number }>) => {
+            const { companies, totalCompanyCount } = action.payload;
+            return {
+                ...state,
+                companyList: companies,
+                totalCompanyCount
+            }
+        },
         addNewCompanyInfo: (state, action: PayloadAction<{ name: string, value: string }>) => {
             const { name, value } = action.payload;
             return {
@@ -34,13 +46,30 @@ const companiesSlice = createSlice({
                     [name]: value
                 }
             }
+        },
+        toggleDeleteModal: (state, action: PayloadAction<ICompany | null>) => {
+            return {
+                ...state,
+                isDeleting: !state.isDeleting,
+                companyInAction: action.payload
+            }
+        },
+        filterCompanyList: (state, action: PayloadAction<ICompany[]>) => {
+            return {
+                ...state,
+                totalCompanyCount: state.totalCompanyCount - 1,
+                companyList: action.payload
+            }
         }
     }
 })
 
 export const {
     updateState,
-    addNewCompanyInfo
+    fetchCompanyData,
+    addNewCompanyInfo,
+    toggleDeleteModal,
+    filterCompanyList
 } = companiesSlice.actions;
 
 export default companiesSlice.reducer;

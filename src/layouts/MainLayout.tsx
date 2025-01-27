@@ -1,20 +1,41 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-import SideBar from "./mainLayout/SideBar";
+import { RootState, AppDispatch } from "../store";
+import { fetchUser } from "../features/auth/authReducer";
+import styles from "./Layout.module.css";
+import SideBar from "./main-layout/SideBar";
+import ProfileShortcut from "./main-layout/ProfileShortcut";
 
 const MainLayout: React.FC = () => {
+
+    const dispatch: AppDispatch = useDispatch();
+    const authState = useSelector((state: RootState) => state.authState);
+    const { user } = authState;
+
+    useEffect(() => {
+        dispatch(fetchUser());
+    }, [dispatch])
+
+    const toggleProfileMenu = () => {}
+
     return (
-        <div>
-            <header>
+        <div className={styles.app_layout}>
+            <aside className={styles.sidenav}>
+                <SideBar />
+            </aside>
+            <main className={styles.app_content}>
                 <nav>
-                    <menu>
-                        <SideBar />
-                    </menu>
+                    <h2>Ekin Overseas Limited</h2>
+                    <ProfileShortcut 
+                        user={user}
+                        toggleProfileMenu={toggleProfileMenu}
+                    />
                 </nav>
-            </header>
-            <main><Outlet /></main>
-            <footer>
-                <h2>This is the footer</h2>
-            </footer>
+                <section className={styles.outlet}>
+                    <Outlet />
+                </section>
+            </main>
         </div>
     );
 }

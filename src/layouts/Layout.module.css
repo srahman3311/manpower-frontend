@@ -1,19 +1,61 @@
-.layout {
+.auth_layout {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 
-header {
-    display: block;
-    width: 100%;
-    background-color: aliceblue;
+.auth_layout nav,
+.auth_layout footer {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    color: white;
+    text-align: center;
 }
 
-main {
+.auth_layout nav h2 {
+    font-size: 1.6rem;
+}
+
+.auth_layout main {
     flex: 1;
 }
 
-footer {
-    background-color: aliceblue;
+.app_layout {
+    width: 100%;
+    background-color: white;
+    display: flex;
+}
+
+.sidenav {
+    background-color: antiquewhite;
+}
+
+/* 220px is the sidenav width */
+.app_content {
+    width: calc(100vw - 220px); 
+    position: fixed;
+    margin-left: 220px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app_layout nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.app_layout nav, 
+.app_layout footer {
+    padding: 20px;
+}
+
+.app_content nav h2 {
+    font-size: 1.5rem;
+}
+
+.outlet {
+    flex: 1;
+    padding: 20px;
 }

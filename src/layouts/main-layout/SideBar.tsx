@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import {
     BsGithub,
@@ -21,7 +19,6 @@ const SideBar = () => {
         alert("hi")
     }
 
-
     return (
         <div className={`
       text-black
@@ -33,28 +30,28 @@ const SideBar = () => {
         bg-[rgb(255,255,255)]
         border-r-[.1px] 
         dark:border-[rgba(145,145,145,0.5)] 
-         z-50
+         z-1
          shadow-xl
         `
         }>
 
-            <div className="flex lg:px-0 items-center px-6">
+            {/* <div className="flex lg:px-0 items-center px-6">
                 <div className="w-full flex items-center justify-center border h-[70px] cursor-pointer">
                     <img className="w-24 h-24" src="/logo.avif" alt="Logo" />
                 </div>
-            </div>
+            </div> */}
             <div className="transition mt-8">
 
-                <SideLink
+                {/* <SideLink
                     icon={BsColumnsGap}
                     iconSize={18}
                     linkName="Dashboard"
                     linkUrl="https://notes-chatbot.vercel.app"
-                />
+                /> */}
                 <SideLink
                     icon={BsChatDotsFill}
                     iconSize={18}
-                    linkName="Chat App"
+                    linkName="Passengers"
                     linkUrl="https://mern-chat-app-eta-two.vercel.app"
                 />
                 <div className="relative ">
@@ -63,8 +60,8 @@ const SideBar = () => {
                         <SideLink
                             icon={BsPencilSquare}
                             iconSize={18}
-                            linkName="Write Blog"
-                            linkUrl="/blog/create"
+                            linkName="Jobs"
+                            linkUrl="/jobs"
                             onClick={handleClick}
                         />
                         <button onClick={() => setSubMenu((prev) => !prev)} className="text-neutral-400 font-semibold text-lg cursor-pointer">{" > "}</button>
@@ -75,21 +72,15 @@ const SideBar = () => {
                         <SideLink
                             icon={BsSave}
                             iconSize={18}
-                            linkName="Login"
-                            linkUrl="/login"
+                            linkName="Companies"
+                            linkUrl="/companies"
                         />
 
                         <SideLink
                             icon={BsRSquareFill}
                             iconSize={18}
-                            linkName="Rate Catalist"
-                            linkUrl="https://github.com/Abdullahhost"
-                        />
-                        <SideLink
-                            icon={BsPersonLinesFill}
-                            iconSize={18}
-                            linkName="Login"
-                            linkUrl="/login"
+                            linkName="Agents"
+                            linkUrl="/agents"
                         />
 
                     </div>
@@ -100,32 +91,20 @@ const SideBar = () => {
                 <SideLink
                     icon={BsRSquareFill}
                     iconSize={18}
-                    linkName="Rate Catalist"
-                    linkUrl="https://github.com/Abdullahhost"
+                    linkName="Users"
+                    linkUrl="/users"
                 />
                 <SideLink
                     icon={BsGithub}
                     iconSize={18}
-                    linkName="About"
-                    linkUrl="https://github.com/Abdullahhost"
+                    linkName="Companies"
+                    linkUrl="/companies"
                 />
                 <SideLink
                     icon={BsPersonLinesFill}
                     iconSize={18}
-                    linkName="Login"
-                    linkUrl="/login"
-                />
-                <SideLink
-                    icon={BsSave}
-                    iconSize={18}
-                    linkName="Login"
-                    linkUrl="/login"
-                />
-                <SideLink
-                    icon={BsPeople}
-                    iconSize={18}
-                    linkName="Login"
-                    linkUrl="/login"
+                    linkName="Agents"
+                    linkUrl="/agents"
                 />
             </div>
         </div >

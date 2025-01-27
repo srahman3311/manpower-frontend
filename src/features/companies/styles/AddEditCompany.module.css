@@ -1,0 +1,32 @@
+.add_edit_company {
+    width: 50%;
+    margin: auto;
+    overflow: auto;
+    max-height: 800px;
+}
+
+.add_edit_company h2 {
+    width: 400px;
+    margin: auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.company_form {
+    padding: 10px 20px;
+}
+
+.save_btn_container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media(max-width: 800px) {
+    .add_edit_company {
+        width: 100%;
+    }
+}
