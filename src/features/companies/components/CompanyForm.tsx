@@ -1,8 +1,8 @@
-import { useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
-import { addNewCompanyInfo } from "../slices/companyReducer";
+import { updateState, addNewCompanyInfo } from "../slices/companyReducer";
 import { createCompany, editCompany } from "../../../services/companies";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 import styles from "../styles/AddEditCompany.module.css";
@@ -18,7 +18,21 @@ const CompanyForm: React.FC = () => {
     const companyState = useSelector((state: RootState) => state.companyState);
     const { newCompanyInfo } = companyState; 
     const [validationError, setValidationError] = useState<boolean>(false);
-    const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null)
+    const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
+
+    useEffect(() => {
+        if(companyId) return;
+        dispatch(updateState({
+            name: "newCompanyInfo",
+            value: {
+                ...newCompanyInfo,
+                name: "",
+                email: "",
+                phone: "",
+                address: ""
+            }
+        }));
+    }, [companyId])
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;

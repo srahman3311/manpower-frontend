@@ -34,7 +34,7 @@ const UserList: React.FC = () => {
         dispatch(toggleDeleteModal(null))
     }
 
-    const handleLimitChange = (item: { _id: number, limit: number }) => {
+    const handleLimitChange = (item: { id: number, limit: number }) => {
         dispatch(updateState({
             name: "limit",
             value: item.limit
@@ -72,9 +72,9 @@ const UserList: React.FC = () => {
                 <div className={styles.limit_dropdown}>
                     <DropdownList 
                         data={[
-                            { _id: 1, limit: 10 },
-                            { _id: 2, limit: 20 },
-                            { _id: 3, limit: 50 }
+                            { id: 1, limit: 10 },
+                            { id: 2, limit: 20 },
+                            { id: 3, limit: 50 }
                         ]}
                         nameKey="limit"
                         selectedValue={limit}

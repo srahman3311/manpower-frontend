@@ -16,7 +16,7 @@ export const useFetchCompanies = (): Return => {
 
     const dispatch = useDispatch();
 
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [errorMsg, setErrorMsg] = useState<string>("");
 
     const fetchCompanyList = useCallback(async(params: Params) => {

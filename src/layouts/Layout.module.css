@@ -37,13 +37,13 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 .app_layout nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .app_layout nav, 

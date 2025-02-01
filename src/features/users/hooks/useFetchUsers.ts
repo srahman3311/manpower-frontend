@@ -16,7 +16,7 @@ export const useFetchUsers = (): Return => {
 
     const dispatch = useDispatch();
 
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [errorMsg, setErrorMsg] = useState<string>("");
 
     const fetchUserList = useCallback(async(params: Params) => {

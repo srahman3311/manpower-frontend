@@ -7,13 +7,21 @@ import ProtectedRoute from "./features/auth/ProtectedRoute";
 
 const LoginPage = lazy(() => import("./features/auth/Login"));
 const SignupPage = lazy(() => import("./features/users/Signup"));
-const JobPage = lazy(() => import("./features/jobs/index"));
 const CompanyListPage = lazy(() => import("./features/companies/index"));
 const AddCompanyPage = lazy(() => import("./features/companies/AddCompany"));
 const EditCompanyPage = lazy(() => import("./features/companies/EditCompany"));
 const UserListPage = lazy(() => import("./features/users/index"));
 const AddUserPage = lazy(() => import("./features/users/AddUser"));
 const EditUserPage = lazy(() => import("./features/users/EditUser"));
+const AgentListPage = lazy(() => import("./features/agents/index"));
+const AddAgentPage = lazy(() => import("./features/agents/AddAgent"));
+const EditAgentPage = lazy(() => import("./features/agents/EditAgent"));
+const JobListPage = lazy(() => import("./features/jobs/index"));
+const AddJobPage = lazy(() => import("./features/jobs/AddJob"));
+const EditJobPage = lazy(() => import("./features/jobs/EditJob"));
+const PassengerListPage = lazy(() => import("./features/passengers/index"));
+const AddPassengerPage = lazy(() => import("./features/passengers/AddPassenger"));
+const EditPassengerPage = lazy(() => import("./features/passengers/EditPassenger"));
 const ProfilePage = lazy(() => import("./features/profile/index"));
 
 const AppRouter = () => {
@@ -60,10 +68,33 @@ const AppRouter = () => {
                             element: <EditUserPage/>
                         },
                         {
+                            path: "/agents",
+                            element: <AgentListPage />
+                        },
+                        {
+                            path: "/agents/add-new",
+                            element: <AddAgentPage/>
+                        },
+                        {
+                            path: "/agents/edit/:agentId",
+                            element: <EditAgentPage/>
+                        },
+                        {
+                            path: "/jobs",
+                            element: <JobListPage />
+                        },
+                        {
+                            path: "/jobs/add-new",
+                            element: <AddJobPage/>
+                        },
+                        {
+                            path: "/jobs/edit/:jobId",
+                            element: <EditJobPage/>
+                        },
+                        {
                             path: "/companies",
                             element: <CompanyListPage />
                         },
-                      
                         {
                             path: "/companies/add-new",
                             element: <AddCompanyPage/>
@@ -73,9 +104,17 @@ const AppRouter = () => {
                             element: <EditCompanyPage/>
                         },
                         {
-                            path: "/jobs",
-                            element: <JobPage />
-                        }
+                            path: "/passengers",
+                            element: <PassengerListPage />
+                        },
+                        {
+                            path: "/passengers/add-new",
+                            element: <AddPassengerPage/>
+                        },
+                        {
+                            path: "/passengers/edit/:passengerId",
+                            element: <EditPassengerPage/>
+                        },
                     ]
                 }
             ]

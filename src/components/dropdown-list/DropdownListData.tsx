@@ -17,7 +17,7 @@ export const DropdownListData: React.FC<DropdownListDataProps> = ({
             <ul>
                 {data.map(item => {
                     return (
-                        <li key={item._id} onClick={() => onClick(item)}>
+                        <li key={item.id} onClick={() => onClick(item)}>
                             {item[nameKey]}
                         </li>
                     );

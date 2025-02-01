@@ -1,0 +1,42 @@
+.add_edit_job {
+    height: 100%;
+    width: 70%;
+    margin: auto;
+    overflow: auto;
+    max-height: 800px;
+    background-color: #A8DDE6;
+}
+
+.add_edit_job h2 {
+    width: 400px;
+    margin: auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.job_form {
+    padding: 10px 20px;
+}
+
+.flex_input {
+    display: flex;
+    gap: 20px;
+}
+
+.save_btn_container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media(max-width: 800px) {
+    .add_edit_job {
+        width: 100%;
+    }
+    .flex_input {
+        flex-direction: column;
+    }
+}

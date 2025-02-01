@@ -1,0 +1,55 @@
+.add_edit_passenger {
+    height: 100%;
+    width: 70%;
+    margin: auto;
+    max-height: 800px;
+}
+
+.add_edit_passenger h2 {
+    width: 400px;
+    margin: auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    color: rgba(0, 0, 0, 0.53);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.passenger_form {
+    padding: 10px 20px;
+}
+
+.photo_input {
+    width: 200px;
+    height: 150px;
+    background-color: #FBFBFB;
+    border: 1px solid #A8DDE6;
+    border-style: dashed;
+    border-radius: 4px;
+    margin: 0px auto 20px auto;
+}
+
+.flex_input,
+.flex_dropdown_input {
+    display: flex;
+    gap: 20px;
+}
+
+.flex_dropdown_input {
+    margin-bottom: 20px;
+}
+
+.save_btn_container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media(max-width: 800px) {
+    .add_edit_passenger {
+        width: 100%;
+    }
+    .flex_input {
+        flex-direction: column;
+    }
+}

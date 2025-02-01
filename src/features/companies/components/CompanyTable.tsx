@@ -15,7 +15,7 @@ const CompanyTable = () => {
     const dispatch = useDispatch();
     const { loading, errorMsg, fetchCompanyList } = useFetchCompanies();
     const companyState = useSelector((state: RootState) => state.companyState);
-    const { searchText, skip, limit, totalCompanyCount, companyList, newCompanyInfo } = companyState;
+    const { searchText, skip, limit, totalCompanyCount, companyList } = companyState;
 
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -47,17 +47,16 @@ const CompanyTable = () => {
         dispatch(updateState({
             name: "newCompanyInfo",
             value: {
-                ...newCompanyInfo,
                 name: companyInAction.name,
                 email: companyInAction.email,
                 phone: companyInAction.phone ?? "",
                 address: companyInAction.address
             }
-        }))
+        }));
       
         navigate(`/companies/edit/${id}`);
 
-    }, [companyList, dispatch, updateState])
+    }, [companyList, dispatch, updateState, toggleDeleteModal, navigate])
 
     const navigateToNextPage = useCallback(() => {
         if(totalCompanyCount <= (skip + limit)) return;

@@ -52,7 +52,7 @@ const SideBar = () => {
                     icon={BsChatDotsFill}
                     iconSize={18}
                     linkName="Passengers"
-                    linkUrl="https://mern-chat-app-eta-two.vercel.app"
+                    linkUrl="/passengers"
                 />
                 <div className="relative ">
                     <div className="flex items-center justify-start pr-2">

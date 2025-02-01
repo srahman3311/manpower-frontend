@@ -1,6 +1,6 @@
 
 .user_table {
-    height: 600px;
+    height: 500px;
     overflow: auto;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-bottom: 15px;
@@ -11,7 +11,6 @@
     background-color: white;
     width: 100%;
     border-collapse: collapse;
-    
 }
 
 .header_tr {
@@ -24,15 +23,15 @@
 
 .user_table table th {
     text-align: left;
-    font-size: 1.1rem;
-    padding: 20px 10px;
+    font-size: 1rem;
+    padding: 10px;
     color: white;
 }
 
 .user_table table td {
     border-bottom: 1px solid rgba(0, 0, 0, 0.113);
-    padding: 10px;
-    font-size: 1.1rem;
+    padding: 5px 10px;
+    font-size: 0.9rem;
 }
 
 .user_table table td:last-child {
@@ -40,8 +39,8 @@
 }
 
 td.people_placeholder_img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
 }
 
@@ -53,7 +52,7 @@ td.people_placeholder_img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
+    padding: 10px;
 }
 
 .table_data_navigation_buttons {

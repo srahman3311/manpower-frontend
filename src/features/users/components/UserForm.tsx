@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
@@ -23,7 +23,22 @@ const UserForm: React.FC = () => {
     const userState = useSelector((state: RootState) => state.userState);
     const { newUserInfo } = userState; 
     const [validationError, setValidationError] = useState<boolean>(false);
-    const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null)
+    const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
+
+    useEffect(() => {
+        if(userId) return;
+        dispatch(updateState({
+            name: "newUserInfo",
+            value: {
+                ...newUserInfo,
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                role: ""
+            }
+        }));
+    }, [userId])
 
     const uploadProfilePhoto = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         if(!event.target.files) return;
@@ -38,7 +53,7 @@ const UserForm: React.FC = () => {
         dispatch(addNewUserInfo({ name, value }))
     }, [dispatch, addNewUserInfo])
 
-    const selectRole = useCallback((role: { _id: number, title: UserRole }) => {
+    const selectRole = useCallback((role: { id: number, title: UserRole }) => {
         dispatch(addNewUserInfo({
             name: "role",
             value: role.title
@@ -176,9 +191,9 @@ const UserForm: React.FC = () => {
                     label={"Role"}
                     required={true}
                     data={[
-                        { _id: 1, title: UserRole.Admin },
-                        { _id: 2, title: UserRole.Director },
-                        { _id: 3, title: UserRole.ManagingDirector }
+                        { id: 1, title: UserRole.Admin },
+                        { id: 2, title: UserRole.Director },
+                        { id: 3, title: UserRole.ManagingDirector }
                     ]}
                     nameKey="title"
                     selectedValue={newUserInfo.role}
