@@ -1,0 +1,36 @@
+.search_add {
+    position: relative;
+    display: flex;
+    /* gap: 100px; */
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.search_add h2 {
+    font-size: 1.6rem;
+}
+
+.search_add_link {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.limit_dropdown {
+    width: 80px;
+}
+
+.add_new_expense {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 9px 30px;
+    display: flex;
+    align-items: center;
+}
+
+.add_new_expense:hover {
+    transform: scale(1.03);
+  }

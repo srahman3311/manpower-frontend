@@ -1,9 +1,18 @@
 import { User as IUser } from "./User";
 
-export type NewUserInfo = Pick<IUser, "firstName" | "lastName" | "email" | "role" | "password"> & {
+export type NewUserInfo = Pick<IUser, "firstName" | "lastName" | "email" | "password"> & {
+    role: string
     phone: string
     password2: string
 }
+
+export type UserRequestBody = Pick<IUser, "firstName" | "lastName" | "email" | "password"> & {
+    phone?: string
+    phone2?: string
+    roles: string[]
+    permissions: string[]
+}
+
 
 export interface UserState {
     searchText: string

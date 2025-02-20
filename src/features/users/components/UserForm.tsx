@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
 import { UserRole } from "../types/User";
-import { NewUserInfo } from "../types/UserState";
+import { UserRequestBody } from "../types/UserState";
 import { updateState, addNewUserInfo } from "../slices/userReducer";
 import { createUser, editUser } from "../../../services/users";
 import { validatePassword } from "../../../utils/validators/validatePassword";
@@ -77,7 +77,8 @@ const UserForm: React.FC = () => {
         if(
             !firstName ||
             !lastName ||
-            !email
+            !email ||
+            !role
         ) {
             setValidationError(true);
             return;
@@ -107,12 +108,13 @@ const UserForm: React.FC = () => {
             }
         }
 
-        let requestBody: Partial<NewUserInfo> = {
+        let requestBody: UserRequestBody = {
             firstName,
             lastName,
             email,
             password,
-            role
+            roles: [role],
+            permissions: ["read", "write", "delete"]
         };
 
         if(phone) {
@@ -133,8 +135,6 @@ const UserForm: React.FC = () => {
         }
 
     }, [newUserInfo, navigate, setValidationError, validatePassword, createUser, editUser])
-
-    console.log(newUserInfo)
 
     return (
         <form className={styles.user_form} onSubmit={saveUser}>
@@ -193,7 +193,8 @@ const UserForm: React.FC = () => {
                     data={[
                         { id: 1, title: UserRole.Admin },
                         { id: 2, title: UserRole.Director },
-                        { id: 3, title: UserRole.ManagingDirector }
+                        { id: 3, title: UserRole.Manager },
+                        { id: 4, title: UserRole.Basic },
                     ]}
                     nameKey="title"
                     selectedValue={newUserInfo.role}

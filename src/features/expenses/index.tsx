@@ -3,27 +3,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import { RootState } from "../../store";
-import { toggleDeleteModal, updateState, filterUserList } from "./slices/userReducer";
-import { deleteUser } from "../../services/users";
+import { toggleDeleteModal, updateState, filterExpenseList } from "./slices/expenseReducer";
+import { deleteExpense } from "../../services/expenses";
 import { handleApiError } from "../../utils/error-handlers/handleApiError";
 import styles from "./styles/index.module.css";
-import UserTable from "./components/UserTable";
+import ExpenseTable from "./components/ExpenseTable";
 import SearchInput from "../../components/inputs/SearchInput";
 import DeleteModal from "../../components/modal/DeleteModal";
 import { DropdownList } from "../../components/dropdown-list/DropdownList";
 
-const UserList: React.FC = () => {
+const ExpenseList: React.FC = () => {
 
     const dispatch = useDispatch()
-    const userState = useSelector((state: RootState) => state.userState);
+    const expenseState = useSelector((state: RootState) => state.expenseState);
     const { 
-        userList,
+        expenseList,
         limit,
         isDeleting, 
-        userInAction 
-    } = userState;
+        expenseInAction 
+    } = expenseState;
 
-    const searchUsers = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchExpenses = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(updateState({
             name: "searchText",
             value: event.target.value
@@ -41,30 +41,30 @@ const UserList: React.FC = () => {
         }))
     }
 
-    const deleteUserInAction = useCallback(async() => {
+    const deleteExpenseInAction = useCallback(async() => {
         closeDeleteModal();
         try {
-            await deleteUser(userInAction?.id);
-            const filteredUserList = userList.filter(user => user.id !== userInAction?.id);
-            dispatch(filterUserList(filteredUserList))
+            await deleteExpense(expenseInAction?.id);
+            const filteredExpenseList = expenseList.filter(user => user.id !== expenseInAction?.id);
+            dispatch(filterExpenseList(filteredExpenseList))
         } catch(error) {
             const { message } = handleApiError(error)
             alert(message)
         }
-    }, [closeDeleteModal, deleteUser, dispatch, filterUserList, userList, userInAction?.id])
+    }, [closeDeleteModal, deleteExpense, dispatch, filterExpenseList, expenseList, expenseInAction?.id])
 
-    console.log(userList)
+    console.log(expenseList)
 
     return (
-        <div className={styles.user_list}>
+        <div className={styles.expense_list}>
             <div className={styles.search_add}>
-                <h2>Users</h2>
+                <h2>Expenses</h2>
                 <div className={styles.search_add_link}>
                     <SearchInput
                         placeholder="Search"
-                        onChange={searchUsers}
+                        onChange={searchExpenses}
                     />
-                    <Link className={styles.add_new_user} to="/users/add-new">
+                    <Link className={styles.add_new_expense} to="/expenses/add-new">
                         <IoMdAdd 
                             size={"2rem"}
                         />
@@ -84,13 +84,13 @@ const UserList: React.FC = () => {
                     />
                 </div>
             </div>
-            <UserTable />
+            <ExpenseTable />
             {
                 isDeleting
                 ?
                 <DeleteModal 
-                    title={userInAction?.firstName}
-                    deleteItem={deleteUserInAction}
+                    title={expenseInAction?.name}
+                    deleteItem={deleteExpenseInAction}
                     onClose={closeDeleteModal}
                 />
                 :
@@ -101,5 +101,5 @@ const UserList: React.FC = () => {
     
 }
 
-export default UserList;
+export default ExpenseList;
 

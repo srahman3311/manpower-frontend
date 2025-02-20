@@ -49,6 +49,7 @@ const JobTable = () => {
             value: {
                 ...newJobInfo,
                 name: jobInAction.name,
+                visaType: jobInAction.visaType,
                 visaName: jobInAction.visaName,
                 visaQuantity: jobInAction.visaQuantity.toString(),
                 visaUnitPrice: jobInAction.visaUnitPrice.toString()

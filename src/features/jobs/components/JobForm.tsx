@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
-import { Company as ICompany } from "../../companies/types/Company";
+import { Company } from "../../companies/types/Company";
 import { JobRequestBody } from "../types/JobState";
 import { updateState, addNewJobInfo } from "../slices/jobReducer";
 import { createJob, editJob } from "../../../services/jobs";
@@ -54,7 +54,7 @@ const JobForm: React.FC = () => {
         dispatch(addNewJobInfo({ name, value }))
     }, [dispatch, addNewJobInfo])
 
-    const selectVisaCompany = useCallback((company: ICompany) => {
+    const selectVisaCompany = useCallback((company: Company) => {
         console.log(company)
         dispatch(updateState({
             name: "selectedVisaCompany",
@@ -62,12 +62,17 @@ const JobForm: React.FC = () => {
         }))
     }, [dispatch, updateState])
 
+    const selectVisaType = useCallback((visaType: { id: number, type: string }) => {
+        dispatch(addNewJobInfo({ name: "visaType", value: visaType.type }))
+    }, [dispatch, addNewJobInfo])
+
     const saveJob = useCallback(async(event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault();
 
         const {
             name,
+            visaType,
             visaName,
             visaQuantity,
             visaUnitPrice
@@ -89,6 +94,7 @@ const JobForm: React.FC = () => {
 
         let requestBody: JobRequestBody = {
             name,
+            visaType,
             visaName,
             visaQuantity: parseInt(visaQuantity),
             visaUnitPrice: Number(visaUnitPrice),
@@ -120,15 +126,28 @@ const JobForm: React.FC = () => {
 
     return (
         <form className={styles.job_form} onSubmit={saveJob}>
-            <TextInput
-                required={true}
-                label="Job Name"
-                name="name"
-                value={newJobInfo.name}
-                error={validationError}
-                errorMsg="job name is required"
-                onChange={handleChange}
-            />
+            <div className={styles.flex_input}>
+                <TextInput
+                    required={true}
+                    label="Job Name"
+                    name="name"
+                    value={newJobInfo.name}
+                    error={validationError}
+                    errorMsg="job name is required"
+                    onChange={handleChange}
+                />
+                <DropdownList 
+                    label={"Visa Type"}
+                    required={true}
+                    data={[
+                        { id: 1, type: "sale" },
+                        { id: 2, type: "processing" }
+                    ]}
+                    nameKey="type"
+                    selectedValue={newJobInfo.visaType}
+                    onClick={selectVisaType}
+                />
+            </div>
             <div className={styles.flex_input}>
                 <TextInput
                     required={true}

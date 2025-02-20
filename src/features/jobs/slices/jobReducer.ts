@@ -11,7 +11,8 @@ const initialState: JobState = {
     visaCompanyList: [],
     newJobInfo: {
         name: "",
-        visaName: "",
+        visaType: "sale",
+        visaName: "sale",
         visaQuantity: "",
         visaUnitPrice: "",
     },

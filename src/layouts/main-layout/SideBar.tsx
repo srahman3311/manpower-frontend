@@ -106,6 +106,18 @@ const SideBar = () => {
                     linkName="Agents"
                     linkUrl="/agents"
                 />
+                <SideLink
+                    icon={BsChatDotsFill}
+                    iconSize={18}
+                    linkName="Expenses"
+                    linkUrl="/expenses"
+                />
+                <SideLink
+                    icon={BsChatDotsFill}
+                    iconSize={18}
+                    linkName="Revenues"
+                    linkUrl="/revenues"
+                />
             </div>
         </div >
     );

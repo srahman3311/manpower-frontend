@@ -50,7 +50,7 @@ const CompanyTable = () => {
                 name: companyInAction.name,
                 email: companyInAction.email,
                 phone: companyInAction.phone ?? "",
-                address: companyInAction.address
+                address: companyInAction.address?.line1 ?? ""
             }
         }));
       
@@ -120,7 +120,7 @@ const CompanyTable = () => {
                                         <td>{name}</td>
                                         <td>{email}</td>
                                         <td>{phone}</td>
-                                        <td>{address}</td>
+                                        <td>{address.line1}</td>
                                         <td>
                                             <ActionButtons 
                                                 actionTypeList={["edit", "delete"]}

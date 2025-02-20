@@ -1,10 +1,12 @@
-import { Model } from "../../../types/Model"
+import { ModelWithTenant } from "../../../types/Model";
+import { Address } from "../../../types/Address";
 
 export interface CompanyModel {
     name: string
     email: string
     phone: string | null
-    address: string
+    category: string | null
+    address: Address
 }
 
-export type Company = Model<CompanyModel>
+export type Company = ModelWithTenant<CompanyModel>

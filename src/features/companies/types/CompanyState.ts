@@ -7,6 +7,12 @@ export interface NewCompanyInfo {
     address: string
 }
 
+export type CompanyRequestBody = Omit<NewCompanyInfo, "address"> & {
+    address: {
+        line1: string | null
+    }
+}
+
 export interface CompanyState {
     searchText: string
     skip: number

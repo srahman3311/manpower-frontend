@@ -53,7 +53,7 @@ const UserTable = () => {
                 lastName: userInAction.lastName,
                 email: userInAction.email,
                 phone: userInAction.phone ?? "",
-                role: userInAction.role
+                role: userInAction.roles.length > 0 ? userInAction.roles[0].name : ""
             }
         }))
       
@@ -117,7 +117,7 @@ const UserTable = () => {
                             />
                             :
                             userList.map(user => {
-                                const { id, firstName, lastName, email, phone, role, imageUrl } = user;
+                                const { id, firstName, lastName, email, phone, roles, imageUrl } = user;
                                 return (
                                     <tr key={id}>
                                         <td className={styles.people_placeholder_img}>
@@ -129,7 +129,7 @@ const UserTable = () => {
                                         <td>{`${firstName} ${lastName}`}</td>
                                         <td>{email}</td>
                                         <td>{phone}</td>
-                                        <td>{role}</td>
+                                        <td>{roles.map(role => role.name).join(", ")}</td>
                                         <td>
                                             <ActionButtons 
                                                 actionTypeList={["edit", "delete"]}

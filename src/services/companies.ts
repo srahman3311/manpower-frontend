@@ -1,6 +1,6 @@
 import httpClient from "./httpClient";
 import { Company as ICompany } from "../features/companies/types/Company";
-import { CompanyState, NewCompanyInfo } from "../features/companies/types/CompanyState";
+import { CompanyState, CompanyRequestBody } from "../features/companies/types/CompanyState";
 
 type Params = Pick<CompanyState, "searchText" | "skip" | "limit">
 
@@ -9,11 +9,11 @@ export const fetchCompanies = async(params: Params): Promise<{ companies: ICompa
     return httpClient.get(`/companies?${paramString}`);
 }
 
-export const createCompany = async(requestBody: Partial<NewCompanyInfo>): Promise<ICompany> => {
+export const createCompany = async(requestBody: CompanyRequestBody): Promise<ICompany> => {
     return httpClient.post("/companies/create", requestBody);
 }
 
-export const editCompany = async(companyId: string, requestBody: Partial<NewCompanyInfo>): Promise<ICompany> => {
+export const editCompany = async(companyId: string, requestBody: CompanyRequestBody): Promise<ICompany> => {
     return httpClient.patch(`/companies/${companyId}/edit`, requestBody);
 }
 

@@ -22,6 +22,12 @@ const EditJobPage = lazy(() => import("./features/jobs/EditJob"));
 const PassengerListPage = lazy(() => import("./features/passengers/index"));
 const AddPassengerPage = lazy(() => import("./features/passengers/AddPassenger"));
 const EditPassengerPage = lazy(() => import("./features/passengers/EditPassenger"));
+const ExpenseListPage = lazy(() => import("./features/expenses/index"));
+const AddExpensePage = lazy(() => import("./features/expenses/AddExpense"));
+const EditExpensePage = lazy(() => import("./features/expenses/EditExpense"));
+const RevenueListPage = lazy(() => import("./features/revenues/index"));
+const AddRevenuePage = lazy(() => import("./features/revenues/AddRevenue"));
+const EditRevenuePage = lazy(() => import("./features/revenues/EditRevenue"));
 const ProfilePage = lazy(() => import("./features/profile/index"));
 
 const AppRouter = () => {
@@ -114,6 +120,30 @@ const AppRouter = () => {
                         {
                             path: "/passengers/edit/:passengerId",
                             element: <EditPassengerPage/>
+                        },
+                        {
+                            path: "/expenses",
+                            element: <ExpenseListPage />
+                        },
+                        {
+                            path: "/expenses/add-new",
+                            element: <AddExpensePage/>
+                        },
+                        {
+                            path: "/expenses/edit/:expenseId",
+                            element: <EditExpensePage/>
+                        },
+                        {
+                            path: "/revenues",
+                            element: <RevenueListPage />
+                        },
+                        {
+                            path: "/revenues/add-new",
+                            element: <AddRevenuePage/>
+                        },
+                        {
+                            path: "/revenues/edit/:revenueId",
+                            element: <EditRevenuePage/>
                         },
                     ]
                 }

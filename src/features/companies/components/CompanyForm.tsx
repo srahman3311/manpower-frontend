@@ -60,11 +60,20 @@ const CompanyForm: React.FC = () => {
             return;
         }
 
+        const requestBody = {
+            name,
+            email,
+            phone, 
+            address: {
+                line1: address
+            }
+        }
+
         try {
             if(companyId) {
-                await editCompany(companyId, newCompanyInfo)
+                await editCompany(companyId, requestBody)
             } else {
-                await createCompany(newCompanyInfo);
+                await createCompany(requestBody);
             }
             navigate("/companies")
         } catch(error) {

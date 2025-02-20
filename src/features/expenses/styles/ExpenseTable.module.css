@@ -1,0 +1,132 @@
+
+.expense_table {
+    height: 500px;
+    overflow: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.expense_table table {
+    background-color: white;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header_tr {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 1;
+}
+
+.expense_table table th {
+    text-align: left;
+    font-size: 1rem;
+    padding: 10px;
+    color: white;
+}
+
+.expense_table table td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.113);
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.expense_table table td:last-child {
+    border-bottom: none;
+}
+
+td.people_placeholder_img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.table_data_navigation {
+    background-color:white;
+    border-radius: 6px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.table_data_navigation_buttons {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.action_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action_buttons button {
+    margin-right: 20px;
+    background: none;
+}
+
+.action_buttons button:last-child {
+    margin-right: 0px;
+}
+
+.responsive_user_item {
+    border: 1px solid rgba(0, 0, 0, 0.103);
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.responsive_user_item:last-child {
+    margin-bottom: 0px;
+}
+
+.responsive_user_type {
+    color: rgba(0, 0, 255, 0.552);
+}
+
+.responsive_user_fullname {
+    margin-bottom: 10px;
+}
+
+.responsive_title_actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.103);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 1200px) {
+    .expense_table {
+        padding: 20px 0px;
+    }
+    .table_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table_header h2 {
+        margin-bottom: 10px;
+    }
+}
+

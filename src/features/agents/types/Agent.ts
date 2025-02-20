@@ -1,5 +1,5 @@
-import { Model } from "../../../types/Model";
-import { Address as IAddress } from "../../../types/Address";
+import { ModelWithTenant } from "../../../types/Model";
+import { Address } from "../../../types/Address";
 
 export enum AgentCategory {
     A = "A",
@@ -14,8 +14,8 @@ export interface AgentModel {
     lastName: string
     email: string | null
     phone: string
-    address: IAddress
+    address: Address
     imageUrl: string | null
 }
 
-export type Agent = Model<AgentModel>
+export type Agent = ModelWithTenant<AgentModel>

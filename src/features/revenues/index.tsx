@@ -3,27 +3,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import { RootState } from "../../store";
-import { toggleDeleteModal, updateState, filterUserList } from "./slices/userReducer";
-import { deleteUser } from "../../services/users";
+import { toggleDeleteModal, updateState, filterRevenueList } from "./slices/revenueReducer";
+import { deleteRevenue } from "../../services/revenues";
 import { handleApiError } from "../../utils/error-handlers/handleApiError";
 import styles from "./styles/index.module.css";
-import UserTable from "./components/UserTable";
+import RevenueTable from "./components/RevenueTable";
 import SearchInput from "../../components/inputs/SearchInput";
 import DeleteModal from "../../components/modal/DeleteModal";
 import { DropdownList } from "../../components/dropdown-list/DropdownList";
 
-const UserList: React.FC = () => {
+const RevenueList: React.FC = () => {
 
     const dispatch = useDispatch()
-    const userState = useSelector((state: RootState) => state.userState);
+    const revenueState = useSelector((state: RootState) => state.revenueState);
     const { 
-        userList,
+        revenueList,
         limit,
         isDeleting, 
-        userInAction 
-    } = userState;
+        revenueInAction 
+    } = revenueState;
 
-    const searchUsers = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchRevenues = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(updateState({
             name: "searchText",
             value: event.target.value
@@ -41,30 +41,30 @@ const UserList: React.FC = () => {
         }))
     }
 
-    const deleteUserInAction = useCallback(async() => {
+    const deleteRevenueInAction = useCallback(async() => {
         closeDeleteModal();
         try {
-            await deleteUser(userInAction?.id);
-            const filteredUserList = userList.filter(user => user.id !== userInAction?.id);
-            dispatch(filterUserList(filteredUserList))
+            await deleteRevenue(revenueInAction?.id);
+            const filteredRevenueList = revenueList.filter(user => user.id !== revenueInAction?.id);
+            dispatch(filterRevenueList(filteredRevenueList))
         } catch(error) {
             const { message } = handleApiError(error)
             alert(message)
         }
-    }, [closeDeleteModal, deleteUser, dispatch, filterUserList, userList, userInAction?.id])
+    }, [closeDeleteModal, deleteRevenue, dispatch, filterRevenueList, revenueList, revenueInAction?.id])
 
-    console.log(userList)
+    console.log(revenueList)
 
     return (
-        <div className={styles.user_list}>
+        <div className={styles.revenue_list}>
             <div className={styles.search_add}>
-                <h2>Users</h2>
+                <h2>Revenues</h2>
                 <div className={styles.search_add_link}>
                     <SearchInput
                         placeholder="Search"
-                        onChange={searchUsers}
+                        onChange={searchRevenues}
                     />
-                    <Link className={styles.add_new_user} to="/users/add-new">
+                    <Link className={styles.add_new_revenue} to="/revenues/add-new">
                         <IoMdAdd 
                             size={"2rem"}
                         />
@@ -84,13 +84,13 @@ const UserList: React.FC = () => {
                     />
                 </div>
             </div>
-            <UserTable />
+            <RevenueTable />
             {
                 isDeleting
                 ?
                 <DeleteModal 
-                    title={userInAction?.firstName}
-                    deleteItem={deleteUserInAction}
+                    title={revenueInAction?.name}
+                    deleteItem={deleteRevenueInAction}
                     onClose={closeDeleteModal}
                 />
                 :
@@ -101,5 +101,5 @@ const UserList: React.FC = () => {
     
 }
 
-export default UserList;
+export default RevenueList;
 
