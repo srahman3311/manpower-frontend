@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../store";
@@ -16,9 +16,9 @@ const RevenueTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { loading, errorMsg, fetchRevenueList } = useFetchRevenues();
-    const authState = useSelector((state: RootState) => state.authState);
+    // const authState = useSelector((state: RootState) => state.authState);
     const revenueState = useSelector((state: RootState) => state.revenueState);
-    const { user } = authState;
+    // const { user } = authState;
     const { searchText, skip, limit, totalRevenueCount, revenueList, newRevenueInfo } = revenueState;
 
     useEffect(() => {

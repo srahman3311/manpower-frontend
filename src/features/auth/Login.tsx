@@ -65,8 +65,7 @@ const Login = () => {
 
     }
 
-    console.log(authState)
-
+    console.log(loading)
     return (
         <div className={styles.login}>
             <form className={styles.login_form} onSubmit={handleLogin}>

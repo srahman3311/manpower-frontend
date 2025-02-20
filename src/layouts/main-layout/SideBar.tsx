@@ -2,11 +2,11 @@ import { useState } from "react";
 import {
     BsGithub,
     BsPencilSquare,
-    BsPeople,
+    // BsPeople,
     BsPersonLinesFill,
     BsChatDotsFill,
     BsSave,
-    BsColumnsGap,
+    // BsColumnsGap,
     BsRSquareFill
 } from "react-icons/bs";
 import SideLink from "./SideLink";

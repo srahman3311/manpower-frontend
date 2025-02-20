@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
-import { NewExpenseInfo } from "../types/ExpenseState";
 import { updateState, addNewExpenseInfo } from "../slices/expenseReducer";
 import { createExpense, editExpense } from "../../../services/expenses";
 import { validatePassword } from "../../../utils/validators/validatePassword";
