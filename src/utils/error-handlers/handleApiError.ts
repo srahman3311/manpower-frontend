@@ -12,6 +12,6 @@ export const handleApiError = (error: any): { message: string } => {
     if(isEndpointNotExistError) return { message: errorResponse.statusText };
 
     // Otherwise return the actual error message sent by the server.
-    return { message: error.response.data ?? "Something went wrong" };
+    return { message: error.response.data.message ?? "Something went wrong" };
 
 }
