@@ -67,12 +67,22 @@ const ExpenseForm: React.FC = () => {
             name: "selectedJob",
             value: job
         }))
-    }, [dispatch, updateState])
+        if(selectedPassenger) {
+            dispatch(updateState({
+                name: "selectedPassenger",
+                value: null
+            }));
+        }
+    }, [dispatch, selectedPassenger, updateState])
 
     const selectPassenger = useCallback((passenger: Passenger) => {
         dispatch(updateState({
             name: "selectedPassenger",
             value: passenger
+        }));
+        dispatch(updateState({
+            name: "selectedJob",
+            value: passenger.job
         }))
     }, [dispatch, updateState])
 
@@ -102,21 +112,19 @@ const ExpenseForm: React.FC = () => {
             passengerId: selectedPassenger?.id
         };
 
-        // console.log(requestBody)
-        // return;
-
         try {
+
             if(expenseId) {
                 await editExpense(expenseId, requestBody)
             } else {
                 await createExpense(requestBody);
             }
 
-            navigate("/expenses")
+            navigate("/expenses");
+
         } catch(error) {
             const { message } = handleApiError(error);
             setValidationErrorMsg(message)
-            console.log(error);
         }
 
     }, [
@@ -129,8 +137,6 @@ const ExpenseForm: React.FC = () => {
         selectedPassenger,
         editExpense
     ])
-
-    console.log(selectedJob)
 
     return (
         <form className={styles.expense_form} onSubmit={saveExpense}>

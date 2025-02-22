@@ -66,13 +66,23 @@ const RevenueForm: React.FC = () => {
         dispatch(updateState({
             name: "selectedJob",
             value: job
-        }))
-    }, [dispatch, updateState])
+        }));
+        if(selectedPassenger) {
+            dispatch(updateState({
+                name: "selectedPassenger",
+                value: null
+            }));
+        }
+    }, [dispatch, selectedPassenger, updateState])
 
     const selectPassenger = useCallback((passenger: Passenger) => {
         dispatch(updateState({
             name: "selectedPassenger",
             value: passenger
+        }))
+        dispatch(updateState({
+            name: "selectedJob",
+            value: passenger.job
         }))
     }, [dispatch, updateState])
 
@@ -102,9 +112,6 @@ const RevenueForm: React.FC = () => {
             passengerId: selectedPassenger?.id
         };
 
-        // console.log(requestBody)
-        // return;
-
         try {
             if(revenueId) {
                 await editRevenue(revenueId, requestBody)
@@ -116,7 +123,6 @@ const RevenueForm: React.FC = () => {
         } catch(error) {
             const { message } = handleApiError(error);
             setValidationErrorMsg(message)
-            console.log(error);
         }
 
     }, [
@@ -129,8 +135,6 @@ const RevenueForm: React.FC = () => {
         selectedPassenger,
         editRevenue
     ])
-
-    console.log(selectedJob)
 
     return (
         <form className={styles.revenue_form} onSubmit={saveRevenue}>

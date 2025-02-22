@@ -26,7 +26,7 @@ const MainLayout: React.FC = () => {
             </aside>
             <main className={styles.app_content}>
                 <nav>
-                    <h2>Ekin Overseas Limited</h2>
+                    <h2>{user?.tenant.name}</h2>
                     <ProfileShortcut 
                         user={user}
                         toggleProfileMenu={toggleProfileMenu}
