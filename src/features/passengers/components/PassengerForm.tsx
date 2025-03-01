@@ -106,11 +106,8 @@ const PassengerForm: React.FC = () => {
             return;
         }
 
-        if(
-            !selectedAgent ||
-            !selectedJob
-        ) {
-            setValidationErrorMsg("Select a job and agent");
+        if(!selectedAgent) {
+            setValidationErrorMsg("Select an agent");
             return;
         }
 
@@ -123,7 +120,7 @@ const PassengerForm: React.FC = () => {
                     {
                         ...requestBody,
                         agentId: selectedAgent.id,
-                        jobId: selectedJob.id
+                        jobId: selectedJob?.id
                     }
                 )
             } else {
@@ -133,7 +130,7 @@ const PassengerForm: React.FC = () => {
                         line1: requestBody.address ?? null
                     },
                     agentId: selectedAgent.id,
-                    jobId: selectedJob.id
+                    jobId: selectedJob?.id
                 });
             }
             navigate("/passengers")
@@ -153,8 +150,6 @@ const PassengerForm: React.FC = () => {
         createPassenger, 
         editPassenger
     ])
-
-    console.log(newPassengerInfo)
 
     return (
         <form className={styles.passenger_form} onSubmit={saveUser}>
@@ -195,7 +190,6 @@ const PassengerForm: React.FC = () => {
             <div className={styles.flex_dropdown_input}>
                 <DropdownList 
                     label={"Job"}
-                    required={true}
                     data={jobState.jobList}
                     nameKey="name"
                     selectedValue={selectedJob?.name ?? "Select Job"}

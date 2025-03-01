@@ -26,9 +26,14 @@ export interface PassengerModel {
     height: string | null
     passport: Passport
     medical: Medical
-    job: Job
+    job: Job | null
     agent: Agent
     address: Address
+    cost: number
+    sale: number
+    enjazNumber: string
+    visaNumber: string
+    idNumber: string
     imageUrl: string | null
 }
 

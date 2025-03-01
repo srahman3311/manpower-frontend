@@ -146,7 +146,7 @@ const PassengerTable = () => {
                                         <td>{name}</td>
                                         <td>{phone}</td>
                                         <td>{email}</td>
-                                        <td>{job.name}</td>
+                                        <td>{job?.name}</td>
                                         <td>{`${agent.firstName} ${agent.lastName}`}</td>
                                         <td>
                                             <ActionButtons 
