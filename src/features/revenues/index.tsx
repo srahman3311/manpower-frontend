@@ -53,8 +53,6 @@ const RevenueList: React.FC = () => {
         }
     }, [closeDeleteModal, deleteRevenue, dispatch, filterRevenueList, revenueList, revenueInAction?.id])
 
-    console.log(revenueList)
-
     return (
         <div className={styles.revenue_list}>
             <div className={styles.search_add}>

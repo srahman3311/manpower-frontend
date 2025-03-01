@@ -53,8 +53,6 @@ const UserList: React.FC = () => {
         }
     }, [closeDeleteModal, deleteUser, dispatch, filterUserList, userList, userInAction?.id])
 
-    console.log(userList)
-
     return (
         <div className={styles.user_list}>
             <div className={styles.search_add}>

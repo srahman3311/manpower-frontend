@@ -6,7 +6,7 @@ const AuthLayout: React.FC = () => {
         <div className={styles.auth_layout}>
             {/* <header> */}
                 <nav >
-                    <h2>Welcome to Ekin Overseas Limited</h2>
+                    <h2>Manpower Management System</h2>
                     {/* <Link to="/login">Login</Link><br />
                     <Link to="/signup">Signup</Link> */}
                 </nav>

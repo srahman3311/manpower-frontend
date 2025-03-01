@@ -53,8 +53,6 @@ const ExpenseList: React.FC = () => {
         }
     }, [closeDeleteModal, deleteExpense, dispatch, filterExpenseList, expenseList, expenseInAction?.id])
 
-    console.log(expenseList)
-
     return (
         <div className={styles.expense_list}>
             <div className={styles.search_add}>

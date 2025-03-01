@@ -9,7 +9,7 @@ const SideLink: React.FC<ISideLinkProps> = ({
 }) => {
 
     const router = useLocation();
-    const activePath = "/" + linkName.toLocaleLowerCase() === router?.pathname;
+    const activePath = router?.pathname.includes(linkName.toLowerCase())
 
     return (
         <div className={`${activePath ? "border-l-4 border-blue-600" : "border-l-0"} px-6 py-2 flex gap-8 items-center hover:bg-[rgba(255,255,255,0.2)] hover:border-l-4 hover:border-l-blue-600 transition-[0.2s]`}>
