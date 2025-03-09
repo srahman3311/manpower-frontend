@@ -10,6 +10,11 @@ export const fetchPassengers = async(params: Params): Promise<{ passengers: Pass
     return httpClient.get(`/passengers?${paramString}`);
 }
 
+export const fetchUrgentPassengers = async(limit: number): Promise<{ passengers: Passenger[], total: number }> => {
+    const paramString = `limit=${limit}`;
+    return httpClient.get(`/passengers/urgent?${paramString}`);
+}
+
 export const createPassenger = async(requestBody: RequestBody): Promise<Passenger> => {
     return httpClient.post("/passengers/create", requestBody);
 }

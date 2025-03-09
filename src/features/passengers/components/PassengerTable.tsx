@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../store";
-import { updateState, toggleDeleteModal } from "../slices/passengerReducer";
+import { updateState, editPassengerInfo, toggleDeleteModal } from "../slices/passengerReducer";
 import { useFetchPassengers } from "../hooks/useFetchPassengers";
 import peoplePlaceholderImg from "../../../assets/people_placeholder.jpg";
 import styles from "../styles/PassengerTable.module.css";
@@ -16,7 +16,14 @@ const PassengerTable = () => {
     const dispatch = useDispatch();
     const { loading, errorMsg, fetchPassengerList } = useFetchPassengers();
     const passengerState = useSelector((state: RootState) => state.passengerState);
-    const { searchText, skip, limit, totalPassengerCount, passengerList, newPassengerInfo } = passengerState;
+    const { 
+        searchText, 
+        skip, 
+        limit, 
+        totalPassengerCount, 
+        passengerList, 
+        newPassengerInfo
+    } = passengerState;
 
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -45,33 +52,7 @@ const PassengerTable = () => {
             return;
         }
 
-        dispatch(updateState({
-            name: "newPassengerInfo",
-            value: {
-                ...newPassengerInfo,
-                name: passengerInAction.name,
-                phone: passengerInAction.phone,
-                email: passengerInAction.email ?? "",
-                address: passengerInAction.address.line1 ?? "",
-                fatherName: passengerInAction.fatherName ?? "",
-                motherName: passengerInAction.motherName ?? "",
-                age: passengerInAction.age ?? "",
-                occupation: passengerInAction.occupation ?? "",
-                experience: passengerInAction.experience ?? "",
-                weight: passengerInAction.weight ?? "",
-                height: passengerInAction.height ?? "",
-                nationalId: passengerInAction.nationalId ?? "",
-            }
-        }));
-        dispatch(updateState({
-            name: "selectedJob",
-            value: passengerInAction.job
-        }))
-        dispatch(updateState({
-            name: "selectedAgent",
-            value: passengerInAction.agent
-        }))
-      
+        dispatch(editPassengerInfo(passengerInAction));
       
         navigate(`/passengers/edit/${id}`);
 

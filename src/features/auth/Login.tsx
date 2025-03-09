@@ -54,7 +54,7 @@ const Login = () => {
 
             setLoading(false);
 
-            navigate(`/users`);
+            navigate(`/dashboard`);
 
         } catch(error: any) {
             console.log(error);

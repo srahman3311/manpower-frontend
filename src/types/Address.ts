@@ -6,7 +6,11 @@ export interface AddressModel {
     postalCode: string | null
     city: string | null
     state: string | null
-    imageUrl: string | null
+    country: string | null
 }
 
 export type Address = Model<AddressModel>
+
+export type _Address = {
+    [K in keyof AddressModel]: string
+}

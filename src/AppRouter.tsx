@@ -7,6 +7,7 @@ import ProtectedRoute from "./features/auth/ProtectedRoute";
 
 const LoginPage = lazy(() => import("./features/auth/Login"));
 const SignupPage = lazy(() => import("./features/users/Signup"));
+const Dashboard = lazy(() => import("./features/dashboard/index"));
 const CompanyListPage = lazy(() => import("./features/companies/index"));
 const AddCompanyPage = lazy(() => import("./features/companies/AddCompany"));
 const EditCompanyPage = lazy(() => import("./features/companies/EditCompany"));
@@ -57,6 +58,10 @@ const AppRouter = () => {
                 {
                     element: <MainLayout />,
                     children: [
+                        {
+                            path: "/dashboard",
+                            element: <Dashboard />
+                        },
                         {
                             path: "/profile/:userId",
                             element: <ProfilePage />

@@ -17,3 +17,26 @@ html, body {
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.react-datepicker__input-container {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  outline: none;
+}
+
+.react-datepicker__input-container input:focus {
+  margin-right: 0px;
+}

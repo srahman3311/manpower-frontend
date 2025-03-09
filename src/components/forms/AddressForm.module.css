@@ -1,0 +1,9 @@
+.address_form {
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 20px; */
+}
+
+.address_form > * {
+    max-width: 30%;
+}

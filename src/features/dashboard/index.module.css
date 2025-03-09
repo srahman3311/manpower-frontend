@@ -1,0 +1,86 @@
+.dashboard {
+    width: 100%;
+}
+
+.dashboard h2 {
+    color: #2E5077;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.passenger_urgent_table {
+    width: 100%;
+}
+
+.passenger_urgent_table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 20px 10px;
+}
+
+.header_tr {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 1;
+}
+
+.passenger_urgent_table table .data_tr {
+    background-color: white;
+    margin: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    
+}
+
+.passenger_urgent_table table th {
+    text-align: left;
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+}
+
+.passenger_urgent_table table td {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 20px; 
+}
+
+.status_td_div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.red, .yellow, .green {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+.status_date {
+    display: inline-block;
+}
+
+.load_more_btn {
+    margin-top: 30px;
+    text-align: center;
+}

@@ -51,6 +51,12 @@ const SideBar = () => {
                 <SideLink
                     icon={BsChatDotsFill}
                     iconSize={18}
+                    linkName="Dashboard"
+                    linkUrl="/dashboard"
+                />
+                <SideLink
+                    icon={BsChatDotsFill}
+                    iconSize={18}
                     linkName="Passengers"
                     linkUrl="/passengers"
                 />

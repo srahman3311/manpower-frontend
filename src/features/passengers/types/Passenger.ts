@@ -1,15 +1,9 @@
-import { Model } from "../../../types/Model";
+import { ModelWithTenant } from "../../../types/Model";
 import { Job } from "../../jobs/types/Job";
 import { Agent } from "../../agents/types/Agent";
 import { Address } from "../../../types/Address";
 import { Passport } from "./Passport";
 import { Medical } from "./Medical";
-
-export enum UserRole {
-    Admin = "admin",
-    Director = "director",
-    ManagingDirector = "managing_director"
-}
 
 export interface PassengerModel {
     name: string
@@ -33,8 +27,11 @@ export interface PassengerModel {
     sale: number
     enjazNumber: string
     visaNumber: string
+    visaIssueDate: string | null
+    visaExpiryDate: string | null
     idNumber: string
+    status: string
     imageUrl: string | null
 }
 
-export type Passenger = Model<PassengerModel>
+export type Passenger = ModelWithTenant<PassengerModel>
