@@ -21,8 +21,7 @@ const PassengerTable = () => {
         skip, 
         limit, 
         totalPassengerCount, 
-        passengerList, 
-        newPassengerInfo
+        passengerList
     } = passengerState;
 
     useEffect(() => {

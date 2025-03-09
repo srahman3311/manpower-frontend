@@ -27,7 +27,9 @@ const initialState: PassengerState = {
         enjazNumber: "",
         visaNumber: "",
         visaExpiryDate: null,
-        idNumber: ""
+        visaIssueDate: null,
+        idNumber: "",
+        status: "processing"
     },
     passportInfo: {
         number: "",
@@ -38,7 +40,7 @@ const initialState: PassengerState = {
     medicalInfo: {
         date: null,
         expiryDate: null,
-        status: ""
+        status: "processing"
     },
     addressInfo: {
         line1: "",
@@ -152,10 +154,12 @@ const passengersSlice = createSlice({
                     enjazNumber: passenger.enjazNumber ?? "",
                     visaNumber: passenger.visaNumber ?? "",
                     visaExpiryDate: passenger.visaExpiryDate ? new Date(passenger.visaExpiryDate) : null,
-                    idNumber: passenger.idNumber ?? ""
+                    visaIssueDate: passenger.visaIssueDate ? new Date(passenger.visaIssueDate) : null,
+                    idNumber: passenger.idNumber ?? "",
+                    status: passenger.status
                 },
                 medicalInfo: {
-                    status: medical.status ?? "",
+                    status: medical.status ?? "processing",
                     date: medical.date ? new Date(medical.date) : null,
                     expiryDate: medical.expiryDate ? new Date(medical.expiryDate) : null
                 },
@@ -199,10 +203,12 @@ const passengersSlice = createSlice({
                     enjazNumber: "",
                     visaNumber: "",
                     visaExpiryDate: null,
-                    idNumber: ""
+                    visaIssueDate: null,
+                    idNumber: "",
+                    status: "processing"
                 },
                 medicalInfo: {
-                    status: "",
+                    status: "processing",
                     date: null,
                     expiryDate: null
                 },

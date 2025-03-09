@@ -8,6 +8,7 @@ PassengerModel,
 "birthDate" |
 "passport" |
 "visaExpiryDate" |
+"visaIssueDate" |
 "medical" |
 "job" |
 "agent" |
@@ -20,6 +21,7 @@ export type NewPassengerInfo = {
 } & { 
     birthDate: Date | null 
     visaExpiryDate: Date | null
+    visaIssueDate: Date | null
 }
 
 export type NewPassportInfo = {

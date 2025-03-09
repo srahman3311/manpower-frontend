@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { NewPassportInfo } from "../types/PassengerState"
 import DatePicker from "react-datepicker";
 import styles from "../styles/AddEditPassenger.module.css";
 import TextInput from "../../../components/inputs/TextInput";
