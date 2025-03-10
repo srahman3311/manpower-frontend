@@ -87,8 +87,8 @@ const AgentTable = () => {
                     <thead>
                         <tr className={styles.header_tr}>
                             <th></th>
-                            <th>Category</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th></th>
@@ -127,8 +127,8 @@ const AgentTable = () => {
                                                 alt={`${firstName}`}
                                             />
                                         </td>
-                                        <td>{category}</td>
                                         <td>{`${firstName} ${lastName}`}</td>
+                                        <td>{category}</td>
                                         <td>{email}</td>
                                         <td>{phone}</td>
                                         <td>

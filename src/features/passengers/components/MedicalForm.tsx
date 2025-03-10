@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import DatePicker from "react-datepicker";
-import styles from "../styles/AddEditPassenger.module.css";
-import TextInput from "../../../components/inputs/TextInput";
+import styles from "../styles/AddEditPassenger.module.css"
+import { DropdownList } from "../../../components/dropdown-list/DropdownList";
+import { PassengerStatus } from "../types/PassengerState";
 
 interface MedicalFormProps {
     selectDate: (date: Date | null, options: { group: string, field: string }) => void
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    handleDropdownClick: (item: any) => void
 }
 
-const MedicalForm: React.FC<MedicalFormProps> = ({ selectDate, handleChange }) => {
+const MedicalForm: React.FC<MedicalFormProps> = ({ selectDate, handleDropdownClick }) => {
 
     const passengerState = useSelector((state: RootState) => state.passengerState);
     const { medicalInfo } = passengerState;
@@ -32,12 +33,15 @@ const MedicalForm: React.FC<MedicalFormProps> = ({ selectDate, handleChange }) =
                         onChange={(date) => selectDate(date, { group: "medical", field: "expiryDate" })}
                     />
                 </div>
-                <TextInput
-                    label="Status"
-                    name="status"
-                    data-type="medical"
-                    value={medicalInfo.status}
-                    onChange={handleChange}
+                <DropdownList 
+                    label={"Status"}
+                    data={[
+                        { id: 1, medical: true, status: PassengerStatus.Processing },
+                        { id: 2, medical: true, status: PassengerStatus.Completed }
+                    ]}
+                    nameKey="status"
+                    selectedValue={medicalInfo.status}
+                    onClick={handleDropdownClick}
                 />
             </div>
         </div>

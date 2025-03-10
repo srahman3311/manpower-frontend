@@ -20,21 +20,18 @@
     z-index: 1;
 }
 
+.job_table table tr:nth-child(even) {
+    background-color: #2e50771d;
+}
+
 .job_table table th {
     text-align: left;
-    font-size: 1rem;
-    padding: 10px;
+    padding: 15px 10px;
     color: white;
 }
 
 .job_table table td {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.113);
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
-
-.job_table table td:last-child {
-    border-bottom: none;
+    padding: 15px 10px;
 }
 
 td.people_placeholder_img {

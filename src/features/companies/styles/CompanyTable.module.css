@@ -21,21 +21,18 @@
     z-index: 1;
 }
 
+.company_table table tr:nth-child(even) {
+    background-color: #2e50771d;
+}
+
 .company_table table th {
     text-align: left;
-    font-size: 1.1rem;
-    padding: 20px 10px;
+    padding: 15px 10px;
     color: white;
 }
 
 .company_table table td {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.113);
-    padding: 40px 10px;
-    font-size: 1.1rem;
-}
-
-.company_table table td:last-child {
-    border-bottom: none;
+    padding: 15px 10px;
 }
 
 td.people_placeholder_img {

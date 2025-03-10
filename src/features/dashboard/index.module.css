@@ -37,7 +37,7 @@
 
 .passenger_urgent_table table th {
     text-align: left;
-    font-size: 1.3rem;
+    font-size: 1rem;
     padding: 10px 20px;
     text-align: center;
     color: white;
@@ -46,7 +46,6 @@
 
 .passenger_urgent_table table td {
     padding: 10px 20px;
-    font-size: 0.9rem;
     text-align: center;
     margin-bottom: 20px; 
 }

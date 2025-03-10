@@ -11,7 +11,7 @@
     border: 1px solid rgba(0, 0, 0, 0.222);
     border-radius: 6px;
     cursor: pointer;
-    padding: 10px;
+    padding: 6px 10px;
 }
 
 .dropdown_background {
@@ -75,7 +75,7 @@
 .dropdown_item_list ul li,
 .multi_select_dropdown_item_list ul li {
     cursor: pointer;
-    padding: 10px;
+    padding: 6px 10px;
     color: rgba(0, 0, 0, 0.53);
 }
 

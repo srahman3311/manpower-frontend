@@ -3,6 +3,11 @@ import { Job } from "../../jobs/types/Job";
 import { Agent } from "../../agents/types/Agent";
 import { _Address } from "../../../types/Address";
 
+export enum PassengerStatus {
+    Processing = "processing",
+    Completed = "completed"
+}
+
 export type _Passenger = Omit<
 PassengerModel, 
 "birthDate" |

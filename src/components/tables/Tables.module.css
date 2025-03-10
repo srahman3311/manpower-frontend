@@ -1,6 +1,7 @@
 .no_data_td {
     height: 536px;
     background-color: white;
-    font-size: 1.5rem;
+    font-size: 1.rem;
     text-align: center;
+    color: #2E5077;
 }

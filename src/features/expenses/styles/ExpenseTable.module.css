@@ -4,7 +4,6 @@
     overflow: auto;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-bottom: 15px;
-    border-radius: 6px;
 }
 
 .expense_table table {
@@ -21,17 +20,18 @@
     z-index: 1;
 }
 
+.expense_table table tr:nth-child(even) {
+    background-color: #2e50771d;
+}
+
 .expense_table table th {
     text-align: left;
-    font-size: 1rem;
-    padding: 10px;
+    padding: 15px 10px;
     color: white;
 }
 
 .expense_table table td {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.113);
-    padding: 5px 10px;
-    font-size: 0.9rem;
+    padding: 15px 10px;
 }
 
 .expense_table table td:last-child {

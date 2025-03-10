@@ -4,6 +4,7 @@ import { getStatusColor } from "./utils/getStatusColor";
 import { getDateText } from "../../utils/date-time/dateTime";
 import styles from "./index.module.css";
 import { Button } from "../../components/buttons/Button";
+import { NoDataTR } from "../../components/tables/NoDataTR";
 
 const Dashboard: React.FC = () => {
 
@@ -19,8 +20,7 @@ const Dashboard: React.FC = () => {
         setLimit(limit + 5)
     }
 
-    if(loading) return null;
-    if(errorMsg) return <div>{errorMsg}</div>
+    const colSpan = 6;
 
     return (
         <div className={styles.dashboard}>
@@ -41,47 +41,73 @@ const Dashboard: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {passengerList.map(passenger => {
-                            const { name, visaExpiryDate, status, medical, passport } = passenger;
-                            
-                            const passportStatusColor = getStatusColor("passport", passport.expiryDate);
-                            const visaStatusColor = getStatusColor("visa", visaExpiryDate, status);
-                            const medicalStatusColor = getStatusColor("medical", medical.expiryDate, medical.status);
+                        {
+                            loading
+                            ?
+                            <NoDataTR 
+                                colSpan={colSpan}
+                                content={"Loading..."}
+                            />
+                            :
+                            errorMsg 
+                            ?
+                            <NoDataTR 
+                                colSpan={colSpan}
+                                content={errorMsg}
+                            />
+                            :
+                            totalPassengerCount <= 0
+                            ?
+                            <NoDataTR 
+                                colSpan={colSpan}
+                                content={"No urgent passengers"}
+                                style={{
+                                    height: "100px",
+                                    fontSize: "1.2rem"
+                                }}
+                            />
+                            :
+                            passengerList.map(passenger => {
+                                const { name, visaExpiryDate, status, medical, passport } = passenger;
+                                
+                                const passportStatusColor = getStatusColor("passport", passport.expiryDate);
+                                const visaStatusColor = getStatusColor("visa", visaExpiryDate, status);
+                                const medicalStatusColor = getStatusColor("medical", medical.expiryDate, medical.status);
 
-                            const visaExpiresOn = visaExpiryDate ? getDateText(new Date(visaExpiryDate)) : "TBA";
-                            const medicalExpiresOn = medical.expiryDate ? getDateText(new Date(medical.expiryDate)) : "TBA";
-                            const passportExpiresOn = passport.expiryDate ? getDateText(new Date(passport.expiryDate)) : "TBA";
-                            return (
-                                <React.Fragment key={passenger.id}>
-                                    <tr className={styles.data_tr}>
-                                        <td>{name}</td>
-                                        <td>{passport.number ?? "N/A"}</td>
-                                        <td>{passenger.job?.name ?? "N/A"}</td>
-                                        <td>
-                                            <div className={styles.status_td_div}>
-                                                <span className={styles[visaStatusColor]}></span>
-                                                <span>{visaExpiresOn}</span>
-                                            </div>
-                                        </td>
-                                        <td className={styles.status_td}>
-                                            <div className={styles.status_td_div}>
-                                                <span className={styles[medicalStatusColor]}></span>
-                                                <span>{medicalExpiresOn}</span>
-                                            </div>
-                                        </td>
-                                        <td className={styles.status_td}>
-                                            <div className={styles.status_td_div}>
-                                                <span className={styles[passportStatusColor]}></span>
-                                                <span>{passportExpiresOn}</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={2}></td>
-                                    </tr>
-                                </React.Fragment>
-                            );
-                        })}
+                                const visaExpiresOn = visaExpiryDate ? getDateText(new Date(visaExpiryDate)) : "TBA";
+                                const medicalExpiresOn = medical.expiryDate ? getDateText(new Date(medical.expiryDate)) : "TBA";
+                                const passportExpiresOn = passport.expiryDate ? getDateText(new Date(passport.expiryDate)) : "TBA";
+                                return (
+                                    <React.Fragment key={passenger.id}>
+                                        <tr className={styles.data_tr}>
+                                            <td>{name}</td>
+                                            <td>{passport.number ?? "N/A"}</td>
+                                            <td>{passenger.job?.name ?? "N/A"}</td>
+                                            <td>
+                                                <div className={styles.status_td_div}>
+                                                    <span className={styles[visaStatusColor]}></span>
+                                                    <span>{visaExpiresOn}</span>
+                                                </div>
+                                            </td>
+                                            <td className={styles.status_td}>
+                                                <div className={styles.status_td_div}>
+                                                    <span className={styles[medicalStatusColor]}></span>
+                                                    <span>{medicalExpiresOn}</span>
+                                                </div>
+                                            </td>
+                                            <td className={styles.status_td}>
+                                                <div className={styles.status_td_div}>
+                                                    <span className={styles[passportStatusColor]}></span>
+                                                    <span>{passportExpiresOn}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}></td>
+                                        </tr>
+                                    </React.Fragment>
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>

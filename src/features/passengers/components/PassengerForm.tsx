@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { RootState } from "../../../store";
-import { Job } from "../../jobs/types/Job";
-import { Agent } from "../../agents/types/Agent";
+import { PassengerStatus } from "../types/PassengerState";
 import { 
     updateState, 
     addNewPassengerInfo,
@@ -123,21 +122,46 @@ const PassengerForm: React.FC = () => {
 
     }
 
-    const selectJob = useCallback((job: Job) => {
+    const handleDropdownClick = useCallback((item: any) => {
+
+        if(item.hasOwnProperty("firstName")) {
+            dispatch(updateState({
+                name: "selectedAgent",
+                value: item
+            }));
+            return;
+        }
+
+        if(item.hasOwnProperty("visaName")) {
+            dispatch(updateState({
+                name: "selectedJob",
+                value: item
+            }));
+            return;
+        }
+
+        if(item.hasOwnProperty("medical")) {
+            dispatch(updateState({
+                name: "medicalInfo",
+                value: {
+                    ...medicalInfo,
+                    status: item.status
+                }
+            }));
+            return;
+        }
+
         dispatch(updateState({
-            name: "selectedJob",
-            value: job
+            name: "newPassengerInfo",
+            value: {
+                ...newPassengerInfo,
+                status: item.status
+            }
         }));
+
     }, [dispatch, updateState])
 
-    const selectAgent = useCallback((agent: Agent) => {
-        dispatch(updateState({
-            name: "selectedAgent",
-            value: agent
-        }));
-    }, [dispatch, updateState])
-
-    const saveUser = useCallback(async(event: React.FormEvent<HTMLFormElement>) => {
+    const savePassenger = useCallback(async(event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault();
 
@@ -160,6 +184,9 @@ const PassengerForm: React.FC = () => {
             medicalInfo,
             addressInfo
         });
+
+        // console.log(requestBody)
+        // return;
 
         try {
             if(passengerId) {
@@ -203,7 +230,7 @@ const PassengerForm: React.FC = () => {
     ])
 
     return (
-        <form className={styles.passenger_form} onSubmit={saveUser}>
+        <form className={styles.passenger_form} onSubmit={savePassenger}>
             <div className={styles.photo_input}>
                 <FileInput 
                     handleFile={uploadPhoto}
@@ -216,14 +243,14 @@ const PassengerForm: React.FC = () => {
                     data={agentState.agentList}
                     nameKey="firstName"
                     selectedValue={selectedAgent?.firstName ?? "Select Agent"}
-                    onClick={selectAgent}
+                    onClick={handleDropdownClick}
                 />
                 <DropdownList 
                     label={"Job"}
                     data={jobState.jobList}
                     nameKey="name"
                     selectedValue={selectedJob?.name ?? "Select Job"}
-                    onClick={selectJob}
+                    onClick={handleDropdownClick}
                 />
             </div>
             <h3>Basic Info</h3>
@@ -348,7 +375,7 @@ const PassengerForm: React.FC = () => {
             </div>
             <h3>Medical Info</h3>
             <MedicalForm 
-                handleChange={handleChange}
+                handleDropdownClick={handleDropdownClick}
                 selectDate={selectDate}
             />
             <h3>Address</h3>
@@ -358,7 +385,7 @@ const PassengerForm: React.FC = () => {
                     handleChange={handleChange}
                 />
             </div>
-            <h3>Cost And Sale</h3>
+            <h3>Cost, Sale And Status</h3>
             <div className={styles.passenger_form_group}>
                 <div className={styles.flex_input}>
                     <TextInput
@@ -375,8 +402,19 @@ const PassengerForm: React.FC = () => {
                         value={newPassengerInfo.sale}
                         onChange={handleChange}
                     />
+                    <DropdownList 
+                        label={"Status"}
+                        data={[
+                            { id: 1, status: PassengerStatus.Processing },
+                            { id: 2, status: PassengerStatus.Completed }
+                        ]}
+                        nameKey="status"
+                        selectedValue={newPassengerInfo.status}
+                        onClick={handleDropdownClick}
+                    />
                 </div>
             </div>
+           
             {
                 validationErrorMsg
                 ?

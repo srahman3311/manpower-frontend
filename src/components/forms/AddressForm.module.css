@@ -1,9 +1,9 @@
 .address_form {
     display: flex;
     flex-wrap: wrap;
-    /* gap: 20px; */
+    gap: 2.33%;
 }
 
 .address_form > * {
-    max-width: 30%;
+    max-width: 31%;
 }
