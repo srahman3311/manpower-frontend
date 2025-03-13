@@ -1,0 +1,74 @@
+.account_table {
+    height: 600px;
+    overflow: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.account_table table {
+    background-color: white;
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+
+.header_tr {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 1;
+}
+
+.account_table table tr:nth-child(even) {
+    background-color: #2e50771d;
+}
+
+.account_table table th {
+    text-align: left;
+    padding: 15px 10px;
+    color: white;
+}
+
+.account_table table td {
+    padding: 15px 10px;
+}
+
+td.people_placeholder_img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.table_data_navigation {
+    background-color:white;
+    border-radius: 6px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+}
+
+.table_data_navigation_buttons {
+    display: flex;
+    gap: 20px;
+}
+
+
+@media (max-width: 1200px) {
+    .account_table {
+        padding: 20px 0px;
+    }
+    .table_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table_header h2 {
+        margin-bottom: 10px;
+    }
+}
+

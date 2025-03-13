@@ -2,24 +2,24 @@ import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../store";
-import { updateState, toggleDeleteModal } from "../slices/jobReducer";
-import { useFetchJobs } from "../hooks/useFetchJobs";
-import styles from "../styles/JobTable.module.css";
+import { updateState, toggleDeleteModal } from "../slices/accountReducer";
+import { useFetchAccounts } from "../hooks/useFetchAccounts";
+import styles from "../styles/AccountTable.module.css";
 import TableDataNavigation from "./TableDataNavigation";
 import ActionButtons from "../../../components/buttons/ActionButtons";
 import { NoDataTR } from "../../../components/tables/NoDataTR";
 
-const JobTable = () => {
+const AccountTable = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, errorMsg, fetchJobList } = useFetchJobs();
-    const jobState = useSelector((state: RootState) => state.jobState);
-    const { searchText, skip, limit, totalJobCount, jobList, newJobInfo } = jobState;
+    const { loading, errorMsg, fetchAccountList } = useFetchAccounts();
+    const accountState = useSelector((state: RootState) => state.accountState);
+    const { searchText, skip, limit, totalAccountCount, accountList } = accountState;
 
     useEffect(() => {
         const debounce = setTimeout(() => {
-            fetchJobList({ 
+            fetchAccountList({ 
                 searchText, 
                 skip, 
                 limit 
@@ -31,42 +31,42 @@ const JobTable = () => {
     const handleAction = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
 
         const { type, id } = event.currentTarget.dataset;
-        const jobInAction = jobList.find(agent => agent.id.toString() === id);
+        const accountInAction = accountList.find(user => user.id.toString() === id);
 
-        if(!jobInAction) return;
+        if(!accountInAction) return;
 
         if(type === "delete") {
             dispatch(updateState({
-                name: "jobInAction",
-                value: jobInAction
+                name: "accountInAction",
+                value: accountInAction
             }));
-            dispatch(toggleDeleteModal(jobInAction))
+            dispatch(toggleDeleteModal(accountInAction))
             return;
         }
 
         dispatch(updateState({
-            name: "newJobInfo",
+            name: "newAccountInfo",
             value: {
-                ...newJobInfo,
-                name: jobInAction.name,
-                visaType: jobInAction.visaType,
-                visaName: jobInAction.visaName,
-                visaQuantity: jobInAction.visaQuantity.toString(),
-                visaUnitPrice: jobInAction.visaUnitPrice.toString()
+                name: accountInAction.name,
+                bankName: accountInAction.bankName ?? "",
+                bankBranchName: accountInAction.bankBranchName ?? "",
+                bankAccountHolderName: accountInAction.bankAccountHolderName ?? "",
+                bankAccountNumber: accountInAction.bankAccountNumber ?? "",
+                balance: accountInAction.balance.toString()
             }
-        }))
+        }));
       
-        navigate(`/jobs/edit/${id}`);
+        navigate(`/accounts/edit/${id}`);
 
-    }, [jobList, dispatch, updateState])
+    }, [accountList, dispatch, updateState, toggleDeleteModal, navigate])
 
     const navigateToNextPage = useCallback(() => {
-        if(totalJobCount <= (skip + limit)) return;
+        if(totalAccountCount <= (skip + limit)) return;
         dispatch(updateState({
             name: "skip",
             value: skip + limit
         }));
-    }, [dispatch, updateState, skip, limit, totalJobCount])
+    }, [dispatch, updateState, skip, limit, totalAccountCount])
 
     const navigateToPrevPage = useCallback(() => {
         if(!skip) return;
@@ -76,20 +76,18 @@ const JobTable = () => {
         }));
     }, [dispatch, updateState, skip, limit])
 
-    const colSpan = 7;
+    const colSpan = 6;
 
     return (
-        <div className={styles.job_table_container}>
-            <div className={styles.job_table}> 
+        <div className={styles.account_table_container}>
+            <div className={styles.account_table}> 
                 <table>
                     <thead>
                         <tr className={styles.header_tr}>
                             <th>Name</th>
-                            <th>Visa Name</th>
-                            <th>Visa Company</th>
-                            <th>Visa Quantity</th>
-                            <th>Visa Unit Price</th>
-                            <th>Total Price</th>
+                            <th>Bank Name</th>
+                            <th>Account Number</th>
+                            <th>Balance</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -109,23 +107,22 @@ const JobTable = () => {
                                 content={errorMsg}
                             />
                             :
-                            jobList.length <= 0
+                            accountList.length <= 0
                             ?
                             <NoDataTR 
                                 colSpan={colSpan}
-                                content={"No jobs to show"}
+                                content={"No company data to show"}
                             />
                             :
-                            jobList.map(agent => {
-                                const { id, name, visaName, visaQuantity, visaUnitPrice, visaCompany, totalPrice } = agent;
+                            accountList.map(user => {
+                                const { id, name, bankName, bankAccountNumber, balance } = user;
                                 return (
                                     <tr key={id}>
+
                                         <td>{name}</td>
-                                        <td>{visaName}</td>
-                                        <td>{visaCompany.name}</td>
-                                        <td>{visaQuantity}</td>
-                                        <td>{visaUnitPrice}</td>
-                                        <td>{totalPrice}</td>
+                                        <td>{bankName}</td>
+                                        <td>{bankAccountNumber}</td>
+                                        <td>{balance}</td>
                                         <td>
                                             <ActionButtons 
                                                 actionTypeList={["edit", "delete"]}
@@ -143,7 +140,7 @@ const JobTable = () => {
             <TableDataNavigation 
                 skip={skip}
                 limit={limit}
-                total={totalJobCount}
+                total={totalAccountCount}
                 onNext={navigateToNextPage}
                 onPrev={navigateToPrevPage}
             />
@@ -152,4 +149,4 @@ const JobTable = () => {
 
 }
 
-export default JobTable;
+export default AccountTable;

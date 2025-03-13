@@ -90,8 +90,6 @@ const JobForm: React.FC = () => {
 
         if(!selectedVisaCompany) return;
 
-        console.log(selectedVisaCompany)
-
         let requestBody: JobRequestBody = {
             name,
             visaType,
@@ -100,9 +98,6 @@ const JobForm: React.FC = () => {
             visaUnitPrice: Number(visaUnitPrice),
             visaCompanyId: selectedVisaCompany.id
         }
-
-        // console.log(requestBody);
-        // return;
 
         try {
             if(jobId) {
@@ -121,8 +116,6 @@ const JobForm: React.FC = () => {
         }
 
     }, [newJobInfo, selectedVisaCompany, navigate, setValidationError, createJob, editJob])
-
-    console.log(selectedVisaCompany)
 
     return (
         <form className={styles.job_form} onSubmit={saveJob}>
