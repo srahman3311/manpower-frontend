@@ -9,6 +9,7 @@ const initialState: PassengerState = {
     limit: 10,
     totalPassengerCount: 0,
     passengerList: [],
+    invoicePassengerList: [],
     newPassengerInfo: {
         name: "",
         phone: "",

@@ -43,7 +43,6 @@ const Login = () => {
         try {
 
             const { token } = await login({ email, password });
-            console.log(token);
     
             const cookieOptions = {
                 path: "/", 
@@ -65,7 +64,6 @@ const Login = () => {
 
     }
 
-    console.log(loading)
     return (
         <div className={styles.login}>
             <form className={styles.login_form} onSubmit={handleLogin}>
@@ -101,7 +99,10 @@ const Login = () => {
                     null
                 }
                 <div className={styles.login_submit_button}>
-                    <Button type="submit">
+                    <Button 
+                        type="submit"
+                        disabled={loading}
+                    >
                         Submit
                     </Button>
                 </div>

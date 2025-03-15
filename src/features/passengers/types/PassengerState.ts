@@ -48,6 +48,7 @@ export interface PassengerState {
     limit: number
     totalPassengerCount: number
     passengerList: Passenger[]
+    invoicePassengerList: Passenger[]
     selectedJob: Job | null
     selectedAgent: Agent | null
     newPassengerInfo: NewPassengerInfo

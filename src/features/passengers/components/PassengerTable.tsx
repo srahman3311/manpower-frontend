@@ -21,7 +21,8 @@ const PassengerTable = () => {
         skip, 
         limit, 
         totalPassengerCount, 
-        passengerList
+        passengerList, 
+        invoicePassengerList
     } = passengerState;
 
     useEffect(() => {
@@ -51,11 +52,39 @@ const PassengerTable = () => {
             return;
         }
 
+        if(type === "invoice") {
+
+            const foundPassenger = invoicePassengerList.find(item => item.id.toString() === id);
+            
+            if(foundPassenger) {
+                const filteredPassengerList = invoicePassengerList.filter(item => item.id.toString() !== id)
+                dispatch(updateState({
+                    name: "invoicePassengerList",
+                    value: filteredPassengerList
+                }));
+                return;
+            }
+
+            const passenger = passengerList.find(item => item.id.toString() === id);
+            if(!passenger) return;
+
+            dispatch(updateState({
+                name: "invoicePassengerList",
+                value: [
+                    ...invoicePassengerList,
+                    passenger
+                ]
+            }));
+
+            return;
+
+        }
+
         dispatch(editPassengerInfo(passengerInAction));
       
         navigate(`/passengers/edit/${id}`);
 
-    }, [passengerList, dispatch, updateState])
+    }, [passengerList, invoicePassengerList, dispatch, updateState])
 
     const navigateToNextPage = useCallback(() => {
         if(totalPassengerCount <= (skip + limit)) return;
@@ -87,6 +116,7 @@ const PassengerTable = () => {
                             <th>Email</th>
                             <th>Job</th>
                             <th>Agent</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -128,6 +158,14 @@ const PassengerTable = () => {
                                         <td>{email}</td>
                                         <td>{job?.name}</td>
                                         <td>{`${agent.firstName} ${agent.lastName}`}</td>
+                                        <td>
+                                            <ActionButtons 
+                                                actionTypeList={["invoice"]}
+                                                itemId={id}
+                                                isAddedToInvoice={invoicePassengerList.some(item => item.id === id)}
+                                                handleClick={handleAction}
+                                            />
+                                        </td>
                                         <td>
                                             <ActionButtons 
                                                 actionTypeList={["view", "edit", "delete"]}

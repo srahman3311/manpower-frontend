@@ -115,7 +115,7 @@ const AccountForm: React.FC = () => {
                 />
                 <TextInput
                     label="Account Number"
-                    name="bankAccountName"
+                    name="bankAccountNumber"
                     value={newAccountInfo.bankAccountNumber}
                     onChange={handleChange}
                 />

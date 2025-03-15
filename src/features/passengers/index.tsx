@@ -1,16 +1,17 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import { RootState } from "../../store";
 import { toggleDeleteModal, updateState, filterPassengerList } from "./slices/passengerReducer";
-import { deletePassenger } from "../../services/passengers";
+import { createPassengerInvoice, deletePassenger } from "../../services/passengers";
 import { handleApiError } from "../../utils/error-handlers/handleApiError";
 import styles from "./styles/index.module.css";
 import PassengerTable from "./components/PassengerTable";
 import SearchInput from "../../components/inputs/SearchInput";
 import DeleteModal from "../../components/modal/DeleteModal";
 import { DropdownList } from "../../components/dropdown-list/DropdownList";
+import { Button } from "../../components/buttons/Button";
 
 const PassengerList: React.FC = () => {
 
@@ -18,10 +19,13 @@ const PassengerList: React.FC = () => {
     const passengerState = useSelector((state: RootState) => state.passengerState);
     const { 
         passengerList,
+        invoicePassengerList,
         limit,
         isDeleting, 
         passengerInAction 
     } = passengerState;
+
+    const [loading, setLoading] = useState<boolean>(false);
 
     const searchPassengers = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(updateState({
@@ -39,6 +43,30 @@ const PassengerList: React.FC = () => {
             name: "limit",
             value: item.limit
         }))
+    }
+
+    const createInvoice = async() => {
+
+        setLoading(true);
+
+        try {
+
+            const response = await createPassengerInvoice({ 
+                passengerIds: invoicePassengerList.map(item => item.id)
+            });
+            dispatch(updateState({
+                name: "invoicePassengerList",
+                value: []
+            }));
+            window.open(response.url, '_blank');
+
+        } catch(error) {
+            alert("Something went wrong");
+            console.log(error);
+        } finally {
+            setLoading(false)
+        }
+
     }
 
     const deletePassengerInAction = useCallback(async() => {
@@ -68,7 +96,12 @@ const PassengerList: React.FC = () => {
                         />
                     </Link>
                 </div>
-                
+                <Button
+                    onClick={createInvoice}
+                    disabled={(invoicePassengerList.length <= 0) || loading}
+                >
+                    Create Invoice {`( ${invoicePassengerList.length} )`}
+                </Button>
                 <div className={styles.limit_dropdown}>
                     <DropdownList 
                         data={[

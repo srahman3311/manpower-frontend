@@ -19,6 +19,10 @@ export const createPassenger = async(requestBody: RequestBody): Promise<Passenge
     return httpClient.post("/passengers/create", requestBody);
 }
 
+export const createPassengerInvoice = async(requestBody: { passengerIds: number[] }): Promise<{ url: string }> => {
+    return httpClient.post("/passengers/create-invoice", requestBody);
+}
+
 export const editPassenger = async(passengerId: string, requestBody: RequestBody): Promise<Passenger> => {
     return httpClient.patch(`/passengers/${passengerId}/edit`, requestBody);
 }
