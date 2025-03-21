@@ -2,7 +2,6 @@ import { Job } from "../../jobs/types/Job";
 import { Passenger } from "../../passengers/types/Passenger";
 import { Account } from "../../accounts/types/Account";
 import { Expense } from "./Expense";
-import { User } from "../../users/types/User";
 
 export type NewExpenseInfo = {
     name: string
