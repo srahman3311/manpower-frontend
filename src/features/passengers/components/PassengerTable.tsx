@@ -102,7 +102,7 @@ const PassengerTable = () => {
         }));
     }, [dispatch, updateState, skip, limit])
 
-    const colSpan = 7;
+    const colSpan = 8;
 
     return (
         <div className={styles.passenger_table_container}>

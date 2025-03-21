@@ -53,7 +53,8 @@ const UserTable = () => {
                 lastName: userInAction.lastName,
                 email: userInAction.email,
                 phone: userInAction.phone ?? "",
-                role: userInAction.roles.length > 0 ? userInAction.roles[0].name : ""
+                role: userInAction.roles.length > 0 ? userInAction.roles[0].name : "",
+                balance: userInAction.balance.toString()
             }
         }))
       

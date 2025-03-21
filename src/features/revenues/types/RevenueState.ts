@@ -1,6 +1,7 @@
 import { Job } from "../../jobs/types/Job";
 import { Passenger } from "../../passengers/types/Passenger";
 import { Revenue } from "./Revenue";
+import { Account } from "../../accounts/types/Account";
 
 export type NewRevenueInfo = {
     name: string
@@ -12,6 +13,7 @@ export type RevenueRequestBody = Pick<Revenue, "name" | "amount"> & {
     description?: string
     jobId?: number
     passengerId?: number
+    creditedToAccountId?: number
 }
 
 export interface RevenueState {
@@ -23,6 +25,7 @@ export interface RevenueState {
     newRevenueInfo: NewRevenueInfo
     selectedJob: Job | null
     selectedPassenger: Passenger | null
+    selectedAccount: Account | null
     revenueInAction: Revenue | null
     isDeleting: boolean
 }

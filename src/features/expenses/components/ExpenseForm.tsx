@@ -2,20 +2,22 @@ import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
-import { updateState, addNewExpenseInfo } from "../slices/expenseReducer";
+import { Job } from "../../jobs/types/Job";
+import { Passenger } from "../../passengers/types/Passenger";
+import { Account } from "../../accounts/types/Account";
+import { updateState, addNewExpenseInfo, clearExpenseInfo } from "../slices/expenseReducer";
 import { createExpense, editExpense } from "../../../services/expenses";
 import { validatePassword } from "../../../utils/validators/validatePassword";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 import { useFetchJobs } from "../../jobs/hooks/useFetchJobs";
 import { useFetchPassengers } from "../../passengers/hooks/useFetchPassengers";
+import { useFetchAccounts } from "../../accounts/hooks/useFetchAccounts";
 import styles from "../styles/AddEditExpense.module.css";
 import TextInput from "../../../components/inputs/TextInput";
 import { Button } from "../../../components/buttons/Button";
 import { DropdownList } from "../../../components/dropdown-list/DropdownList";
 import { ExpenseRequestBody } from "../types/ExpenseState";
 import ValidationErrorMessage from "../../../components/messages/ValidationErrorMessage";
-import { Job } from "../../jobs/types/Job";
-import { Passenger } from "../../passengers/types/Passenger";
 
 const ExpenseForm: React.FC = () => {
 
@@ -24,10 +26,17 @@ const ExpenseForm: React.FC = () => {
     const dispatch = useDispatch()
     const expenseState = useSelector((state: RootState) => state.expenseState);
     const jobState = useSelector((state: RootState) => state.jobState);
+    const accountState = useSelector((state: RootState) => state.accountState);
     const passengerState = useSelector((state: RootState) => state.passengerState);
-    const { newExpenseInfo, selectedJob, selectedPassenger } = expenseState; 
+    const { 
+        newExpenseInfo, 
+        selectedJob, 
+        selectedPassenger,
+        selectedAccount 
+    } = expenseState; 
     const { fetchPassengerList } = useFetchPassengers();
     const { fetchJobList } = useFetchJobs();
+    const { fetchAccountList } = useFetchAccounts();
     const [validationError, setValidationError] = useState<boolean>(false);
     const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
 
@@ -42,19 +51,16 @@ const ExpenseForm: React.FC = () => {
             skip: 0, 
             limit: 1000 
         });
-    }, [fetchPassengerList, fetchJobList])
+        fetchAccountList({ 
+            searchText: "", 
+            skip: 0, 
+            limit: 1000 
+        });
+    }, [fetchPassengerList, fetchJobList, fetchAccountList])
 
     useEffect(() => {
         if(expenseId) return;
-        dispatch(updateState({
-            name: "newExpenseInfo",
-            value: {
-                ...newExpenseInfo,
-                name: "",
-                description: "",
-                amount: ""
-            }
-        }));
+        dispatch(clearExpenseInfo());
     }, [expenseId])
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +90,13 @@ const ExpenseForm: React.FC = () => {
             name: "selectedJob",
             value: passenger.job
         }))
+    }, [dispatch, updateState]);
+
+    const selectAccount = useCallback((account: Account) => {
+        dispatch(updateState({
+            name: "selectedAccount",
+            value: account
+        }));
     }, [dispatch, updateState])
 
     const saveExpense = useCallback(async(event: React.FormEvent<HTMLFormElement>) => {
@@ -109,7 +122,8 @@ const ExpenseForm: React.FC = () => {
             description: description !== "" ? description : undefined,
             amount: Number(amount) ?? 0,
             jobId: selectedJob?.id,
-            passengerId: selectedPassenger?.id
+            passengerId: selectedPassenger?.id,
+            debitedFromAccountId: selectedAccount?.id
         };
 
         try {
@@ -135,40 +149,45 @@ const ExpenseForm: React.FC = () => {
         createExpense, 
         selectedJob,
         selectedPassenger,
-        editExpense
+        selectedAccount,
+        editExpense,
+        expenseId,
+        handleApiError,
+        setValidationErrorMsg
     ])
 
     return (
         <form className={styles.expense_form} onSubmit={saveExpense}>
-            <TextInput
-                required={true}
-                label="Name"
-                name="name"
-                value={newExpenseInfo.name}
-                error={validationError}
-                errorMsg="expense name is required"
-                onChange={handleChange}
-            />
+            <div className={styles.flex_input}>
+                <TextInput
+                    required={true}
+                    label="Name"
+                    name="name"
+                    value={newExpenseInfo.name}
+                    error={validationError}
+                    errorMsg="expense name is required"
+                    onChange={handleChange}
+                />
+                <TextInput
+                    required={true}
+                    label="Amount"
+                    type="number"
+                    name="amount"
+                    value={newExpenseInfo.amount}
+                    error={validationError}
+                    errorMsg="amount is required"
+                    onChange={handleChange}
+                />
+            </div>
             <TextInput
                 label="Description"
                 name="description"
                 value={newExpenseInfo.description}
                 onChange={handleChange}
             />
-            <TextInput
-                required={true}
-                label="Amount"
-                type="number"
-                name="amount"
-                value={newExpenseInfo.amount}
-                error={validationError}
-                errorMsg="amount is required"
-                onChange={handleChange}
-            />
             <div className={styles.flex_input}>
                 <DropdownList 
                     label={"Job"}
-                    required={true}
                     data={jobState.jobList}
                     nameKey="name"
                     selectedValue={selectedJob?.name ?? "Select Job"}
@@ -176,11 +195,17 @@ const ExpenseForm: React.FC = () => {
                 />
                 <DropdownList 
                     label={"Passenger"}
-                    required={true}
                     data={passengerState.passengerList}
                     nameKey="name"
                     selectedValue={selectedPassenger?.name ?? "Select Passenger"}
                     onClick={selectPassenger}
+                />
+                <DropdownList 
+                    label={"Debited From"}
+                    data={accountState.accountList}
+                    nameKey="name"
+                    selectedValue={selectedAccount?.name ?? "Select Account"}
+                    onClick={selectAccount}
                 />
             </div>
             {

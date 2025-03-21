@@ -111,7 +111,7 @@ const AccountTable = () => {
                             ?
                             <NoDataTR 
                                 colSpan={colSpan}
-                                content={"No company data to show"}
+                                content={"No Accounts To Show"}
                             />
                             :
                             accountList.map(user => {

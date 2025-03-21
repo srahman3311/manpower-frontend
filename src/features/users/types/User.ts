@@ -23,6 +23,7 @@ export interface UserModel {
     phone: string | null
     phone2: string | null
     password: string
+    balance: number
     roles: Role[]
     permissions: Permission[]
     addressId: number

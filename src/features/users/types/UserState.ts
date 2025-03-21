@@ -4,6 +4,7 @@ export type NewUserInfo = Pick<IUser, "firstName" | "lastName" | "email" | "pass
     role: string
     phone: string
     password2: string
+    balance: string
 }
 
 export type UserRequestBody = Pick<IUser, "firstName" | "lastName" | "email" | "password"> & {
@@ -11,6 +12,7 @@ export type UserRequestBody = Pick<IUser, "firstName" | "lastName" | "email" | "
     phone2?: string
     roles: string[]
     permissions: string[]
+    balance?: number
 }
 
 

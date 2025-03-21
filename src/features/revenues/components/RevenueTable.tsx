@@ -67,30 +67,14 @@ const RevenueTable = () => {
             name: "selectedPassenger",
             value: revenueInAction.passenger
         }));
+        dispatch(updateState({
+            name: "selectedAccount",
+            value: revenueInAction.creditedToAccount
+        }));
 
         navigate(`/revenues/edit/${id}`);
 
     }, [revenueList, dispatch, updateState])
-
-    // const toggleRevenueStatus = async (revenueId: number) => {
-    //     try {
-    //         const updatedExpense = await toggleExpenseApprovalStatus(revenueId);
-    //         const newExpenseList = revenueList.map(expense => {
-    //             if(updatedExpense.id === expense.id) return updatedExpense;
-    //             return expense;
-    //         });
-
-    //         dispatch(updateState({
-    //             name: "revenueList",
-    //             value: newExpenseList
-    //         }))
-
-    //         console.log(updatedExpense)
-
-    //     } catch(error) {
-    //         console.log(error);
-    //     }
-    // }
 
     const navigateToNextPage = useCallback(() => {
         if(totalRevenueCount <= (skip + limit)) return;
@@ -110,11 +94,6 @@ const RevenueTable = () => {
 
     const colSpan = 6;
 
-    // const isNotBasicUser = useMemo(() => user?.roles.some(role => role.name !== UserRole.Basic), [user?.roles.length]);
-
-    // const role = user?.roles[0] ? user?.roles[0].name : "admin";
-    // let statusKey = role + "ApprovalStatus";
-
     return (
         <div className={styles.revenue_table_container}>
             <div className={styles.revenue_table}> 
@@ -126,13 +105,6 @@ const RevenueTable = () => {
                             <th>Amount</th>
                             <th>Job</th>
                             <th>Passenger</th>
-                            {/* {
-                                isNotBasicUser
-                                ?
-                                <th>Action</th>
-                                :
-                                null
-                            } */}
                             <th></th>
                         </tr>
                     </thead>
@@ -156,12 +128,11 @@ const RevenueTable = () => {
                             ?
                             <NoDataTR 
                                 colSpan={colSpan}
-                                content={"No expense data to show"}
+                                content={"No Revenues To Show"}
                             />
                             :
                             revenueList.map(expense => {
                                 const { id, name, description, amount, job, passenger } = expense;
-                                // const btnText = (expense as any)[statusKey] === "approved" ? "reject" : "approve"
                                 return (
                                     <tr key={id}>
                                         <td>{name}</td>
@@ -169,17 +140,6 @@ const RevenueTable = () => {
                                         <td>{amount}</td>
                                         <td>{job?.name ?? "N/A"}</td>
                                         <td>{passenger?.name ?? "N/A"}</td>
-                                        {/* {
-                                            isNotBasicUser
-                                            ?
-                                            <td>
-                                                <button onClick={() => toggleRevenueStatus(id)}>
-                                                    {btnText}
-                                                </button>
-                                            </td>
-                                            :
-                                            null
-                                        } */}
                                         <td>
                                             <ActionButtons 
                                                 actionTypeList={["edit", "delete"]}

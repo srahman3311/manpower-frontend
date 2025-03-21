@@ -13,9 +13,10 @@ const initialState: UserState = {
         lastName: "",
         email: "",
         phone: "",
-        role: UserRole.Admin,
+        role: UserRole.Basic,
         password: "",
-        password2: ""
+        password2: "",
+        balance: ""
     },
     profilePhoto: null,
     userInAction: null,
@@ -51,6 +52,24 @@ const usersSlice = createSlice({
                 }
             }
         },
+        clearUserInfo: (state) => {
+           
+            return {
+                ...state,
+                newUserInfo: {
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    role: UserRole.Basic,
+                    password: "",
+                    password2: "",
+                    balance: ""
+                },
+                profilePhoto: null,
+                userInAction: null
+            }
+        },
         toggleDeleteModal: (state, action: PayloadAction<IUser | null>) => {
             return {
                 ...state,
@@ -72,6 +91,7 @@ export const {
     updateState,
     fetchUserData,
     addNewUserInfo,
+    clearUserInfo,
     toggleDeleteModal,
     filterUserList
 } = usersSlice.actions;

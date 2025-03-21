@@ -6,6 +6,7 @@ import { UserRole } from "../../users/types/User";
 import { updateState, toggleDeleteModal } from "../slices/expenseReducer";
 import { toggleExpenseApprovalStatus } from "../../../services/expenses";
 import { useFetchExpenses } from "../hooks/useFetchExpenses";
+import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 import styles from "../styles/ExpenseTable.module.css";
 import TableDataNavigation from "./TableDataNavigation";
 import ActionButtons from "../../../components/buttons/ActionButtons";
@@ -68,6 +69,11 @@ const ExpenseTable = () => {
             value: expenseInAction.passenger
         }));
 
+        dispatch(updateState({
+            name: "selectedAccount",
+            value: expenseInAction.debitedFromAccount
+        }));
+ 
         navigate(`/expenses/edit/${id}`);
 
     }, [expenseList, dispatch, updateState])
@@ -83,12 +89,12 @@ const ExpenseTable = () => {
             dispatch(updateState({
                 name: "expenseList",
                 value: newExpenseList
-            }))
-
-            console.log(updatedExpense)
+            }));
 
         } catch(error) {
             console.log(error);
+            const { message } = handleApiError(error);
+            alert(message);
         }
     }
 
@@ -108,7 +114,7 @@ const ExpenseTable = () => {
         }));
     }, [dispatch, updateState, skip, limit])
 
-    const colSpan = 6;
+    const colSpan = 7;
 
     const isNotBasicUser = useMemo(() => user?.roles.some(role => role.name !== UserRole.Basic), [user?.roles.length]);
 

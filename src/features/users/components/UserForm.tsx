@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
 import { UserRole } from "../types/User";
 import { UserRequestBody } from "../types/UserState";
-import { updateState, addNewUserInfo } from "../slices/userReducer";
+import { updateState, addNewUserInfo, clearUserInfo } from "../slices/userReducer";
 import { createUser, editUser } from "../../../services/users";
 import { validatePassword } from "../../../utils/validators/validatePassword";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
@@ -27,17 +27,7 @@ const UserForm: React.FC = () => {
 
     useEffect(() => {
         if(userId) return;
-        dispatch(updateState({
-            name: "newUserInfo",
-            value: {
-                ...newUserInfo,
-                firstName: "",
-                lastName: "",
-                email: "",
-                phone: "",
-                role: ""
-            }
-        }));
+        dispatch(clearUserInfo());
     }, [userId])
 
     const uploadProfilePhoto = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +62,7 @@ const UserForm: React.FC = () => {
             role,
             password,
             password2,
+            balance
         } = newUserInfo;
 
         if(
@@ -113,6 +104,7 @@ const UserForm: React.FC = () => {
             lastName,
             email,
             password,
+            balance: balance !== "" ? Number(balance) : 0,
             roles: [role],
             permissions: ["read", "write", "delete"]
         };
@@ -223,6 +215,12 @@ const UserForm: React.FC = () => {
                     onChange={handleChange}
                 />
             </div>
+            <TextInput
+                label="Cash In Hand"
+                name="balance"
+                value={newUserInfo.balance}
+                onChange={handleChange}
+            />
             {
                 validationErrorMsg
                 ?

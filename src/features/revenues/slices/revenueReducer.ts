@@ -15,6 +15,7 @@ const initialState: RevenueState = {
     },
     selectedJob: null,
     selectedPassenger: null,
+    selectedAccount: null,
     revenueInAction: null,
     isDeleting: false 
 }
@@ -48,6 +49,20 @@ const revenuesSlice = createSlice({
                 }
             }
         },
+        clearRevenueInfo: (state) => {
+            return {
+                ...state,
+                newRevenueInfo: {
+                    name: "",
+                    description: "",
+                    amount: ""
+                },
+                selectedJob: null,
+                selectedPassenger: null,
+                selectedAccount: null,
+                revenueInAction: null
+            }
+        },
         toggleDeleteModal: (state, action: PayloadAction<Revenue | null>) => {
             return {
                 ...state,
@@ -69,6 +84,7 @@ export const {
     updateState,
     fetchRevenueData,
     addNewRevenueInfo,
+    clearRevenueInfo,
     toggleDeleteModal,
     filterRevenueList
 } = revenuesSlice.actions;

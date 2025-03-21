@@ -2,12 +2,13 @@ import { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
-import { updateState, addNewRevenueInfo } from "../slices/revenueReducer";
+import { updateState, addNewRevenueInfo, clearRevenueInfo } from "../slices/revenueReducer";
 import { createRevenue, editRevenue } from "../../../services/revenues";
 import { validatePassword } from "../../../utils/validators/validatePassword";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 import { useFetchJobs } from "../../jobs/hooks/useFetchJobs";
 import { useFetchPassengers } from "../../passengers/hooks/useFetchPassengers";
+import { useFetchAccounts } from "../../accounts/hooks/useFetchAccounts";
 import styles from "../styles/AddEditRevenue.module.css";
 import TextInput from "../../../components/inputs/TextInput";
 import { Button } from "../../../components/buttons/Button";
@@ -16,6 +17,7 @@ import { RevenueRequestBody } from "../types/RevenueState";
 import ValidationErrorMessage from "../../../components/messages/ValidationErrorMessage";
 import { Job } from "../../jobs/types/Job";
 import { Passenger } from "../../passengers/types/Passenger";
+import { Account } from "../../accounts/types/Account";
 
 const RevenueForm: React.FC = () => {
 
@@ -25,9 +27,16 @@ const RevenueForm: React.FC = () => {
     const revenueState = useSelector((state: RootState) => state.revenueState);
     const jobState = useSelector((state: RootState) => state.jobState);
     const passengerState = useSelector((state: RootState) => state.passengerState);
-    const { newRevenueInfo, selectedJob, selectedPassenger } = revenueState; 
+    const accountState = useSelector((state: RootState) => state.accountState);
+    const { 
+        newRevenueInfo, 
+        selectedJob, 
+        selectedPassenger,
+        selectedAccount 
+    } = revenueState; 
     const { fetchPassengerList } = useFetchPassengers();
     const { fetchJobList } = useFetchJobs();
+    const { fetchAccountList } = useFetchAccounts();
     const [validationError, setValidationError] = useState<boolean>(false);
     const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
 
@@ -42,19 +51,16 @@ const RevenueForm: React.FC = () => {
             skip: 0, 
             limit: 1000 
         });
-    }, [fetchPassengerList, fetchJobList])
+        fetchAccountList({ 
+            searchText: "", 
+            skip: 0, 
+            limit: 1000 
+        });
+    }, [fetchPassengerList, fetchAccountList])
 
     useEffect(() => {
         if(revenueId) return;
-        dispatch(updateState({
-            name: "newRevenueInfo",
-            value: {
-                ...newRevenueInfo,
-                name: "",
-                description: "",
-                amount: ""
-            }
-        }));
+        dispatch(clearRevenueInfo())
     }, [revenueId])
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +92,13 @@ const RevenueForm: React.FC = () => {
         }))
     }, [dispatch, updateState])
 
+    const selectAccount = useCallback((account: Account) => {
+        dispatch(updateState({
+            name: "selectedAccount",
+            value: account
+        }))
+    }, [dispatch, updateState])
+
     const saveRevenue = useCallback(async(event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault();
@@ -109,7 +122,8 @@ const RevenueForm: React.FC = () => {
             description: description !== "" ? description : undefined,
             amount: Number(amount) ?? 0,
             jobId: selectedJob?.id,
-            passengerId: selectedPassenger?.id
+            passengerId: selectedPassenger?.id,
+            creditedToAccountId: selectedAccount?.id
         };
 
         try {
@@ -133,40 +147,45 @@ const RevenueForm: React.FC = () => {
         createRevenue, 
         selectedJob,
         selectedPassenger,
-        editRevenue
+        selectedAccount,
+        editRevenue,
+        handleApiError,
+        setValidationErrorMsg,
+        revenueId
     ])
 
     return (
         <form className={styles.revenue_form} onSubmit={saveRevenue}>
-            <TextInput
-                required={true}
-                label="Name"
-                name="name"
-                value={newRevenueInfo.name}
-                error={validationError}
-                errorMsg="expense name is required"
-                onChange={handleChange}
-            />
+            <div className={styles.flex_input}>
+                <TextInput
+                    required={true}
+                    label="Name"
+                    name="name"
+                    value={newRevenueInfo.name}
+                    error={validationError}
+                    errorMsg="expense name is required"
+                    onChange={handleChange}
+                />
+                <TextInput
+                    required={true}
+                    label="Amount"
+                    type="number"
+                    name="amount"
+                    value={newRevenueInfo.amount}
+                    error={validationError}
+                    errorMsg="amount is required"
+                    onChange={handleChange}
+                />
+            </div>
             <TextInput
                 label="Description"
                 name="description"
                 value={newRevenueInfo.description}
                 onChange={handleChange}
             />
-            <TextInput
-                required={true}
-                label="Amount"
-                type="number"
-                name="amount"
-                value={newRevenueInfo.amount}
-                error={validationError}
-                errorMsg="amount is required"
-                onChange={handleChange}
-            />
             <div className={styles.flex_input}>
                 <DropdownList 
                     label={"Job"}
-                    required={true}
                     data={jobState.jobList}
                     nameKey="name"
                     selectedValue={selectedJob?.name ?? "Select Job"}
@@ -174,11 +193,17 @@ const RevenueForm: React.FC = () => {
                 />
                 <DropdownList 
                     label={"Passenger"}
-                    required={true}
                     data={passengerState.passengerList}
                     nameKey="name"
                     selectedValue={selectedPassenger?.name ?? "Select Passenger"}
                     onClick={selectPassenger}
+                />
+                <DropdownList 
+                    label={"Credited To"}
+                    data={accountState.accountList}
+                    nameKey="name"
+                    selectedValue={selectedAccount?.name ?? "Select Account"}
+                    onClick={selectAccount}
                 />
             </div>
             {
