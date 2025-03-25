@@ -60,7 +60,7 @@ const TransactionForm: React.FC = () => {
 
     useEffect(() => {
         if(
-            userList.length <= 0 || 
+            userList.length <= 0 &&
             accountList.length <= 0
         ) {
             return;
