@@ -52,7 +52,7 @@ const expensesSlice = createSlice({
         clearExpenseInfo: (state) => {
             return {
                 ...state,
-                newRevenueInfo: {
+                newExpenseInfo: {
                     name: "",
                     description: "",
                     amount: ""

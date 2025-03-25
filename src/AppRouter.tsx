@@ -32,6 +32,9 @@ const EditRevenuePage = lazy(() => import("./features/revenues/EditRevenue"));
 const AccountListPage = lazy(() => import("./features/accounts/index"));
 const AddAccountPage = lazy(() => import("./features/accounts/AddAccount"));
 const EditAccountPage = lazy(() => import("./features/accounts/EditAccount"));
+const TransactionListPage = lazy(() => import("./features/transactions/index"));
+const AddTransactionPage = lazy(() => import("./features/transactions/AddTransaction"));
+const EditTransactionPage = lazy(() => import("./features/transactions/EditTransaction"));
 const ProfilePage = lazy(() => import("./features/profile/index"));
 
 const AppRouter = () => {
@@ -164,6 +167,18 @@ const AppRouter = () => {
                         {
                             path: "/accounts/edit/:accountId",
                             element: <EditAccountPage/>
+                        },
+                        {
+                            path: "/transactions",
+                            element: <TransactionListPage />
+                        },
+                        {
+                            path: "/transactions/add-new",
+                            element: <AddTransactionPage/>
+                        },
+                        {
+                            path: "/transactions/edit/:transactionId",
+                            element: <EditTransactionPage/>
                         },
                     ]
                 }

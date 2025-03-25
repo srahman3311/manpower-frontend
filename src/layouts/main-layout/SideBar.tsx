@@ -130,6 +130,12 @@ const SideBar = () => {
                     linkName="Accounts"
                     linkUrl="/accounts"
                 />
+                <SideLink
+                    icon={BsChatDotsFill}
+                    iconSize={18}
+                    linkName="Transactions"
+                    linkUrl="/transactions"
+                />
             </div>
         </div >
     );
