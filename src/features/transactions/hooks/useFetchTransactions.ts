@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { TransactionState } from "../types/TransactionState";
 import { fetchTransactions } from "../../../services/transactions";
 import { fetchTransactionData } from "../slices/transactionReducer";
+import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 
 type Params = Pick<TransactionState, "searchText" | "skip" | "limit">
 
@@ -33,8 +34,9 @@ export const useFetchTransactions = (): Return => {
             }));
 
         } catch(error: any) {
-            
-            setErrorMsg(error.response?.data || error.message)
+
+            const { message } = handleApiError(error);
+            setErrorMsg(message)
 
         } finally {
             setLoading(false);

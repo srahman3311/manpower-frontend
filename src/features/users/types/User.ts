@@ -4,6 +4,7 @@ import { Role } from "../../../types/Role";
 import { Permission } from "../../../types/Permission";
 
 export enum UserRole {
+    Tenant = "tenant",
     Admin = "admin",
     Director = "director",
     Manager = "manager",

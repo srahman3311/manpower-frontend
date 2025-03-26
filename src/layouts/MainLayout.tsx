@@ -22,7 +22,10 @@ const MainLayout: React.FC = () => {
     return (
         <div className={styles.app_layout}>
             <aside className={styles.sidenav}>
-                <SideBar />
+                <SideBar 
+                    user={user}
+                
+                />
             </aside>
             <main className={styles.app_content}>
                 <nav>

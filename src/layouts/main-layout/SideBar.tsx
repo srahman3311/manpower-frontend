@@ -1,23 +1,26 @@
-import { useState } from "react";
-import {
-    BsGithub,
-    BsPencilSquare,
-    // BsPeople,
-    BsPersonLinesFill,
-    BsChatDotsFill,
-    BsSave,
-    // BsColumnsGap,
-    BsRSquareFill
-} from "react-icons/bs";
+import { useMemo } from "react";
+import { 
+    MdDashboard, 
+    MdWork, 
+    MdOutlineMoneyOffCsred,
+    MdOutlineAttachMoney 
+} from "react-icons/md";
+import { TbTransactionDollar } from "react-icons/tb";
+import { FaPeopleGroup, FaWallet } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa";
+import { BsBuilding } from "react-icons/bs";
+import { User } from "../../features/users/types/User";
+import { getIsAdminOrTenant } from "../../features/users/utils/getIsAdminOrTenant";
 import SideLink from "./SideLink";
 
-const SideBar = () => {
 
-    const [showSubMenu, setSubMenu] = useState<boolean>(false)
+interface SideBarProps {
+    user: User | null
+}
 
-    const handleClick = () => {
-        alert("hi")
-    }
+const SideBar: React.FC<SideBarProps> = ({ user }) => {
+
+    const isAdminOrTenant = useMemo(() => getIsAdminOrTenant(user), [user]);
 
     return (
         <div className={`
@@ -35,107 +38,65 @@ const SideBar = () => {
         `
         }>
 
-            {/* <div className="flex lg:px-0 items-center px-6">
-                <div className="w-full flex items-center justify-center border h-[70px] cursor-pointer">
-                    <img className="w-24 h-24" src="/logo.avif" alt="Logo" />
-                </div>
-            </div> */}
             <div className="transition mt-8">
-
-                {/* <SideLink
-                    icon={BsColumnsGap}
-                    iconSize={18}
-                    linkName="Dashboard"
-                    linkUrl="https://notes-chatbot.vercel.app"
-                /> */}
                 <SideLink
-                    icon={BsChatDotsFill}
-                    iconSize={18}
+                    icon={MdDashboard}
                     linkName="Dashboard"
                     linkUrl="/dashboard"
                 />
                 <SideLink
-                    icon={BsChatDotsFill}
-                    iconSize={18}
+                    icon={FaPeopleGroup}
                     linkName="Passengers"
                     linkUrl="/passengers"
                 />
-                <div className="relative ">
-                    <div className="flex items-center justify-start pr-2">
-
-                        <SideLink
-                            icon={BsPencilSquare}
-                            iconSize={18}
-                            linkName="Jobs"
-                            linkUrl="/jobs"
-                            onClick={handleClick}
-                        />
-                        <button onClick={() => setSubMenu((prev) => !prev)} className="text-neutral-400 font-semibold text-lg cursor-pointer">{" > "}</button>
-                    </div>
-
-                    <div className={`${showSubMenu ? "h-[150px]" : "h-0"} ml-3 transition-all duration-700 relative overflow-hidden w-full`}>
-
-                        <SideLink
-                            icon={BsSave}
-                            iconSize={18}
-                            linkName="Companies"
-                            linkUrl="/companies"
-                        />
-
-                        <SideLink
-                            icon={BsRSquareFill}
-                            iconSize={18}
-                            linkName="Agents"
-                            linkUrl="/agents"
-                        />
-
-                    </div>
-
-
-                </div>
-
                 <SideLink
-                    icon={BsRSquareFill}
-                    iconSize={18}
-                    linkName="Users"
-                    linkUrl="/users"
+                    icon={MdWork}
+                    linkName="Jobs"
+                    linkUrl="/jobs"
                 />
                 <SideLink
-                    icon={BsGithub}
-                    iconSize={18}
+                    icon={BsBuilding}
                     linkName="Companies"
                     linkUrl="/companies"
                 />
                 <SideLink
-                    icon={BsPersonLinesFill}
-                    iconSize={18}
+                    icon={FaRegUser}
                     linkName="Agents"
                     linkUrl="/agents"
                 />
                 <SideLink
-                    icon={BsChatDotsFill}
-                    iconSize={18}
+                    icon={MdOutlineMoneyOffCsred}
                     linkName="Expenses"
                     linkUrl="/expenses"
                 />
                 <SideLink
-                    icon={BsChatDotsFill}
-                    iconSize={18}
+                    icon={MdOutlineAttachMoney}
                     linkName="Revenues"
                     linkUrl="/revenues"
                 />
-                <SideLink
-                    icon={BsChatDotsFill}
-                    iconSize={18}
-                    linkName="Accounts"
-                    linkUrl="/accounts"
-                />
-                <SideLink
-                    icon={BsChatDotsFill}
-                    iconSize={18}
-                    linkName="Transactions"
-                    linkUrl="/transactions"
-                />
+                {
+                    isAdminOrTenant
+                    ?
+                    <>
+                        <SideLink
+                            icon={FaWallet}
+                            linkName="Accounts"
+                            linkUrl="/accounts"
+                        />
+                        <SideLink
+                            icon={TbTransactionDollar}
+                            linkName="Transactions"
+                            linkUrl="/transactions"
+                        />
+                        <SideLink
+                            icon={FaRegUser}
+                            linkName="Users"
+                            linkUrl="/users"
+                        />
+                    </>
+                    :
+                    null
+                }
             </div>
         </div >
     );
