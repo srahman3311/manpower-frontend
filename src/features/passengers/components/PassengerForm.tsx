@@ -185,9 +185,6 @@ const PassengerForm: React.FC = () => {
             addressInfo
         });
 
-        // console.log(requestBody)
-        // return;
-
         try {
             if(passengerId) {
                 await editPassenger(
@@ -201,9 +198,6 @@ const PassengerForm: React.FC = () => {
             } else {
                 await createPassenger( {
                     ...requestBody,
-                    address: {
-                        line1: requestBody.address ?? null
-                    },
                     agentId: selectedAgent.id,
                     jobId: selectedJob?.id
                 });

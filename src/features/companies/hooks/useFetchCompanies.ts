@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { CompanyState } from "../types/CompanyState";
 import { fetchCompanies } from "../../../services/companies";
 import { fetchCompanyData } from "../slices/companyReducer";
+import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 
 type Params = Pick<CompanyState, "searchText" | "skip" | "limit">
 
@@ -26,7 +27,6 @@ export const useFetchCompanies = (): Return => {
         try {
         
             const { companies, total } = await fetchCompanies(params);
-            console.log(companies)
         
             dispatch(fetchCompanyData({
                 companies,
@@ -35,7 +35,8 @@ export const useFetchCompanies = (): Return => {
 
         } catch(error: any) {
 
-            setErrorMsg(error.response?.data || error.message)
+            const { message } = handleApiError(error);
+            setErrorMsg(message)
 
         } finally {
             setLoading(false);
