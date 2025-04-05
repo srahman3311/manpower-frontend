@@ -9,12 +9,15 @@ import {
     addNewPassengerInfo,
     addNewAddressInfo,
     addNewMedicalInfo,
-    addNewPassportInfo 
+    addNewPassportInfo,
+    clearPassengerInfo 
 } from "../slices/passengerReducer";
 import { createPassenger, editPassenger } from "../../../services/passengers";
 import { validatePassword } from "../../../utils/validators/validatePassword";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 import { getPassengerRequestBody } from "../utils/getPassengerRequestBody";
+import { uploadFiles } from "../../../utils/file-handlers/uploadFiles";
+import { removeFiles } from "../../../utils/file-handlers/removeFiles";
 import { useFetchAgents } from "../../agents/hooks/useFetchAgents";
 import { useFetchJobs } from "../../jobs/hooks/useFetchJobs";
 import styles from "../styles/AddEditPassenger.module.css";
@@ -42,7 +45,9 @@ const PassengerForm: React.FC = () => {
         passportInfo,
         medicalInfo,
         addressInfo,
-        newPassengerInfo 
+        newPassengerInfo,
+        passengerInAction,
+        photo 
     } = passengerState; 
     const { fetchAgentList } = useFetchAgents();
     const { fetchJobList } = useFetchJobs();
@@ -61,6 +66,17 @@ const PassengerForm: React.FC = () => {
             limit: 1000 
         });
     }, [fetchAgentList, fetchJobList])
+
+    useEffect(() => {
+        if(photo) {
+            dispatch(updateState({
+                name: "photo",
+                value: null
+            }));
+        }
+        if(passengerId) return;
+        dispatch(clearPassengerInfo());
+    }, [passengerId, dispatch, updateState])
 
     const uploadPhoto = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         if(!event.target.files) return;
@@ -178,6 +194,32 @@ const PassengerForm: React.FC = () => {
             return;
         }
 
+        let imageUrl: string | undefined;
+
+        if(photo) {
+
+            // Means user is changing the photo. So, need to remove the old photo
+            if(passengerInAction?.imageUrl && photo) {
+                const { success, message } = await removeFiles([passengerInAction.imageUrl]);
+                if(!success) {
+                    alert(message);
+                    return;
+                }
+            }
+
+            const { urls, errorMessage } = await uploadFiles([photo], "passengers");
+    
+            if(errorMessage) {
+                alert(errorMessage);
+                return;
+            }
+
+            if(urls.length > 0) {
+                imageUrl = urls[0].url
+            }
+
+        }
+
         const requestBody = getPassengerRequestBody({
             newPassengerInfo,
             passportInfo,
@@ -191,6 +233,7 @@ const PassengerForm: React.FC = () => {
                     passengerId, 
                     {
                         ...requestBody,
+                        imageUrl,
                         agentId: selectedAgent.id,
                         jobId: selectedJob?.id
                     }
@@ -198,15 +241,29 @@ const PassengerForm: React.FC = () => {
             } else {
                 await createPassenger( {
                     ...requestBody,
+                    imageUrl,
                     agentId: selectedAgent.id,
                     jobId: selectedJob?.id
                 });
             }
-            navigate("/passengers")
+
+            navigate("/passengers");
+            
         } catch(error) {
+
             const { message } = handleApiError(error);
-            setValidationErrorMsg(message)
+            setValidationErrorMsg(message);
+
+            /*
+                Only if passengr has no photo and user uploaded one just now we need to remove it.
+                If user was trying to replace then we keep the replaced photo. This is rarely going
+                to happen so if user changed the photo but edit was not successful then don't bother
+            */
+            if(imageUrl && !passengerInAction?.imageUrl) {
+                await removeFiles([imageUrl]);
+            }
             console.log(error);
+
         }
 
     }, [
@@ -216,17 +273,25 @@ const PassengerForm: React.FC = () => {
         addressInfo,
         selectedAgent,
         selectedJob,
+        photo,
+        passengerInAction,
         navigate, 
         setValidationError, 
+        setValidationErrorMsg,
         validatePassword, 
+        uploadFiles,
+        removeFiles,
         createPassenger, 
-        editPassenger
+        editPassenger,
+        handleApiError,
     ])
 
     return (
         <form className={styles.passenger_form} onSubmit={savePassenger}>
             <div className={styles.photo_input}>
                 <FileInput 
+                    file={photo}
+                    imageUrl={passengerInAction?.imageUrl ?? ""}
                     handleFile={uploadPhoto}
                 />
             </div>

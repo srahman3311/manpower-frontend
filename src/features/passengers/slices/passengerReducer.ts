@@ -179,7 +179,8 @@ const passengersSlice = createSlice({
                     country: address.country ?? "",
                 },
                 selectedAgent: passenger.agent,
-                selectedJob: passenger.job
+                selectedJob: passenger.job,
+                passengerInAction: passenger
             }
         },
 
@@ -228,7 +229,9 @@ const passengersSlice = createSlice({
                     country: "",
                 },
                 selectedAgent: null,
-                selectedJob: null
+                selectedJob: null,
+                passengerInAction: null,
+                photo: null
             }
         },
         toggleDeleteModal: (state, action: PayloadAction<Passenger | null>) => {
