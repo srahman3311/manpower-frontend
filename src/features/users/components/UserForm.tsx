@@ -8,6 +8,8 @@ import { updateState, addNewUserInfo, clearUserInfo } from "../slices/userReduce
 import { createUser, editUser } from "../../../services/users";
 import { validatePassword } from "../../../utils/validators/validatePassword";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
+import { uploadFiles } from "../../../utils/file-handlers/uploadFiles";
+import { removeFiles } from "../../../utils/file-handlers/removeFiles";
 import styles from "../styles/AddEditUser.module.css";
 import TextInput from "../../../components/inputs/TextInput";
 import FileInput from "../../../components/inputs/FileInput";
@@ -21,11 +23,21 @@ const UserForm: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const userState = useSelector((state: RootState) => state.userState);
-    const { newUserInfo } = userState; 
+    const { 
+        newUserInfo,
+        profilePhoto, 
+        userInAction
+    } = userState; 
     const [validationError, setValidationError] = useState<boolean>(false);
     const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
 
     useEffect(() => {
+         if(profilePhoto) {
+            dispatch(updateState({
+                name: "profilePhoto",
+                value: null
+            }));
+        }
         if(userId) return;
         dispatch(clearUserInfo());
     }, [userId])
@@ -99,11 +111,38 @@ const UserForm: React.FC = () => {
             }
         }
 
+        let imageUrl: string | undefined;
+
+        if(profilePhoto) {
+        
+            // Means user is changing the profilePhoto. So, need to remove the old profilePhoto
+            if(userInAction?.imageUrl && profilePhoto) {
+                const { success, message } = await removeFiles([userInAction.imageUrl]);
+                if(!success) {
+                    alert(message);
+                    return;
+                }
+            }
+
+            const { urls, errorMessage } = await uploadFiles([profilePhoto], "users");
+    
+            if(errorMessage) {
+                alert(errorMessage);
+                return;
+            }
+
+            if(urls.length > 0) {
+                imageUrl = urls[0].url
+            }
+
+        }
+        
         let requestBody: UserRequestBody = {
             firstName,
             lastName,
             email,
             password,
+            imageUrl,
             balance: balance !== "" ? Number(balance) : 0,
             roles: [role],
             permissions: ["read", "write", "delete"]
@@ -123,15 +162,39 @@ const UserForm: React.FC = () => {
         } catch(error) {
             const { message } = handleApiError(error);
             setValidationErrorMsg(message)
+            /*
+                Only if user has no photo and user uploaded one just now we need to remove it.
+                If user was trying to replace then we keep the replaced photo. This is rarely going
+                to happen so if user changed the photo but edit was not successful then don't bother
+            */
+            if(imageUrl && !userInAction?.imageUrl) {
+                await removeFiles([imageUrl]);
+            }
             console.log(error);
         }
 
-    }, [newUserInfo, navigate, setValidationError, validatePassword, createUser, editUser])
+    }, [
+        userId,
+        newUserInfo, 
+        profilePhoto,
+        userInAction,
+        uploadFiles,
+        removeFiles,
+        navigate, 
+        setValidationError, 
+        setValidationErrorMsg,
+        handleApiError,
+        validatePassword, 
+        createUser, 
+        editUser
+    ])
 
     return (
         <form className={styles.user_form} onSubmit={saveUser}>
             <div className={styles.photo_input}>
                 <FileInput 
+                    file={profilePhoto}
+                    imageUrl={userInAction?.imageUrl ?? ""}
                     handleFile={uploadProfilePhoto}
                 />
             </div>

@@ -52,8 +52,23 @@ const usersSlice = createSlice({
                 }
             }
         },
+        editUserInfo: (state, action: PayloadAction<IUser>) => {
+            const user = action.payload;
+            return {
+                ...state,
+                newUserInfo: {
+                    ...state.newUserInfo,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    phone: user.phone ?? "",
+                    role: user.roles.length > 0 ? user.roles[0].name : "",
+                    balance: user.balance.toString()
+                },
+                userInAction: user
+            }
+        },
         clearUserInfo: (state) => {
-           
             return {
                 ...state,
                 newUserInfo: {
@@ -91,6 +106,7 @@ export const {
     updateState,
     fetchUserData,
     addNewUserInfo,
+    editUserInfo,
     clearUserInfo,
     toggleDeleteModal,
     filterUserList

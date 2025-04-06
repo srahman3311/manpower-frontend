@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../store";
-import { updateState, toggleDeleteModal } from "../slices/agentReducer";
+import { updateState, toggleDeleteModal, editAgentInfo } from "../slices/agentReducer";
 import { useFetchAgents } from "../hooks/useFetchAgents";
 import peoplePlaceholderImg from "../../../assets/people_placeholder.jpg";
 import styles from "../styles/AgentTable.module.css";
@@ -16,7 +16,7 @@ const AgentTable = () => {
     const dispatch = useDispatch();
     const { loading, errorMsg, fetchAgentList } = useFetchAgents();
     const agentState = useSelector((state: RootState) => state.agentState);
-    const { searchText, skip, limit, totalAgentCount, agentList, newAgentInfo } = agentState;
+    const { searchText, skip, limit, totalAgentCount, agentList } = agentState;
 
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -45,19 +45,8 @@ const AgentTable = () => {
             return;
         }
 
-        dispatch(updateState({
-            name: "newAgentInfo",
-            value: {
-                ...newAgentInfo,
-                firstName: agentInAction.firstName,
-                lastName: agentInAction.lastName,
-                email: agentInAction.email ?? "",
-                phone: agentInAction.phone,
-                category: agentInAction.category,
-                address: agentInAction.address.line1 ?? ""
-            }
-        }))
-      
+        dispatch(editAgentInfo(agentInAction))
+
         navigate(`/agents/edit/${id}`);
 
     }, [agentList, dispatch, updateState])

@@ -4,6 +4,7 @@ import { NewAgentInfo, AgentState } from "../features/agents/types/AgentState";
 
 type Params = Pick<AgentState, "searchText" | "skip" | "limit">;
 type RequestBody = Partial<Omit<NewAgentInfo, "address">> & {
+    imageUrl?: string
     address: {
         line1: string | null
     }

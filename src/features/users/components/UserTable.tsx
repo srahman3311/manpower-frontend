@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../store";
-import { updateState, toggleDeleteModal } from "../slices/userReducer";
+import { updateState, toggleDeleteModal, editUserInfo } from "../slices/userReducer";
 import { useFetchUsers } from "../hooks/useFetchUsers";
 import peoplePlaceholderImg from "../../../assets/people_placeholder.jpg";
 import styles from "../styles/UserTable.module.css";
@@ -16,7 +16,7 @@ const UserTable = () => {
     const dispatch = useDispatch();
     const { loading, errorMsg, fetchUserList } = useFetchUsers();
     const userState = useSelector((state: RootState) => state.userState);
-    const { searchText, skip, limit, totalUserCount, userList, newUserInfo } = userState;
+    const { searchText, skip, limit, totalUserCount, userList } = userState;
 
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -45,18 +45,7 @@ const UserTable = () => {
             return;
         }
 
-        dispatch(updateState({
-            name: "newUserInfo",
-            value: {
-                ...newUserInfo,
-                firstName: userInAction.firstName,
-                lastName: userInAction.lastName,
-                email: userInAction.email,
-                phone: userInAction.phone ?? "",
-                role: userInAction.roles.length > 0 ? userInAction.roles[0].name : "",
-                balance: userInAction.balance.toString()
-            }
-        }))
+        dispatch(editUserInfo(userInAction));
       
         navigate(`/users/edit/${id}`);
 

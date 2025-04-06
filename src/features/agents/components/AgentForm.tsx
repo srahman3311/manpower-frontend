@@ -4,9 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../store";
 import { AgentCategory } from "../types/Agent";
 import { NewAgentInfo } from "../types/AgentState";
-import { updateState, addNewAgentInfo } from "../slices/agentReducer";
+import { updateState, addNewAgentInfo, clearAgentInfo } from "../slices/agentReducer";
 import { createAgent, editAgent } from "../../../services/agents";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
+import { uploadFiles } from "../../../utils/file-handlers/uploadFiles";
+import { removeFiles } from "../../../utils/file-handlers/removeFiles";
 import styles from "../styles/AddEditAgent.module.css";
 import TextInput from "../../../components/inputs/TextInput";
 import FileInput from "../../../components/inputs/FileInput";
@@ -20,24 +22,23 @@ const AgentForm: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const agentState = useSelector((state: RootState) => state.agentState);
-    const { newAgentInfo } = agentState; 
+    const { 
+        newAgentInfo, 
+        photo,
+        agentInAction 
+    } = agentState; 
     const [validationError, setValidationError] = useState<boolean>(false);
     const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
 
     useEffect(() => {
+        if(photo) {
+            dispatch(updateState({
+                name: "photo",
+                value: null
+            }));
+        }
         if(agentId) return;
-        dispatch(updateState({
-            name: "newAgentInfo",
-            value: {
-                ...newAgentInfo,
-                firstName: "",
-                lastName: "",
-                email: "",
-                phone: "",
-                category: "A",
-                address: ""
-            }
-        }));
+        dispatch(clearAgentInfo());
     }, [agentId])
 
     const uploadPhoto = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +83,33 @@ const AgentForm: React.FC = () => {
             return;
         }
 
+        let imageUrl: string | undefined;
+
+         if(photo) {
+        
+            // Means user is changing the photo. So, need to remove the old photo
+            if(agentInAction?.imageUrl && photo) {
+                const { success, message } = await removeFiles([agentInAction.imageUrl]);
+                if(!success) {
+                    alert(message);
+                    return;
+                }
+            }
+
+            const { urls, errorMessage } = await uploadFiles([photo], "agents");
+    
+            if(errorMessage) {
+                alert(errorMessage);
+                return;
+            }
+
+            if(urls.length > 0) {
+                imageUrl = urls[0].url
+            }
+
+        }
+
+
         let requestBody: Partial<NewAgentInfo> = {
             firstName,
             lastName,
@@ -99,30 +127,53 @@ const AgentForm: React.FC = () => {
                     agentId, 
                     {
                         ...requestBody, 
+                        imageUrl,
                         address: { line1: address ?? null }
                     }
                 )
             } else {
                 await createAgent({
                     ...requestBody,
+                    imageUrl,
                     address: { line1: address ?? null }
                 });
             }
             navigate("/agents")
         } catch(error) {
             const { message } = handleApiError(error);
-            setValidationErrorMsg(message)
+            setValidationErrorMsg(message);
+            /*
+                Only if agent has no photo and user uploaded one just now we need to remove it.
+                If user was trying to replace then we keep the replaced photo. This is rarely going
+                to happen so if user changed the photo but edit was not successful then don't bother
+            */
+            if(imageUrl && !agentInAction?.imageUrl) {
+                await removeFiles([imageUrl]);
+            }
             console.log(error);
         }
 
-    }, [newAgentInfo, navigate, setValidationError, createAgent, editAgent])
-
-    console.log(newAgentInfo)
+    }, [
+        newAgentInfo, 
+        navigate, 
+        setValidationError, 
+        setValidationErrorMsg,
+        createAgent, 
+        editAgent,
+        photo,
+        agentInAction,
+        agentId,
+        uploadFiles,
+        removeFiles,
+        handleApiError
+    ])
 
     return (
         <form className={styles.agent_form} onSubmit={saveAgent}>
             <div className={styles.photo_input}>
                 <FileInput 
+                    file={photo}
+                    imageUrl={agentInAction?.imageUrl ?? ""}
                     handleFile={uploadPhoto}
                 />
             </div>

@@ -13,6 +13,7 @@ export type UserRequestBody = Pick<IUser, "firstName" | "lastName" | "email" | "
     roles: string[]
     permissions: string[]
     balance?: number
+    imageUrl?: string
 }
 
 

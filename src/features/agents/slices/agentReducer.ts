@@ -50,6 +50,36 @@ const agentsSlice = createSlice({
                 }
             }
         },
+        editAgentInfo: (state, action: PayloadAction<IAgent>) => {
+            const agent = action.payload;
+            return {
+                ...state,
+                newAgentInfo: {
+                    firstName: agent.firstName,
+                    lastName: agent.lastName,
+                    email: agent.email ?? "",
+                    phone: agent.phone,
+                    category: agent.category,
+                    address: agent.address.line1 ?? ""
+                },
+                agentInAction: agent
+            }
+        },
+        clearAgentInfo: (state) => {
+            return {
+                ...state,
+                newAgentInfo: {
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    category: AgentCategory.A,
+                    address: ""
+                },
+                agentInAction: null,
+                photo: null
+            }
+        },
         toggleDeleteModal: (state, action: PayloadAction<IAgent | null>) => {
             return {
                 ...state,
@@ -71,6 +101,8 @@ export const {
     updateState,
     fetchAgentData,
     addNewAgentInfo,
+    editAgentInfo,
+    clearAgentInfo,
     toggleDeleteModal,
     filterAgentList
 } = agentsSlice.actions;
