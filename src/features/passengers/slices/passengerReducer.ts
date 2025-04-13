@@ -29,6 +29,10 @@ const initialState: PassengerState = {
         visaNumber: "",
         visaExpiryDate: null,
         visaIssueDate: null,
+        visaApplicationNumber: "",
+        visaApplicationDate: null,
+        visaApplicationFingerDate: null,
+        visaBMATFingerDate: null,
         idNumber: "",
         status: "processing"
     },
@@ -43,6 +47,16 @@ const initialState: PassengerState = {
         expiryDate: null,
         status: "processing"
     },
+    newFlightInfo: {
+        date: null,
+        airlinesName: "",
+        number: "",
+        departureDate: null,
+        departurePlaceAndTime: "",
+        arrivalDate: null,
+        arrivalPlaceAndTime: ""
+    },
+    flights: [],
     addressInfo: {
         line1: "",
         line2: "",
@@ -117,6 +131,16 @@ const passengersSlice = createSlice({
                 }
             }
         },
+        addNewFlightInfo: (state, action: PayloadAction<{ name: string, value: any }>) => {
+            const { name, value } = action.payload;
+            return {
+                ...state,
+                newFlightInfo: {
+                    ...state.newFlightInfo,
+                    [name]: value
+                }
+            }
+        },
         addNewAddressInfo: (state, action: PayloadAction<{ name: string, value: any }>) => {
             const { name, value } = action.payload;
             return {
@@ -135,6 +159,18 @@ const passengersSlice = createSlice({
                 address
             } = passenger;
             const birthDate = passenger.birthDate ? new Date(passenger.birthDate) : null;
+            const flights = passenger.flights.map(flight => {
+                return {
+                    id: flight.id,
+                    date: flight.date ? new Date(flight.date) : undefined,
+                    airlinesName: flight.airlinesName ?? undefined,
+                    number: flight.number ?? undefined,
+                    departureDate: flight.departureDate ? new Date(flight.departureDate) : undefined,
+                    departurePlaceAndTime: flight.departurePlaceAndTime ?? undefined,
+                    arrivalDate: flight.arrivalDate ? new Date(flight.arrivalDate) : undefined,
+                    arrivalPlaceAndTime: flight.arrivalPlaceAndTime ?? undefined,
+                }
+            })
             return {
                 ...state,
                 newPassengerInfo: {
@@ -156,6 +192,10 @@ const passengersSlice = createSlice({
                     visaNumber: passenger.visaNumber ?? "",
                     visaExpiryDate: passenger.visaExpiryDate ? new Date(passenger.visaExpiryDate) : null,
                     visaIssueDate: passenger.visaIssueDate ? new Date(passenger.visaIssueDate) : null,
+                    visaApplicationNumber: passenger.visaApplicationNumber ?? "",
+                    visaApplicationDate: passenger.visaApplicationDate ? new Date(passenger.visaApplicationDate) : null,
+                    visaApplicationFingerDate: passenger.visaApplicationFingerDate ? new Date(passenger.visaApplicationFingerDate) : null,
+                    visaBMATFingerDate: passenger.visaBMATFingerDate ? new Date(passenger.visaBMATFingerDate) : null,
                     idNumber: passenger.idNumber ?? "",
                     status: passenger.status
                 },
@@ -178,6 +218,7 @@ const passengersSlice = createSlice({
                     state: address.state ?? "",
                     country: address.country ?? "",
                 },
+                flights,
                 selectedAgent: passenger.agent,
                 selectedJob: passenger.job,
                 passengerInAction: passenger
@@ -206,6 +247,10 @@ const passengersSlice = createSlice({
                     visaNumber: "",
                     visaExpiryDate: null,
                     visaIssueDate: null,
+                    visaApplicationNumber: "",
+                    visaApplicationDate: null,
+                    visaApplicationFingerDate: null,
+                    visaBMATFingerDate: null,
                     idNumber: "",
                     status: "processing"
                 },
@@ -228,10 +273,25 @@ const passengersSlice = createSlice({
                     state: "",
                     country: "",
                 },
+                flights: [],
                 selectedAgent: null,
                 selectedJob: null,
                 passengerInAction: null,
                 photo: null
+            }
+        },
+        clearNewFlightInfo: (state) => {
+            return {
+                ...state,
+                newFlightInfo: {
+                    date: null,
+                    airlinesName: "",
+                    number: "",
+                    departureDate: null,
+                    departurePlaceAndTime: "",
+                    arrivalDate: null,
+                    arrivalPlaceAndTime: ""
+                }
             }
         },
         toggleDeleteModal: (state, action: PayloadAction<Passenger | null>) => {
@@ -257,9 +317,11 @@ export const {
     addNewPassengerInfo,
     addNewAddressInfo,
     addNewMedicalInfo,
+    addNewFlightInfo,
     addNewPassportInfo,
     editPassengerInfo,
     clearPassengerInfo,
+    clearNewFlightInfo,
     toggleDeleteModal,
     filterPassengerList
 } = passengersSlice.actions;

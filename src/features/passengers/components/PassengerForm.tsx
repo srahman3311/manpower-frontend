@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -9,8 +9,10 @@ import {
     addNewPassengerInfo,
     addNewAddressInfo,
     addNewMedicalInfo,
+    addNewFlightInfo,
     addNewPassportInfo,
-    clearPassengerInfo 
+    clearPassengerInfo,
+    clearNewFlightInfo 
 } from "../slices/passengerReducer";
 import { createPassenger, editPassenger } from "../../../services/passengers";
 import { validatePassword } from "../../../utils/validators/validatePassword";
@@ -29,6 +31,7 @@ import ValidationErrorMessage from "../../../components/messages/ValidationError
 import PassportForm from "./PassportForm";
 import MedicalForm from "./MedicalForm";
 import AddressForm from "../../../components/forms/AddressForm";
+import FlightTable from "./FlightTable";
 import { _Address } from "../../../types/Address";
 
 const PassengerForm: React.FC = () => {
@@ -45,6 +48,8 @@ const PassengerForm: React.FC = () => {
         passportInfo,
         medicalInfo,
         addressInfo,
+        newFlightInfo,
+        flights,
         newPassengerInfo,
         passengerInAction,
         photo 
@@ -74,6 +79,7 @@ const PassengerForm: React.FC = () => {
                 value: null
             }));
         }
+        dispatch(clearNewFlightInfo())
         if(passengerId) return;
         dispatch(clearPassengerInfo());
     }, [passengerId, dispatch, updateState])
@@ -105,6 +111,11 @@ const PassengerForm: React.FC = () => {
             return;
         }
 
+        if(dataset.type === "flight") {
+            dispatch(addNewFlightInfo({ name, value }))
+            return;
+        }
+
         dispatch(addNewPassengerInfo({ name, value }));
 
     }, [dispatch, addNewPassengerInfo, addNewAddressInfo, addNewMedicalInfo, addNewPassportInfo])
@@ -131,6 +142,13 @@ const PassengerForm: React.FC = () => {
 
         if(group === "medical") {
             dispatch(addNewMedicalInfo({ 
+                name, 
+                value: date 
+            }));
+        }
+
+        if(group === "flight") {
+            dispatch(addNewFlightInfo({ 
                 name, 
                 value: date 
             }));
@@ -175,7 +193,35 @@ const PassengerForm: React.FC = () => {
             }
         }));
 
-    }, [dispatch, updateState])
+    }, [
+        dispatch, 
+        newPassengerInfo,
+        medicalInfo,
+        updateState
+    ])
+
+
+    const addFlight = useCallback((event: any) => {
+
+        event.preventDefault();
+
+        const flightExists = flights.some(flight => flight.number === newFlightInfo.number);
+        if(flightExists) return alert("Flight already exists");
+       
+        let flight: any = {}
+
+        Object.entries(newFlightInfo).forEach(([key, value]) => {
+            if(value) {
+                flight[key] = value
+            }
+        });
+
+        dispatch(updateState({
+            name: "flights",
+            value: [...flights, flight]
+        }));
+
+    }, [newFlightInfo, flights, dispatch, updateState])
 
     const savePassenger = useCallback(async(event: React.FormEvent<HTMLFormElement>) => {
 
@@ -234,6 +280,7 @@ const PassengerForm: React.FC = () => {
                     {
                         ...requestBody,
                         imageUrl,
+                        flights,
                         agentId: selectedAgent.id,
                         jobId: selectedJob?.id
                     }
@@ -242,6 +289,7 @@ const PassengerForm: React.FC = () => {
                 await createPassenger( {
                     ...requestBody,
                     imageUrl,
+                    flights,
                     agentId: selectedAgent.id,
                     jobId: selectedJob?.id
                 });
@@ -275,6 +323,7 @@ const PassengerForm: React.FC = () => {
         selectedJob,
         photo,
         passengerInAction,
+        flights,
         navigate, 
         setValidationError, 
         setValidationErrorMsg,
@@ -391,7 +440,42 @@ const PassengerForm: React.FC = () => {
                         onChange={handleChange}
                     />
                 </div>
+                <div className={styles.flex_input}>
+                    <TextInput
+                        label="Experience"
+                        name="experience"
+                        data-type="basic"
+                        value={newPassengerInfo.experience}
+                        onChange={handleChange}
+                    />
+                    <TextInput
+                        label="Father's Name"
+                        name="fatherName"
+                        data-type="basic"
+                        value={newPassengerInfo.fatherName}
+                        onChange={handleChange}
+                    />
+                    <TextInput
+                        label="Mother's Name"
+                        name="motherName"
+                        data-type="basic"
+                        value={newPassengerInfo.motherName}
+                        onChange={handleChange}
+                    />
+                </div>
             </div>
+            <h3>Address</h3>
+            <div className={styles.passenger_form_group}>
+                <AddressForm 
+                    address={addressInfo}
+                    handleChange={handleChange}
+                />
+            </div>
+            <h3>Medical Info</h3>
+            <MedicalForm 
+                handleDropdownClick={handleDropdownClick}
+                selectDate={selectDate}
+            />
             <h3>Passport Info</h3>
             <PassportForm 
                 handleChange={handleChange}
@@ -401,12 +485,35 @@ const PassengerForm: React.FC = () => {
             <div className={styles.passenger_form_group}>
                 <div className={styles.flex_input}>
                     <TextInput
-                        label="Visa Number"
-                        name="visaNumber"
+                        label="Visa Application Number"
+                        name="visaApplicationNumber"
                         data-type="basic"
-                        value={newPassengerInfo.visaNumber}
+                        value={newPassengerInfo.visaApplicationNumber}
                         onChange={handleChange}
                     />
+                    <div className={styles.datepicker}>
+                        <label>Visa Application Date</label>
+                        <DatePicker 
+                            selected={newPassengerInfo.visaApplicationDate}
+                            onChange={(date) => selectDate(date, { group: "basic", field: "visaApplicationDate" })}
+                        />
+                    </div>
+                    <div className={styles.datepicker}>
+                        <label>BMAT Date</label>
+                        <DatePicker 
+                            selected={newPassengerInfo.visaBMATFingerDate}
+                            onChange={(date) => selectDate(date, { group: "basic", field: "visaBMATFingerDate" })}
+                        />
+                    </div>
+                </div>
+                <div className={styles.flex_input}>
+                    <div className={styles.datepicker}>
+                        <label>Visa Issue Date</label>
+                        <DatePicker 
+                            selected={newPassengerInfo.visaIssueDate}
+                            onChange={(date) => selectDate(date, { group: "basic", field: "visaIssueDate" })}
+                        />
+                    </div>
                     <div className={styles.datepicker}>
                         <label>Visa Expiry Date</label>
                         <DatePicker 
@@ -414,6 +521,13 @@ const PassengerForm: React.FC = () => {
                             onChange={(date) => selectDate(date, { group: "basic", field: "visaExpiryDate" })}
                         />
                     </div>
+                    <TextInput
+                        label="Visa Number"
+                        name="visaNumber"
+                        data-type="basic"
+                        value={newPassengerInfo.visaNumber}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className={styles.flex_input}>
                     <TextInput
@@ -432,18 +546,80 @@ const PassengerForm: React.FC = () => {
                     />
                 </div>
             </div>
-            <h3>Medical Info</h3>
-            <MedicalForm 
-                handleDropdownClick={handleDropdownClick}
-                selectDate={selectDate}
-            />
-            <h3>Address</h3>
+
+            <h3>Flight Info</h3>
             <div className={styles.passenger_form_group}>
-                <AddressForm 
-                    address={addressInfo}
-                    handleChange={handleChange}
-                />
+                <div className={styles.flex_input}>
+                    <div className={styles.datepicker}>
+                        <label>Date</label>
+                        <DatePicker 
+                            selected={newFlightInfo.date}
+                            onChange={(date) => selectDate(date, { group: "flight", field: "date" })}
+                        />
+                    </div>
+                    <TextInput
+                        label="Airlines Name"
+                        name="airlinesName"
+                        data-type="flight"
+                        value={newFlightInfo.airlinesName}
+                        onChange={handleChange}
+                    />
+                    <TextInput
+                        label="Flight Number"
+                        name="number"
+                        data-type="flight"
+                        value={newFlightInfo.number}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={styles.flex_input}>
+                    <div className={styles.datepicker}>
+                        <label>Departure Date</label>
+                        <DatePicker 
+                            selected={newFlightInfo.departureDate}
+                            onChange={(date) => selectDate(date, { group: "flight", field: "departureDate" })}
+                        />
+                    </div>
+                    <TextInput
+                        label="Departure Place And Time"
+                        name="departurePlaceAndTime"
+                        data-type="flight"
+                        value={newFlightInfo.departurePlaceAndTime}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={styles.flex_input}>
+                    <div className={styles.datepicker}>
+                        <label>Arrival Date</label>
+                        <DatePicker 
+                            selected={newFlightInfo.arrivalDate}
+                            onChange={(date) => selectDate(date, { group: "flight", field: "arrivalDate" })}
+                        />
+                    </div>
+                    <TextInput
+                        label="Arrival Place And Time"
+                        name="arrivalPlaceAndTime"
+                        data-type="flight"
+                        value={newFlightInfo.arrivalPlaceAndTime}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={styles.flight_add_button}>
+                    <button onClick={addFlight}>
+                        Add
+                    </button>
+                </div>
+                {
+                    flights.length > 0
+                    ?
+                    <FlightTable />
+                    :
+                    null
+                }
+                
             </div>
+        
+        
             <h3>Cost, Sale And Status</h3>
             <div className={styles.passenger_form_group}>
                 <div className={styles.flex_input}>

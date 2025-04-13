@@ -4,6 +4,7 @@ import { Agent } from "../../agents/types/Agent";
 import { Address } from "../../../types/Address";
 import { Passport } from "./Passport";
 import { Medical } from "./Medical";
+import { Flight } from "./Flight";
 
 export interface PassengerModel {
     name: string
@@ -25,11 +26,16 @@ export interface PassengerModel {
     address: Address
     cost: number
     sale: number
-    enjazNumber: string
-    visaNumber: string
+    enjazNumber: string | null
+    visaNumber: string | null
+    visaApplicationNumber: string | null
+    visaApplicationDate: string | null
+    visaApplicationFingerDate: string | null
     visaIssueDate: string | null
     visaExpiryDate: string | null
-    idNumber: string
+    visaBMATFingerDate: string | null
+    idNumber: string | null
+    flights: Flight[]
     status: string
     imageUrl: string | null
 }

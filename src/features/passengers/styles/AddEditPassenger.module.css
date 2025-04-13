@@ -65,6 +65,49 @@
     font-weight: bold;
 }
 
+.flight_list {
+    margin: 20px 0px;
+    padding: 10px 20px;
+    border: 1px solid #4c357568;
+    border-radius: 5px;
+}
+
+.flight_table {
+    width: 90%;
+    margin: auto;
+    overflow: auto;   
+    background-color: rgba(221, 221, 221, 0.062);
+    border-collapse: collapse;
+}
+
+.flight_table td {
+    position: relative;
+    text-align: center;
+    padding: 7px 0px;
+    font-size: 0.8rem;
+}
+
+.flight_table thead tr { border-bottom: 1px solid rgba(0, 0, 0, 0.096); }
+.flight_table thead tr th { padding-bottom: 3px; }
+
+.flight_add_button {
+    margin: 0px 0px 20px 0px;
+    text-align: center;
+}
+
+.flight_add_button button {
+    background-color: #4C3575;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 5px 30px;
+}
+
+button.remove_schedule {
+    background: none;
+}
+
 .save_btn_container {
     text-align: center;
     margin-top: 20px;

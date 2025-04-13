@@ -12,8 +12,8 @@ export const getStatusColor = (type: string, date: string | null, status?: strin
 
     const todaInMS = new Date().getTime();
     const dateInMS = new Date(date).getTime();
-
-    const diff = Math.abs(dateInMS - todaInMS);
+    
+    const diff = dateInMS - todaInMS;
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     if(days < 15) color = "red";

@@ -14,6 +14,10 @@ PassengerModel,
 "passport" |
 "visaExpiryDate" |
 "visaIssueDate" |
+"visaApplicationDate" |
+"visaApplicationFingerDate" |
+"visaBMATFingerDate" |
+"flights" |
 "medical" |
 "job" |
 "agent" |
@@ -27,6 +31,9 @@ export type NewPassengerInfo = {
     birthDate: Date | null 
     visaExpiryDate: Date | null
     visaIssueDate: Date | null
+    visaApplicationDate: Date | null
+    visaApplicationFingerDate: Date | null
+    visaBMATFingerDate: Date | null
 }
 
 export type NewPassportInfo = {
@@ -42,6 +49,17 @@ export type NewMedicalInfo = {
     status: string
 }
 
+export type NewFlightInfo = {
+    id?: number 
+    date: Date | null   
+    airlinesName: string
+    number: string  
+    departureDate: Date | null
+    departurePlaceAndTime: string
+    arrivalDate: Date | null
+    arrivalPlaceAndTime: string
+}
+
 export interface PassengerState {
     searchText: string
     skip: number
@@ -54,6 +72,8 @@ export interface PassengerState {
     newPassengerInfo: NewPassengerInfo
     passportInfo: NewPassportInfo
     medicalInfo: NewMedicalInfo
+    newFlightInfo: NewFlightInfo
+    flights: Partial<NewFlightInfo>[]
     addressInfo: _Address
     photo: File | null
     passengerInAction: Passenger | null
