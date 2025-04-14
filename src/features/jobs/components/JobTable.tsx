@@ -35,6 +35,15 @@ const JobTable = () => {
 
         if(!jobInAction) return;
 
+        if(type === "view") {
+            dispatch(updateState({
+                name: "jobInAction",
+                value: jobInAction
+            }));
+            navigate(`/jobs/${id}`);
+            return;
+        }
+
         if(type === "delete") {
             dispatch(updateState({
                 name: "jobInAction",
@@ -128,7 +137,7 @@ const JobTable = () => {
                                         <td>{totalPrice}</td>
                                         <td>
                                             <ActionButtons 
-                                                actionTypeList={["edit", "delete"]}
+                                                actionTypeList={["view", "edit", "delete" ]}
                                                 itemId={id}
                                                 handleClick={handleAction}
                                             />

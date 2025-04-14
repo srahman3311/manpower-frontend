@@ -18,6 +18,7 @@ const AgentListPage = lazy(() => import("./features/agents/index"));
 const AddAgentPage = lazy(() => import("./features/agents/AddAgent"));
 const EditAgentPage = lazy(() => import("./features/agents/EditAgent"));
 const JobListPage = lazy(() => import("./features/jobs/index"));
+const JobDetailsPage = lazy(() => import("./features/jobs/JobDetailsPage"));
 const AddJobPage = lazy(() => import("./features/jobs/AddJob"));
 const EditJobPage = lazy(() => import("./features/jobs/EditJob"));
 const PassengerListPage = lazy(() => import("./features/passengers/index"));
@@ -107,6 +108,10 @@ const AppRouter = () => {
                         {
                             path: "/jobs/edit/:jobId",
                             element: <EditJobPage/>
+                        },
+                        {
+                            path: "/jobs/:jobId",
+                            element: <JobDetailsPage/>
                         },
                         {
                             path: "/companies",

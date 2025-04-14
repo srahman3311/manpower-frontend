@@ -1,12 +1,23 @@
-.job_table {
-    height: 500px;
+.job_table,
+.job_passenger_table {
     overflow: auto;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-bottom: 15px;
     border-radius: 6px;
 }
 
-.job_table table {
+.job_table {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 500px;
+    
+}
+
+.job_passenger_table {
+    max-height: 500px;
+}
+
+
+.job_table table,
+.job_passenger_table table {
     background-color: white;
     width: 100%;
     border-collapse: collapse;
@@ -20,17 +31,20 @@
     z-index: 1;
 }
 
-.job_table table tr:nth-child(even) {
+.job_table table tr:nth-child(even),
+.job_passenger_table table tr:nth-child(even) {
     background-color: #2e50771d;
 }
 
-.job_table table th {
+.job_table table th,
+.job_passenger_table table th {
     text-align: left;
     padding: 15px 10px;
     color: white;
 }
 
-.job_table table td {
+.job_table table td,
+.job_passenger_table table td {
     padding: 15px 10px;
 }
 

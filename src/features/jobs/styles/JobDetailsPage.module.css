@@ -1,0 +1,25 @@
+.job_details_page h2 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+
+.job_overview {
+    width: 300px;
+    margin-bottom: 20px;
+    background-color: #2e50771d;
+}
+
+.jov_overview_item_info {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.136);
+    padding: 10px 10px;
+}
+
+.jov_overview_item_info p {
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
