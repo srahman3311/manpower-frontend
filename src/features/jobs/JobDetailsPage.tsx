@@ -26,9 +26,6 @@ const JobDetailsPage: React.FC = () => {
         return getJobOverviewData(jobInAction, passengerList)   
     }, [jobInAction, passengerList])
 
-    if(loading) return null;
-    if(errorMsg) return <div>{errorMsg}</div>;
-
     return (
         <div className={styles.job_details_page}>
             <h2>Summary of {jobInAction?.name}</h2>
