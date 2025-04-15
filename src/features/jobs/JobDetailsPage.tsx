@@ -24,11 +24,13 @@ const JobDetailsPage: React.FC = () => {
 
     const data = useMemo(() => {
         return getJobOverviewData(jobInAction, passengerList)   
-    }, [jobInAction, passengerList])
+    }, [jobInAction, passengerList]);
+
+    if(errorMsg) return <div>{errorMsg}</div>
 
     return (
         <div className={styles.job_details_page}>
-            <h2>Summary of {jobInAction?.name}</h2>
+            <h2><span>{jobInAction?.name}</span> Summary</h2>
             <div className={styles.job_overview}>
                 {data.map(item => {
                     return (
@@ -42,12 +44,23 @@ const JobDetailsPage: React.FC = () => {
                     );
                 })}
             </div>
-            <h2>Passenger List</h2>
-            <JobPassengerTable
-                loading={loading}
-                errorMsg={errorMsg}
-                passengerList={passengerList} 
-            /> 
+            {
+                loading
+                ?
+                <div>loading....</div>
+                :
+                passengerList.length <= 0
+                ?
+                <div>No passenger has been enlisted to this job</div>
+                :
+                <>
+                    <h2>Passenger List</h2>
+                    <JobPassengerTable
+                        passengerList={passengerList} 
+                    /> 
+                </>
+            }
+            
         </div>
     );
     

@@ -3,6 +3,12 @@
     margin-bottom: 10px;
 }
 
+.job_details_page h2 span {
+    font-size: 1.7rem;
+    color: #2e5077ab;
+    font-weight: bold;
+}
+
 .job_overview {
     width: 300px;
     margin-bottom: 20px;
