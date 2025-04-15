@@ -32,6 +32,7 @@ export const getJobOverviewData = (job: Job | null, passengerList: Passenger[]) 
     }
 
     const data = [
+        { title: "Total Visa Quantity", content: job?.visaQuantity },
         { title: "Passenger Enlisted", content: passengerList.length },
         { title: "Medical", content: medicalDone },
         { title: "Tasheer/Mofa", content: visaApplicationCount },
