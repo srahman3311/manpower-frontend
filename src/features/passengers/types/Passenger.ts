@@ -33,7 +33,7 @@ export interface PassengerModel {
     visaApplicationFingerDate: string | null
     visaIssueDate: string | null
     visaExpiryDate: string | null
-    visaBMATFingerDate: string | null
+    visaBMETFingerDate: string | null
     idNumber: string | null
     flights: Flight[]
     status: string

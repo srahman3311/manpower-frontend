@@ -499,10 +499,10 @@ const PassengerForm: React.FC = () => {
                         />
                     </div>
                     <div className={styles.datepicker}>
-                        <label>BMAT Date</label>
+                        <label>BMET Date</label>
                         <DatePicker 
-                            selected={newPassengerInfo.visaBMATFingerDate}
-                            onChange={(date) => selectDate(date, { group: "basic", field: "visaBMATFingerDate" })}
+                            selected={newPassengerInfo.visaBMETFingerDate}
+                            onChange={(date) => selectDate(date, { group: "basic", field: "visaBMETFingerDate" })}
                         />
                     </div>
                 </div>
@@ -618,8 +618,6 @@ const PassengerForm: React.FC = () => {
                 }
                 
             </div>
-        
-        
             <h3>Cost, Sale And Status</h3>
             <div className={styles.passenger_form_group}>
                 <div className={styles.flex_input}>

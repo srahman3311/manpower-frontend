@@ -18,7 +18,7 @@ export const getJobOverviewData = (job: Job | null, passengerList: Passenger[]) 
         if(passenger.visaApplicationDate) {
             visaApplicationCount += 1;
         }
-        if(passenger.visaBMATFingerDate) {
+        if(passenger.visaBMETFingerDate) {
             BMETFingerCount += 1;
         }
         if(passenger.visaNumber) {

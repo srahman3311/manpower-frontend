@@ -14,6 +14,7 @@ const JobPassengerTable: React.FC<JobPassengerTableProps> = ({ passengerList }) 
                     <thead>
                         <tr className={styles.header_tr}>
                             <th>Name</th>
+                            <th>Agent</th>
                             <th>Passport</th>
                             <th>Medical</th>
                             {/* Visa application is called tasheer or mofa */}
@@ -24,26 +25,27 @@ const JobPassengerTable: React.FC<JobPassengerTableProps> = ({ passengerList }) 
                         </tr>
                     </thead>
                     <tbody>
-                        {passengerList.map(agent => {
+                        {passengerList.map(passenger => {
                             const { 
                                 id, 
                                 name, 
-                               
+                                agent,
                                 medical, 
                                 passport, 
                                 visaNumber,
                                 visaApplicationDate,
-                                visaBMATFingerDate,
+                                visaBMETFingerDate,
                                 flights 
-                            } = agent;
+                            } = passenger;
                             const isFlightDone = flights.some(flight => flight.number)
                             return (
                                 <tr key={id}>
                                     <td>{name}</td>
+                                    <td>{agent.firstName}</td>
                                     <td>{passport.number}</td>
                                     <td>{medical.date ? "Done" : "Not Done"}</td>
                                     <td>{visaApplicationDate ? "Applied" : "Not Applied"}</td>
-                                    <td>{visaBMATFingerDate ? "Done" : "Not Done"}</td>
+                                    <td>{visaBMETFingerDate ? "Done" : "Not Done"}</td>
                                     <td>{visaNumber ? "Issued" : "Not Issued"}</td>
                                     <td>{isFlightDone ? "Done" : "Not Done"}</td>
                                 </tr>

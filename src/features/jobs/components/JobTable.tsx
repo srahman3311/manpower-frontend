@@ -63,7 +63,11 @@ const JobTable = () => {
                 visaQuantity: jobInAction.visaQuantity.toString(),
                 visaUnitPrice: jobInAction.visaUnitPrice.toString()
             }
-        }))
+        }));
+        dispatch(updateState({
+            name: "selectedVisaCompany",
+            value: jobInAction.visaCompany
+        }));
       
         navigate(`/jobs/edit/${id}`);
 

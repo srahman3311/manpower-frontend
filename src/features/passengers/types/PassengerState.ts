@@ -16,7 +16,7 @@ PassengerModel,
 "visaIssueDate" |
 "visaApplicationDate" |
 "visaApplicationFingerDate" |
-"visaBMATFingerDate" |
+"visaBMETFingerDate" |
 "flights" |
 "medical" |
 "job" |
@@ -33,7 +33,7 @@ export type NewPassengerInfo = {
     visaIssueDate: Date | null
     visaApplicationDate: Date | null
     visaApplicationFingerDate: Date | null
-    visaBMATFingerDate: Date | null
+    visaBMETFingerDate: Date | null
 }
 
 export type NewPassportInfo = {

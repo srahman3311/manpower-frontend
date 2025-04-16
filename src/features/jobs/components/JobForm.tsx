@@ -47,6 +47,10 @@ const JobForm: React.FC = () => {
                 address: ""
             }
         }));
+        dispatch(updateState({
+            name: "selectedVisaCompany",
+            value: null
+        }));
     }, [jobId])
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +59,6 @@ const JobForm: React.FC = () => {
     }, [dispatch, addNewJobInfo])
 
     const selectVisaCompany = useCallback((company: Company) => {
-        console.log(company)
         dispatch(updateState({
             name: "selectedVisaCompany",
             value: company
@@ -88,7 +91,10 @@ const JobForm: React.FC = () => {
             return;
         }
 
-        if(!selectedVisaCompany) return;
+        if(!selectedVisaCompany) {
+            setValidationErrorMsg("visa company is required")
+            return;
+        }
 
         let requestBody: JobRequestBody = {
             name,

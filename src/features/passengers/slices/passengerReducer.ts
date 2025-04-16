@@ -32,7 +32,7 @@ const initialState: PassengerState = {
         visaApplicationNumber: "",
         visaApplicationDate: null,
         visaApplicationFingerDate: null,
-        visaBMATFingerDate: null,
+        visaBMETFingerDate: null,
         idNumber: "",
         status: "processing"
     },
@@ -195,7 +195,7 @@ const passengersSlice = createSlice({
                     visaApplicationNumber: passenger.visaApplicationNumber ?? "",
                     visaApplicationDate: passenger.visaApplicationDate ? new Date(passenger.visaApplicationDate) : null,
                     visaApplicationFingerDate: passenger.visaApplicationFingerDate ? new Date(passenger.visaApplicationFingerDate) : null,
-                    visaBMATFingerDate: passenger.visaBMATFingerDate ? new Date(passenger.visaBMATFingerDate) : null,
+                    visaBMETFingerDate: passenger.visaBMETFingerDate ? new Date(passenger.visaBMETFingerDate) : null,
                     idNumber: passenger.idNumber ?? "",
                     status: passenger.status
                 },
@@ -250,7 +250,7 @@ const passengersSlice = createSlice({
                     visaApplicationNumber: "",
                     visaApplicationDate: null,
                     visaApplicationFingerDate: null,
-                    visaBMATFingerDate: null,
+                    visaBMETFingerDate: null,
                     idNumber: "",
                     status: "processing"
                 },
