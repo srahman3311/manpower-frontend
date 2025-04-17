@@ -30,6 +30,16 @@
     background-color: #565e64;
 }
 
+.outline {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    color: rgba(0, 0, 0, 0.505);
+}
+  
+.outline:hover {
+    background-color: #2e5077ab;
+}
+
 .small {
     width: 80px;
     padding: 0.4rem 1rem;

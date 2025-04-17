@@ -19,6 +19,7 @@ const JobPassengerTable: React.FC<JobPassengerTableProps> = ({ passengerList }) 
                             <th>Medical</th>
                             {/* Visa application is called tasheer or mofa */}
                             <th>Tasheer/Mofa</th> 
+                            <th>Tasheer/Mofa Finger</th> 
                             <th>BMET Finger</th>
                             <th>Visa</th>
                             <th>Flight</th>
@@ -34,6 +35,7 @@ const JobPassengerTable: React.FC<JobPassengerTableProps> = ({ passengerList }) 
                                 passport, 
                                 visaNumber,
                                 visaApplicationDate,
+                                visaApplicationFingerDate,
                                 visaBMETFingerDate,
                                 flights 
                             } = passenger;
@@ -45,6 +47,7 @@ const JobPassengerTable: React.FC<JobPassengerTableProps> = ({ passengerList }) 
                                     <td>{passport.number}</td>
                                     <td>{medical.date ? "Done" : "Not Done"}</td>
                                     <td>{visaApplicationDate ? "Applied" : "Not Applied"}</td>
+                                    <td>{visaApplicationFingerDate ? "Done" : "Not Done"}</td>
                                     <td>{visaBMETFingerDate ? "Done" : "Not Done"}</td>
                                     <td>{visaNumber ? "Issued" : "Not Issued"}</td>
                                     <td>{isFlightDone ? "Done" : "Not Done"}</td>

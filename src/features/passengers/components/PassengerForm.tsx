@@ -485,19 +485,28 @@ const PassengerForm: React.FC = () => {
             <div className={styles.passenger_form_group}>
                 <div className={styles.flex_input}>
                     <TextInput
-                        label="Visa Application Number"
+                        label="Tasheer Number"
                         name="visaApplicationNumber"
                         data-type="basic"
                         value={newPassengerInfo.visaApplicationNumber}
                         onChange={handleChange}
                     />
                     <div className={styles.datepicker}>
-                        <label>Visa Application Date</label>
+                        <label>Tasheer Date</label>
                         <DatePicker 
                             selected={newPassengerInfo.visaApplicationDate}
                             onChange={(date) => selectDate(date, { group: "basic", field: "visaApplicationDate" })}
                         />
                     </div>
+                    <div className={styles.datepicker}>
+                        <label>Tasheer Finger Date</label>
+                        <DatePicker 
+                            selected={newPassengerInfo.visaApplicationFingerDate}
+                            onChange={(date) => selectDate(date, { group: "basic", field: "visaApplicationFingerDate" })}
+                        />
+                    </div>
+                </div>
+                <div className={styles.flex_input}>
                     <div className={styles.datepicker}>
                         <label>BMET Date</label>
                         <DatePicker 
@@ -505,8 +514,6 @@ const PassengerForm: React.FC = () => {
                             onChange={(date) => selectDate(date, { group: "basic", field: "visaBMETFingerDate" })}
                         />
                     </div>
-                </div>
-                <div className={styles.flex_input}>
                     <div className={styles.datepicker}>
                         <label>Visa Issue Date</label>
                         <DatePicker 
@@ -521,6 +528,15 @@ const PassengerForm: React.FC = () => {
                             onChange={(date) => selectDate(date, { group: "basic", field: "visaExpiryDate" })}
                         />
                     </div>
+                    {/* <TextInput
+                        label="Visa Number"
+                        name="visaNumber"
+                        data-type="basic"
+                        value={newPassengerInfo.visaNumber}
+                        onChange={handleChange}
+                    /> */}
+                </div>
+                <div className={styles.flex_input}>
                     <TextInput
                         label="Visa Number"
                         name="visaNumber"
@@ -528,8 +544,6 @@ const PassengerForm: React.FC = () => {
                         value={newPassengerInfo.visaNumber}
                         onChange={handleChange}
                     />
-                </div>
-                <div className={styles.flex_input}>
                     <TextInput
                         label="Enjaz Number"
                         name="enjazNumber"

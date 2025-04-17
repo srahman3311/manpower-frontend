@@ -5,6 +5,7 @@ export const getJobOverviewData = (job: Job | null, passengerList: Passenger[]) 
 
     let medicalDone = 0;
     let visaApplicationCount = 0;
+    let visaApplicationFingerDateCount = 0;
     let BMETFingerCount = 0;
     let visaSold = 0;
     let flightDone = 0;
@@ -18,12 +19,19 @@ export const getJobOverviewData = (job: Job | null, passengerList: Passenger[]) 
         if(passenger.visaApplicationDate) {
             visaApplicationCount += 1;
         }
+
         if(passenger.visaBMETFingerDate) {
             BMETFingerCount += 1;
         }
+
+        if(passenger.visaApplicationFingerDate) {
+            visaApplicationFingerDateCount += 1;
+        }
+
         if(passenger.visaNumber) {
             visaSold += 1;
         }
+
         const isFlightDone = passenger.flights.some(flight => flight.number)
         if(isFlightDone) {
             flightDone += 1;
@@ -36,6 +44,7 @@ export const getJobOverviewData = (job: Job | null, passengerList: Passenger[]) 
         { title: "Passenger Enlisted", content: passengerList.length },
         { title: "Medical", content: medicalDone },
         { title: "Tasheer/Mofa", content: visaApplicationCount },
+        { title: "Tasheer/Mofa Finger", content: visaApplicationFingerDateCount },
         { title: "BMET Finger", content: BMETFingerCount },
         { title: "Visa", content: visaSold },
         { title: "Flight", content: flightDone },

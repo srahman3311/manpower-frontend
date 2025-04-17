@@ -1,6 +1,6 @@
 import styles from "./Buttons.module.css";
 
-type ButtonVariant = "primary" | "secondary" | "danger";
+type ButtonVariant = "primary" | "secondary" | "danger" | "outline";
 type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends React.ComponentProps<"button"> {
