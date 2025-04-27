@@ -70,9 +70,9 @@ const Dashboard: React.FC = () => {
                             passengerList.map(passenger => {
                                 const { name, visaExpiryDate, status, medical, passport } = passenger;
                                 
-                                const passportStatusColor = getStatusColor("passport", passport.expiryDate);
-                                const visaStatusColor = getStatusColor("visa", visaExpiryDate, status);
-                                const medicalStatusColor = getStatusColor("medical", medical.expiryDate, medical.status);
+                                const passportStatusColor = getStatusColor(passport.expiryDate);
+                                const visaStatusColor = getStatusColor(visaExpiryDate, status);
+                                const medicalStatusColor = getStatusColor(medical.expiryDate, medical.status);
 
                                 const visaExpiresOn = visaExpiryDate ? getDateText(new Date(visaExpiryDate)) : "TBA";
                                 const medicalExpiresOn = medical.expiryDate ? getDateText(new Date(medical.expiryDate)) : "TBA";

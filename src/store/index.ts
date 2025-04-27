@@ -9,6 +9,7 @@ import expenseReducer from "../features/expenses/slices/expenseReducer";
 import revenueReducer from "../features/revenues/slices/revenueReducer";
 import accountReducer from "../features/accounts/slices/accountReducer";
 import transactionReducer from "../features/transactions/slices/transactionReducer";
+import reportsReducer from "../features/reports/slices/reportsReducer";
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -24,7 +25,8 @@ const store = configureStore({
         expenseState: expenseReducer,
         revenueState: revenueReducer,
         accountState: accountReducer,
-        transactionState: transactionReducer
+        transactionState: transactionReducer,
+        reportsState: reportsReducer
     }
 });
 

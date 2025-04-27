@@ -40,6 +40,13 @@
     background-color: #2e5077ab;
 }
 
+.action {
+    background-color: #2E5077;
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+    color: white;
+}
+
 .small {
     width: 80px;
     padding: 0.4rem 1rem;

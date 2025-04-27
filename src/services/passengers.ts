@@ -19,6 +19,11 @@ export const fetchPassengersByJobId = async(jobId: number): Promise<Passenger[]>
     return httpClient.get(`/passengers/job/${jobId}`);
 }
 
+export const fetchPassengerReports = async(params: string): Promise<{ passengers: Passenger[], total: number }> => {
+    return httpClient.get(`/passengers/reports?${params}`);
+}
+
+
 export const createPassenger = async(requestBody: RequestBody): Promise<Passenger> => {
     return httpClient.post("/passengers/create", requestBody);
 }

@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { TbTransactionDollar } from "react-icons/tb";
 import { FaPeopleGroup, FaWallet } from "react-icons/fa6";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaClipboardList } from "react-icons/fa";
 import { BsBuilding } from "react-icons/bs";
 import { User } from "../../features/users/types/User";
 import { getIsAdminOrTenant } from "../../features/users/utils/getIsAdminOrTenant";
@@ -97,6 +97,11 @@ const SideBar: React.FC<SideBarProps> = ({ user }) => {
                     :
                     null
                 }
+                <SideLink
+                    icon={FaClipboardList}
+                    linkName="Reports"
+                    linkUrl="/reports/passenger-reports"
+                />
             </div>
         </div >
     );

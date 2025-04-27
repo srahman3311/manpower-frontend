@@ -1,9 +1,9 @@
-export const getStatusColor = (type: string, date: string | null, status?: string | null): string => {
+export const getStatusColor = (date: string | null, status?: string | null): string => {
 
     let color = "green";
 
-    if(type === "passport" && !date) {
-        return color;
+    if(!date) {
+        return "red"
     }
 
     if(!date || status === "completed") {

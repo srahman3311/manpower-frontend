@@ -37,6 +37,7 @@ const TransactionListPage = lazy(() => import("./features/transactions/index"));
 const AddTransactionPage = lazy(() => import("./features/transactions/AddTransaction"));
 const EditTransactionPage = lazy(() => import("./features/transactions/EditTransaction"));
 const ProfilePage = lazy(() => import("./features/profile/index"));
+const PassengerReportsPage = lazy(() => import("./features/reports/PassengerReports"));
 
 const AppRouter = () => {
 
@@ -184,6 +185,10 @@ const AppRouter = () => {
                         {
                             path: "/transactions/edit/:transactionId",
                             element: <EditTransactionPage/>
+                        },
+                        {
+                            path: "/reports/passenger-reports",
+                            element: <PassengerReportsPage />
                         },
                     ]
                 }

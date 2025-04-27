@@ -1,0 +1,90 @@
+.reports {
+    width: 100%;
+}
+
+.reports h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.main_filters {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown_wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.datepicker {
+    width: 100%;
+}
+
+.datepicker label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.button_list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.fetch_button {
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.export_buttons {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.passenger_reports_table {
+    overflow: auto;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.passenger_reports_table {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 500px;
+}
+
+.passenger_reports_table table {
+    background-color: white;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header_tr {
+    background: linear-gradient(90deg, #2e5077ab, #2E5077);
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 1;
+}
+
+.passenger_reports_table table tr:nth-child(even) {
+    background-color: #2e50771d;
+}
+
+.passenger_reports_table table th {
+    text-align: left;
+    padding: 15px 10px;
+    color: white;
+}
+
+.passenger_reports_table table td {
+    padding: 15px 10px;
+}
+
+@media(max-width: 800px) {
+    .main_filters {
+        display: block;
+    }
+}

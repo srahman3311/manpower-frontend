@@ -40,3 +40,7 @@ html, body {
 .react-datepicker__input-container input:focus {
   margin-right: 0px;
 }
+
+.custom-datepicker-popper {
+  z-index: 9999 !important;
+}
