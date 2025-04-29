@@ -41,6 +41,10 @@ html, body {
   margin-right: 0px;
 }
 
+/* 
+To make react datepciker popper stay on top of every other z-indexed elements. 
+This className is passed as a prop to react datepicker 
+*/
 .custom-datepicker-popper {
   z-index: 9999 !important;
 }

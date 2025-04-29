@@ -24,17 +24,18 @@ const SideBar: React.FC<SideBarProps> = ({ user }) => {
 
     return (
         <div className={`
-      text-black
+        text-black
         fixed
         top-0 left-0
         transition
         w-[220px] 
-        min-h-[100vh] 
+        h-screen
         bg-[rgb(255,255,255)]
         border-r-[.1px] 
         dark:border-[rgba(145,145,145,0.5)] 
-         z-1
-         shadow-xl
+        z-1
+        shadow-xl
+        overflow-auto
         `
         }>
 
