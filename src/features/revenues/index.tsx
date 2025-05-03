@@ -17,6 +17,7 @@ const RevenueList: React.FC = () => {
     const dispatch = useDispatch()
     const revenueState = useSelector((state: RootState) => state.revenueState);
     const { 
+        searchText,
         revenueList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const RevenueList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchRevenues}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_revenue} to="/revenues/add-new">
                         <IoMdAdd 

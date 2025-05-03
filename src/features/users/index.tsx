@@ -17,6 +17,7 @@ const UserList: React.FC = () => {
     const dispatch = useDispatch()
     const userState = useSelector((state: RootState) => state.userState);
     const { 
+        searchText,
         userList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const UserList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchUsers}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_user} to="/users/add-new">
                         <IoMdAdd 

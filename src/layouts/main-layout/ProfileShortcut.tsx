@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { User as IUser } from "../../features/users/types/User";
 import Avatar from "../../assets/people_placeholder.jpg";
@@ -40,9 +40,11 @@ const ProfileShortcut: React.FC<ProfileShortcutProps> = ({ user }) => {
                 Logout
             </Button>
             <div className={styles.user_info}>
-                <UserImage 
-                    src={imageSrc}
-                />
+                <Link to={`/profile/${user?.id}`}>
+                    <UserImage 
+                        src={imageSrc}
+                    />
+                </Link>
             </div>
         </div>
     );

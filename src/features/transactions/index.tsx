@@ -17,6 +17,7 @@ const TransactionList: React.FC = () => {
     const dispatch = useDispatch()
     const transactionState = useSelector((state: RootState) => state.transactionState);
     const { 
+        searchText,
         transactionList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const TransactionList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchTransactions}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_transaction} to="/transactions/add-new">
                         <IoMdAdd 

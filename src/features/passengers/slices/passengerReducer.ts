@@ -99,7 +99,7 @@ const passengersSlice = createSlice({
                     newPassengerInfo: {
                         ...state.newPassengerInfo,
                         birthDate: value,
-                        age: calculateAge(value).toString()
+                        age: value ? calculateAge(value).toString() : state.newPassengerInfo.age
                     }
                 }
             }

@@ -17,6 +17,7 @@ const CompanyList: React.FC = () => {
     const dispatch = useDispatch()
     const companyState = useSelector((state: RootState) => state.companyState);
     const { 
+        searchText,
         companyList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const CompanyList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchCompanies}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_company} to="/companies/add-new">
                         <IoMdAdd 

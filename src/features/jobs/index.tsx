@@ -17,6 +17,7 @@ const JobList: React.FC = () => {
     const dispatch = useDispatch()
     const jobState = useSelector((state: RootState) => state.jobState);
     const { 
+        searchText,
         jobList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const JobList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchJobs}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_job} to="/jobs/add-new">
                         <IoMdAdd 

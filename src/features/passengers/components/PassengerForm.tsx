@@ -267,6 +267,7 @@ const PassengerForm: React.FC = () => {
         }
 
         const requestBody = getPassengerRequestBody({
+            passengerInAction,
             newPassengerInfo,
             passportInfo,
             medicalInfo,

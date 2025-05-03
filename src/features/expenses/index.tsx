@@ -17,6 +17,7 @@ const ExpenseList: React.FC = () => {
     const dispatch = useDispatch()
     const expenseState = useSelector((state: RootState) => state.expenseState);
     const { 
+        searchText,
         expenseList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const ExpenseList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchExpenses}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_expense} to="/expenses/add-new">
                         <IoMdAdd 

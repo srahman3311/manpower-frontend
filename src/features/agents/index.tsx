@@ -17,6 +17,7 @@ const AgentList: React.FC = () => {
     const dispatch = useDispatch()
     const agentState = useSelector((state: RootState) => state.agentState);
     const { 
+        searchText,
         agentList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const AgentList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchAgents}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_agent} to="/agents/add-new">
                         <IoMdAdd 

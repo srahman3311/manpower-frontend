@@ -17,6 +17,7 @@ const AccountList: React.FC = () => {
     const dispatch = useDispatch()
     const accountState = useSelector((state: RootState) => state.accountState);
     const { 
+        searchText,
         accountList,
         limit,
         isDeleting, 
@@ -61,6 +62,7 @@ const AccountList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchAccounts}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_account} to="/accounts/add-new">
                         <IoMdAdd 

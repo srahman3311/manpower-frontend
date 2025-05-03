@@ -18,6 +18,7 @@ const PassengerList: React.FC = () => {
     const dispatch = useDispatch()
     const passengerState = useSelector((state: RootState) => state.passengerState);
     const { 
+        searchText,
         passengerList,
         invoicePassengerList,
         limit,
@@ -89,6 +90,7 @@ const PassengerList: React.FC = () => {
                     <SearchInput
                         placeholder="Search"
                         onChange={searchPassengers}
+                        value={searchText}
                     />
                     <Link className={styles.add_new_passenger} to="/passengers/add-new">
                         <IoMdAdd 

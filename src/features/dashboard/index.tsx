@@ -42,28 +42,23 @@ const Dashboard: React.FC = () => {
                     </thead>
                     <tbody>
                         {
-                            loading
-                            ?
-                            <NoDataTR 
-                                colSpan={colSpan}
-                                content={"Loading..."}
-                            />
-                            :
-                            errorMsg 
+                            errorMsg
                             ?
                             <NoDataTR 
                                 colSpan={colSpan}
                                 content={errorMsg}
+                                style={{
+                                    height: "100px"
+                                }}
                             />
                             :
-                            totalPassengerCount <= 0
+                            !loading && totalPassengerCount <= 0
                             ?
                             <NoDataTR 
                                 colSpan={colSpan}
-                                content={"No urgent passengers"}
+                                content={"No Data To Show"}
                                 style={{
-                                    height: "100px",
-                                    fontSize: "1.2rem"
+                                    height: "100px"
                                 }}
                             />
                             :
@@ -111,15 +106,21 @@ const Dashboard: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-            <div className={styles.load_more_btn}>
-                <Button 
-                    size="medium" 
-                    onClick={loadMorePassengers}
-                    disabled={limit >= totalPassengerCount}
-                >
-                    Load More
-                </Button>
-            </div>
+            {
+                errorMsg || (!loading && totalPassengerCount <= 0)
+                ?
+                null
+                :
+                <div className={styles.load_more_btn}>
+                    <Button 
+                        size="medium" 
+                        onClick={loadMorePassengers}
+                        disabled={limit >= totalPassengerCount}
+                    >
+                        Load More
+                    </Button>
+                </div>
+            }
         </div>
     );
     
