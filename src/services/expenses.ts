@@ -9,6 +9,14 @@ export const fetchExpenses = async(params: Params): Promise<{ expenses: Expense[
     return httpClient.get(`/expenses?${paramString}`);
 }
 
+export const fetchExpensesByJobId = async(jobId: number): Promise<Expense[]> => {
+    return httpClient.get(`/expenses/job/${jobId}`);
+}
+
+export const fetchExpensesByPassengerId = async(passengerId: number): Promise<Expense[]> => {
+    return httpClient.get(`/expenses/passenger/${passengerId}`);
+}
+
 export const createExpense = async(requestBody: ExpenseRequestBody): Promise<Expense> => {
     return httpClient.post("/expenses/create", requestBody);
 }

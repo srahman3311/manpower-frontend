@@ -1,0 +1,14 @@
+.expense_list ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0px;
+}
+
+.expense_list ul li:last-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.expense_list ul li:last-child span {
+    font-size: 1.1rem;
+    font-weight: bold;
+}

@@ -42,6 +42,15 @@ const PassengerTable = () => {
         const passengerInAction = passengerList.find(user => user.id.toString() === id);
 
         if(!passengerInAction) return;
+        
+        if(type === "view") {
+            dispatch(updateState({
+                name: "passengerInAction",
+                value: passengerInAction
+            }));
+            navigate(`/passengers/passenger-details/${passengerInAction?.id}`);
+            return;
+        }
 
         if(type === "delete") {
             dispatch(updateState({

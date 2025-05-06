@@ -24,6 +24,7 @@ const EditJobPage = lazy(() => import("./features/jobs/EditJob"));
 const PassengerListPage = lazy(() => import("./features/passengers/index"));
 const AddPassengerPage = lazy(() => import("./features/passengers/AddPassenger"));
 const EditPassengerPage = lazy(() => import("./features/passengers/EditPassenger"));
+const PassengerDetailsPage = lazy(() => import("./features/passengers/PassengerDetails"));
 const ExpenseListPage = lazy(() => import("./features/expenses/index"));
 const AddExpensePage = lazy(() => import("./features/expenses/AddExpense"));
 const EditExpensePage = lazy(() => import("./features/expenses/EditExpense"));
@@ -129,6 +130,10 @@ const AppRouter = () => {
                         {
                             path: "/passengers",
                             element: <PassengerListPage />
+                        },
+                        {
+                            path: "/passengers/passenger-details/:passengerId",
+                            element: <PassengerDetailsPage/>
                         },
                         {
                             path: "/passengers/add-new",

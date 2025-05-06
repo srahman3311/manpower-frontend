@@ -1,0 +1,116 @@
+.passenger_info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 10px;
+}
+
+.header {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.passenger_info > * {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.passenger_flight_info {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 5px;
+}
+
+.passenger_info h3,
+.passenger_flight_info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    color: darkblue;
+}
+.passenger_flight_info h3 {
+    width: 50%;
+    margin: 0px auto 10px auto;
+    border-radius: 5px;
+}
+
+.passenger_flight_info {
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.flight_list {
+    padding: 0px 20px;
+}
+
+.flight_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.flight_table thead tr { 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.096); 
+}
+
+.flight_table th {
+    padding: 7px 0px;
+    font-size: 0.9rem;
+}
+
+.flight_table td {
+    padding: 7px 0px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.passenger_overview {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.passenger_overview_item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.136);
+    padding: 10px 10px;
+}
+
+.passenger_overview_item p {
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.passenger_expense_revenue {
+    display: flex;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+}
+
+.passenger_expense_revenue > * {
+    width: 50%;
+    padding: 20px;
+}
+
+.expenses {
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.expenses h2,
+.revenues h2 {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: darkblue;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+

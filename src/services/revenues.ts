@@ -9,6 +9,14 @@ export const fetchRevenues = async(params: Params): Promise<{ revenues: Revenue[
     return httpClient.get(`/revenues?${paramString}`);
 }
 
+export const fetchRevenuesByJobId = async(jobId: number): Promise<Revenue[]> => {
+    return httpClient.get(`/revenues/job/${jobId}`);
+}
+
+export const fetchRevenuesByPassengerId = async(passengerId: number): Promise<Revenue[]> => {
+    return httpClient.get(`/revenues/passenger/${passengerId}`);
+}
+
 export const createRevenue = async(requestBody: RevenueRequestBody): Promise<Revenue> => {
     return httpClient.post("/revenues/create", requestBody);
 }

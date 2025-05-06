@@ -66,9 +66,7 @@
 }
 
 .flight_list {
-    margin: 20px 0px;
     padding: 10px 20px;
-    border: 1px solid #4c357568;
     border-radius: 5px;
 }
 
@@ -102,10 +100,6 @@
     border-radius: 20px;
     cursor: pointer;
     padding: 5px 30px;
-}
-
-button.remove_schedule {
-    background: none;
 }
 
 .save_btn_container {
