@@ -7,7 +7,6 @@ import { createRevenue, editRevenue } from "../../../services/revenues";
 import { validatePassword } from "../../../utils/validators/validatePassword";
 import { handleApiError } from "../../../utils/error-handlers/handleApiError";
 import { useFetchJobs } from "../../jobs/hooks/useFetchJobs";
-import { useFetchPassengers } from "../../passengers/hooks/useFetchPassengers";
 import { useFetchAccounts } from "../../accounts/hooks/useFetchAccounts";
 import styles from "../styles/AddEditRevenue.module.css";
 import TextInput from "../../../components/inputs/TextInput";
@@ -15,6 +14,7 @@ import { Button } from "../../../components/buttons/Button";
 import { DropdownList } from "../../../components/dropdown-list/DropdownList";
 import { RevenueRequestBody } from "../types/RevenueState";
 import ValidationErrorMessage from "../../../components/messages/ValidationErrorMessage";
+import PassengerSearchInput from "../../passengers/components/PassengerSearchInput";
 import { Job } from "../../jobs/types/Job";
 import { Passenger } from "../../passengers/types/Passenger";
 import { Account } from "../../accounts/types/Account";
@@ -26,7 +26,6 @@ const RevenueForm: React.FC = () => {
     const dispatch = useDispatch()
     const revenueState = useSelector((state: RootState) => state.revenueState);
     const jobState = useSelector((state: RootState) => state.jobState);
-    const passengerState = useSelector((state: RootState) => state.passengerState);
     const accountState = useSelector((state: RootState) => state.accountState);
     const { 
         newRevenueInfo, 
@@ -34,18 +33,12 @@ const RevenueForm: React.FC = () => {
         selectedPassenger,
         selectedAccount 
     } = revenueState; 
-    const { fetchPassengerList } = useFetchPassengers();
     const { fetchJobList } = useFetchJobs();
     const { fetchAccountList } = useFetchAccounts();
     const [validationError, setValidationError] = useState<boolean>(false);
     const [validationErrorMsg, setValidationErrorMsg] = useState<string | null>(null);
 
     useEffect(() => {
-        fetchPassengerList({ 
-            searchText: "", 
-            skip: 0, 
-            limit: 1000 
-        });
         fetchJobList({ 
             searchText: "", 
             skip: 0, 
@@ -56,7 +49,7 @@ const RevenueForm: React.FC = () => {
             skip: 0, 
             limit: 1000 
         });
-    }, [fetchPassengerList, fetchAccountList])
+    }, [fetchJobList, fetchAccountList])
 
     useEffect(() => {
         if(revenueId) return;
@@ -81,14 +74,14 @@ const RevenueForm: React.FC = () => {
         }
     }, [dispatch, selectedPassenger, updateState])
 
-    const selectPassenger = useCallback((passenger: Passenger) => {
+    const selectPassenger = useCallback((passenger: Passenger | null) => {
         dispatch(updateState({
             name: "selectedPassenger",
             value: passenger
         }))
         dispatch(updateState({
             name: "selectedJob",
-            value: passenger.job
+            value: passenger?.job ?? null
         }))
     }, [dispatch, updateState])
 
@@ -191,12 +184,9 @@ const RevenueForm: React.FC = () => {
                     selectedValue={selectedJob?.name ?? "Select Job"}
                     onClick={selectJob}
                 />
-                <DropdownList 
-                    label={"Passenger"}
-                    data={passengerState.passengerList}
-                    nameKey="name"
-                    selectedValue={selectedPassenger?.name ?? "Select Passenger"}
-                    onClick={selectPassenger}
+                <PassengerSearchInput 
+                    selectedPassenger={selectedPassenger}
+                    selectPassenger={selectPassenger}
                 />
                 <DropdownList 
                     label={"Credited To"}
